@@ -51,7 +51,7 @@ async function styles() {
 // Используем async/await для watch
 async function watch(done) {
 	browserSync.init({
-		proxy: "http://kapitan-pub.dev",
+		proxy: "http://kapitan-pub.localhost",
 		files: [paths.php.src, "assets/css/**/*.css", paths.js.src],
 		ignore: paths.php.exclude,
 		reloadDelay: 300, // Увеличиваем задержку
