@@ -7,6 +7,8 @@ add_action('wp_enqueue_scripts', function () {
     // Основные стили темы
     wp_enqueue_style('kapitan-pub-style', get_stylesheet_uri(), [], _S_VERSION);
 
+    wp_enqueue_style('kapitan-pub-normalize', get_template_directory_uri() . '/assets/css/normalize.css', [], _S_VERSION);
+
     // Скомпилированные стили
     wp_enqueue_style(
         'kapitan-pub-main',

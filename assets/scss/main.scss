@@ -1,3 +1,11 @@
 @use "fonts";
 @use "variables";
 @use "mixins";
+@use "header";
+.container {
+	@include mixins.container;
+}
+
+.main {
+	min-height: 100vh;
+}

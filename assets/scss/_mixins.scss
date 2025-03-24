@@ -65,12 +65,15 @@
 }
 
 // Container
-@mixin container($padding: 15px) {
+@mixin container($padding: 22px) {
 	width: 100%;
-	max-width: 1200px;
-	margin: 0 auto;
 	padding-left: $padding;
 	padding-right: $padding;
+	margin: 0 auto;
+	max-width: 100%;
+	@media (min-width: 1024px) {
+		max-width: 1240px;
+	}
 }
 
 // Transitions
@@ -133,4 +136,9 @@
 		background: $thumb-color;
 		border-radius: $width / 2;
 	}
+}
+
+@mixin color-transparent($color, $opacity) {
+	color: $color;
+	opacity: $opacity;
 }
