@@ -1,0 +1,136 @@
+// Flexbox helpers
+@mixin flex($direction: row, $justify: flex-start, $align: stretch, $wrap: nowrap) {
+	display: flex;
+	flex-direction: $direction;
+	justify-content: $justify;
+	align-items: $align;
+	flex-wrap: $wrap;
+}
+
+@mixin flex-center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+@mixin flex-between {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+// Media queries
+@mixin mobile {
+	@media (max-width: 767px) {
+		@content;
+	}
+}
+
+@mixin tablet {
+	@media (min-width: 768px) and (max-width: 1023px) {
+		@content;
+	}
+}
+
+@mixin desktop {
+	@media (min-width: 1024px) {
+		@content;
+	}
+}
+
+// Typography
+@mixin font-size($size, $line-height: normal) {
+	font-size: $size;
+	@if $line-height==normal {
+		line-height: calc($size * 1.5);
+	} @else {
+		line-height: $line-height;
+	}
+}
+
+// Positioning
+@mixin position($position, $top: null, $right: null, $bottom: null, $left: null) {
+	position: $position;
+	top: $top;
+	right: $right;
+	bottom: $bottom;
+	left: $left;
+}
+
+@mixin absolute-center {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+// Container
+@mixin container($padding: 15px) {
+	width: 100%;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding-left: $padding;
+	padding-right: $padding;
+}
+
+// Transitions
+@mixin transition($properties...) {
+	$transitions: ();
+	@each $property in $properties {
+		$transitions: append($transitions, $property 0.3s ease-in-out, comma);
+	}
+	transition: $transitions;
+}
+
+// Buttons
+@mixin button-reset {
+	border: none;
+	background: none;
+	padding: 0;
+	margin: 0;
+	cursor: pointer;
+	outline: none;
+}
+
+// Images
+@mixin img-fluid {
+	max-width: 100%;
+	height: auto;
+}
+
+@mixin aspect-ratio($width, $height) {
+	position: relative;
+	&:before {
+		content: "";
+		display: block;
+		padding-top: ($height / $width) * 100%;
+	}
+}
+
+// Text truncate
+@mixin text-truncate {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+// Hide text
+@mixin hide-text {
+	font: 0/0 a;
+	color: transparent;
+	text-shadow: none;
+}
+
+// Scrollbar styling
+@mixin custom-scrollbar($width: 8px, $track-color: #f1f1f1, $thumb-color: #888) {
+	&::-webkit-scrollbar {
+		width: $width;
+	}
+	&::-webkit-scrollbar-track {
+		background: $track-color;
+	}
+	&::-webkit-scrollbar-thumb {
+		background: $thumb-color;
+		border-radius: $width / 2;
+	}
+}
