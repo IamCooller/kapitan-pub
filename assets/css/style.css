@@ -4,7 +4,7 @@
 @import "./options.css";
 @import "./header.css";
 @import "./hero.css";
-
+@import "./booking-form.css";
 .kapitan-for-everyone__inner {
 	@apply max-w-[538px] mx-auto text-center;
 }
@@ -21,4 +21,77 @@
 
 .kapitan-for-everyone__quote {
 	@apply text-secondary font-island text-[40px];
+}
+
+/* Testimonials Slider */
+.testimonials-slider {
+	position: relative;
+	overflow: hidden;
+}
+
+.testimonials-pagination {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 12px;
+	height: 20px;
+}
+
+.testimonials-pagination .swiper-pagination-bullet {
+	background: none;
+	@apply w-1 h-1  rounded-[1px]  bg-secondary opacity-100 transition-all duration-300 ease-in-out;
+}
+
+.testimonials-pagination .swiper-pagination-bullet-active {
+	@apply w-3 h-3 bg-transparent rounded-none border-2 border-secondary rotate-45;
+}
+
+/* Instagram Slider */
+.instagram-slider {
+	position: relative;
+	overflow: hidden;
+	padding: 20px 0;
+}
+
+.instagram-slider .swiper-slide {
+	transition: all 0.3s ease;
+	border-radius: 8px;
+	overflow: hidden;
+}
+
+@media (min-width: 1024px) {
+	.instagram-slider .swiper-wrapper {
+		display: grid;
+		grid-template-columns: repeat(5, 1fr);
+		gap: 20px;
+	}
+
+	.instagram-slider .swiper-slide {
+		width: 100% !important;
+		margin-right: 0 !important;
+	}
+	.instagram-slider--desktop-grid {
+		height: 296px;
+	}
+	.instagram-slider--desktop-grid .swiper-wrapper {
+		display: grid;
+		grid-template-columns: repeat(5, 1fr);
+		gap: 20px;
+	}
+
+	.instagram-slider--desktop-grid .swiper-slide {
+		width: 100% !important;
+		margin-right: 0 !important;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+}
+
+@media (max-width: 767px) {
+	.instagram-slider__slide--active {
+		transform: scale(1.15);
+		z-index: 2;
+		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+	}
 }

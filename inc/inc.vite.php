@@ -34,6 +34,16 @@ add_action('wp_enqueue_scripts', function () {
         function vite_head_module_hook()
         {
             echo '<script type="module" crossorigin src="' . VITE_SERVER . VITE_ENTRY_POINT . '"></script>';
+
+            // Также загружаем home.js на главной странице в режиме разработки
+            if (is_front_page()) {
+                echo '<script type="module" crossorigin src="' . VITE_SERVER . '/assets/js/home.js"></script>';
+            }
+
+            // Также загружаем booking.js на странице бронирования
+            if (is_front_page()) {
+                echo '<script type="module" crossorigin src="' . VITE_SERVER . '/assets/js/booking.js"></script>';
+            }
         }
         add_action('wp_head', 'vite_head_module_hook');
     } else {
@@ -60,6 +70,37 @@ add_action('wp_enqueue_scripts', function () {
                 $js_file = @$manifest[$manifest_key[0]]['file'];
                 if (! empty($js_file)) {
                     wp_enqueue_script('main', DIST_URI . '/' . $js_file, JS_DEPENDENCY, '', JS_LOAD_IN_FOOTER);
+                }
+            }
+
+            // Check for home.js entry if on front page
+            if (is_front_page() && isset($manifest['home'])) {
+                // Enqueue home.js from Vite build
+                $home_js_file = $manifest['home']['file'];
+                if (!empty($home_js_file)) {
+                    wp_enqueue_script('home-js', DIST_URI . '/' . $home_js_file, array(), '', JS_LOAD_IN_FOOTER);
+                }
+
+                // Enqueue any CSS that might be extracted from home.js
+                if (isset($manifest['home']['css'])) {
+                    foreach ($manifest['home']['css'] as $css_file) {
+                        wp_enqueue_style('home-css', DIST_URI . '/' . $css_file);
+                    }
+                }
+            }
+
+            // Check for booking.js entry if on front page
+            if (is_front_page() && isset($manifest['booking'])) {
+                $booking_js_file = $manifest['booking']['file'];
+                if (!empty($booking_js_file)) {
+                    wp_enqueue_script('booking-js', DIST_URI . '/' . $booking_js_file, array(), '', JS_LOAD_IN_FOOTER);
+                }
+
+                // Enqueue any CSS that might be extracted from booking.js
+                if (isset($manifest['booking']['css'])) {
+                    foreach ($manifest['booking']['css'] as $css_file) {
+                        wp_enqueue_style('booking-css', DIST_URI . '/' . $css_file);
+                    }
                 }
             }
         }

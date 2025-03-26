@@ -49,6 +49,7 @@
 		"-": "^0.0.1",
 		"browser-sync": "^3.0.3",
 		"prettier": "^3.5.3",
+		"swiper": "^11.2.6",
 		"vite-plugin-browser-sync": "^4.0.0",
 		"vite-plugin-live-reload": "^3.0.4"
 	}

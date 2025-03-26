@@ -22,9 +22,10 @@ define('IS_VITE_DEVELOPMENT', true);
 // Подключаем функции
 require get_template_directory() . '/inc/acf-blocks.php';  // ACF Gutenberg Blocks (создай файл позже)
 require get_template_directory() . '/inc/theme-setup.php'; // Поддержка темы, меню и т.д.
-
 require get_template_directory() . '/inc/inc.vite.php';
 require get_template_directory() . '/inc/languages.php';
+require get_template_directory() . '/inc/booking-form.php'; // Форма бронирования
+
 add_action('after_switch_theme', function () {
     wp_cache_flush();
 });

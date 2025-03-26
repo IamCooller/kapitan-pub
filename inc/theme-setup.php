@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Настройки темы
  */
@@ -70,7 +71,7 @@ add_action('after_setup_theme', function () {
             ];
 
             $attach_id = wp_insert_attachment($attachment, $file);
-            require_once (ABSPATH . 'wp-admin/includes/image.php');
+            require_once(ABSPATH . 'wp-admin/includes/image.php');
 
             $attach_data = wp_generate_attachment_metadata($attach_id, $file);
             wp_update_attachment_metadata($attach_id, $attach_data);
@@ -108,15 +109,9 @@ add_action('after_setup_theme', function () {
             }
         }
     }
-
 });
 
-// Добавляем поддержку RTL для языков
-add_action('wp_head', function () {
-    if (is_rtl()) {
-        echo '<link rel="stylesheet" href="' . get_template_directory_uri() . '/assets/css/rtl.css">';
-    }
-});
+
 
 // Добавляем поддержку языков для ACF
 add_filter('acf/load_value', function ($value, $post_id, $field) {

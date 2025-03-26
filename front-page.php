@@ -91,7 +91,7 @@
                     </div>
                     <img src="<?php echo get_template_directory_uri(); ?>/assets/img/Rhombus.svg" alt="Kapitan is for everyone who" class=" w-6 block mx-auto mb-4" />
                     <p class=" opacity-65">
-                        White fish roe ‘taramas’ 9€ <br />
+                        White fish roe 'taramas' 9€ <br />
                         Santorini Fava,split peas 9€ <br />
                         Aubergine puree (Mount Athos recipe) 8€
                     </p>
@@ -102,7 +102,7 @@
                     </div>
                     <img src="<?php echo get_template_directory_uri(); ?>/assets/img/Rhombus.svg" alt="Kapitan is for everyone who" class=" w-6 block mx-auto mb-4" />
                     <p class=" opacity-65">
-                        White fish roe ‘taramas’ 9€ <br />
+                        White fish roe 'taramas' 9€ <br />
                         Santorini Fava,split peas 9€ <br />
                         Aubergine puree (Mount Athos recipe) 8€
                     </p>
@@ -113,7 +113,7 @@
                     </div>
                     <img src="<?php echo get_template_directory_uri(); ?>/assets/img/Rhombus.svg" alt="Kapitan is for everyone who" class=" w-6 block mx-auto mb-4" />
                     <p class=" opacity-65">
-                        White fish roe ‘taramas’ 9€ <br />
+                        White fish roe 'taramas' 9€ <br />
                         Santorini Fava,split peas 9€ <br />
                         Aubergine puree (Mount Athos recipe) 8€
                     </p>
@@ -124,7 +124,7 @@
                     </div>
                     <img src="<?php echo get_template_directory_uri(); ?>/assets/img/Rhombus.svg" alt="Kapitan is for everyone who" class=" w-6 block mx-auto mb-4" />
                     <p class=" opacity-65">
-                        White fish roe ‘taramas’ 9€ <br />
+                        White fish roe 'taramas' 9€ <br />
                         Santorini Fava,split peas 9€ <br />
                         Aubergine puree (Mount Athos recipe) 8€
                     </p>
@@ -135,7 +135,7 @@
                     </div>
                     <img src="<?php echo get_template_directory_uri(); ?>/assets/img/Rhombus.svg" alt="Kapitan is for everyone who" class=" w-6 block mx-auto mb-4" />
                     <p class=" opacity-65">
-                        White fish roe ‘taramas’ 9€ <br />
+                        White fish roe 'taramas' 9€ <br />
                         Santorini Fava,split peas 9€ <br />
                         Aubergine puree (Mount Athos recipe) 8€
                     </p>
@@ -146,7 +146,7 @@
                     </div>
                     <img src="<?php echo get_template_directory_uri(); ?>/assets/img/Rhombus.svg" alt="Kapitan is for everyone who" class=" w-6 block mx-auto mb-4" />
                     <p class=" opacity-65">
-                        White fish roe ‘taramas’ 9€ <br />
+                        White fish roe 'taramas' 9€ <br />
                         Santorini Fava,split peas 9€ <br />
                         Aubergine puree (Mount Athos recipe) 8€
                     </p>
@@ -157,7 +157,7 @@
                     </div>
                     <img src="<?php echo get_template_directory_uri(); ?>/assets/img/Rhombus.svg" alt="Kapitan is for everyone who" class=" w-6 block mx-auto mb-4" />
                     <p class=" opacity-65">
-                        White fish roe ‘taramas’ 9€ <br />
+                        White fish roe 'taramas' 9€ <br />
                         Santorini Fava,split peas 9€ <br />
                         Aubergine puree (Mount Athos recipe) 8€
                     </p>
@@ -168,7 +168,7 @@
                     </div>
                     <img src="<?php echo get_template_directory_uri(); ?>/assets/img/Rhombus.svg" alt="Kapitan is for everyone who" class=" w-6 block mx-auto mb-4" />
                     <p class=" opacity-65">
-                        White fish roe ‘taramas’ 9€ <br />
+                        White fish roe 'taramas' 9€ <br />
                         Santorini Fava,split peas 9€ <br />
                         Aubergine puree (Mount Athos recipe) 8€
                     </p>
@@ -184,54 +184,91 @@
     <section class="pb-[100px]">
         <div class="container grid grid-cols-2 gap-16">
             <div class="">
-                <h2 class="h2 mb-8">RESERVE</h2>
-                <div class=" px-10">
-                    <h3 class="text-[32px] uppercase mb-6 ">BOOK A TABLE</h3>
-                    <form action="">
-                        <div class="">
-                            <label for="name">Name</label>
-                            <input type="text" id="name" name="name" />
-                        </div>
-                        <div class="">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" />
-                        </div>
-                        <div class="">
-                            <label for="phone">Phone</label>
-                            <input type="tel" id="phone" name="phone" />
+                <h2 class="h2 mb-8">
+                    <?php echo function_exists('pll__') ? pll__('RESERVE') : 'RESERVE'; ?>
+                </h2>
+                <div class="px-10">
+                    <h3 class="text-[32px] uppercase mb-6">
+                        <?php echo function_exists('pll__') ? pll__('BOOK A TABLE') : 'BOOK A TABLE'; ?>
+                    </h3>
+
+
+
+                    <form id="booking-form" class="booking-form space-y-6" method="post">
+                        <div id="booking-response" class="booking-response hidden"></div>
+                        <div class="form-group">
+                            <label for="name" class="sr-only">
+                                <?php echo function_exists('pll__') ? pll__('Name') : 'Name'; ?>
+                            </label>
+                            <input type="text" id="name" name="name" class="form-input" placeholder="<?php echo function_exists('pll__') ? pll__('Name') : 'Name'; ?>" required />
+                            <div class="error-message"></div>
                         </div>
 
-                        <div class="">
-                            <label for="persons">Persons</label>
-                            <select id="persons" name="persons">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="more">More</option>
+                        <div class="form-group">
+                            <label for="email" class="sr-only">
+                                <?php echo function_exists('pll__') ? pll__('Email') : 'Email'; ?>
+                            </label>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="<?php echo function_exists('pll__') ? pll__('Email') : 'Email'; ?>" required />
+                            <div class="error-message"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone" class="sr-only">
+                                <?php echo function_exists('pll__') ? pll__('Phone') : 'Phone'; ?>
+                            </label>
+                            <input type="tel" id="phone" name="phone" placeholder="<?php echo function_exists('pll__') ? pll__('Phone Number') : 'Phone Number'; ?>" class="form-input" required />
+                            <div class="error-message"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="persons" class="sr-only">
+                                <?php echo function_exists('pll__') ? pll__('Persons') : 'Persons'; ?>
+                            </label>
+                            <select id="persons" name="persons" class="form-select" required>
+                                <option value="1"><?php echo function_exists('pll__') ? pll__('1 person') : '1 person'; ?></option>
+                                <option value="2"><?php echo function_exists('pll__') ? pll__('2 persons') : '2 persons'; ?></option>
+                                <option value="3-5"><?php echo function_exists('pll__') ? pll__('3-5 persons') : '3-5 persons'; ?></option>
+                                <option value="5-10"><?php echo function_exists('pll__') ? pll__('5-10 persons') : '5-10 persons'; ?></option>
+                                <option value="more"><?php echo function_exists('pll__') ? pll__('more than 10 persons') : 'more than 10 persons'; ?></option>
                             </select>
-                        </div>
-                        <div class="">
-                            <label for="date">Date</label>
-                            <input type="date" id="date" name="date" />
+                            <div class="error-message"></div>
                         </div>
 
-                        <div class="">
-                            <label for="time">Time</label>
-                            <input type="datetime-local" id="time" name="time" />
+                        <div class="form-group">
+                            <label for="date" class="sr-only">
+                                <?php echo function_exists('pll__') ? pll__('Date') : 'Date'; ?>
+                            </label>
+                            <input type="date" id="date" name="date" class="form-input" required />
+                            <div class="error-message"></div>
                         </div>
-                        <button type="submit" class="button">BOOK NOW</button>
+
+                        <div class="form-group">
+                            <label for="time" class="sr-only">
+                                <?php echo function_exists('pll__') ? pll__('Time') : 'Time'; ?>
+                            </label>
+                            <input type="time" id="time" name="time" class="form-input" required />
+                            <div class="error-message"></div>
+                        </div>
+
+
+                        <?php wp_nonce_field('booking_nonce', 'booking_nonce_field'); ?>
+                        <input type="hidden" name="action" value="process_booking">
+                        <input type="hidden" name="lang" value="<?php echo function_exists('pll_current_language') ? pll_current_language() : 'en'; ?>">
+
+                        <button type="submit" class="button booking-submit">
+                            <?php echo function_exists('pll__') ? pll__('BOOK NOW') : 'BOOK NOW'; ?>
+                        </button>
                     </form>
                 </div>
             </div>
             <div class="relative pl-[58px]">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/home/reservation.png" alt="Kapitan is for everyone who" class="" />
-                <div class="absolute bottom-0 left-0 font-island text-5xl -rotate-4">Book private dining s
+                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/home/reservation.png" alt="<?php echo function_exists('pll__') ? pll__('Book a table') : 'Book a table'; ?>" class="" />
+                <div class="absolute bottom-0 left-0 font-island text-5xl -rotate-4">
+                    <?php echo function_exists('pll__') ? pll__('Book private dining') : 'Book private dining'; ?>
                     <br />
-                    <span class="pl-[100px]"> & banquet room</span>
+                    <span class="pl-[100px]">
+                        <?php echo function_exists('pll__') ? pll__('& banquet room') : '& banquet room'; ?>
+                    </span>
                 </div>
             </div>
         </div>
@@ -274,7 +311,7 @@
                         </div>
                         <div class="opacity-65">
                             <p>Friday, 21 Nov</p>
-                            <p>Reservations 12Pm To 1.30Pm</p>
+                            <p>Reservations 12Pm To 1.30Pm</p>
                         </div>
                     </div>
                 </div>
@@ -286,7 +323,7 @@
                         </div>
                         <div class="opacity-65">
                             <p>Saturday, 21 Nov</p>
-                            <p>Reservations 12Pm To 1.30Pm</p>
+                            <p>Reservations 12Pm To 1.30Pm</p>
                         </div>
                     </div>
                 </div>
@@ -298,7 +335,7 @@
                         </div>
                         <div class="opacity-65">
                             <p>Sunday, 21 Nov</p>
-                            <p>Reservations 12Pm To 1.30Pm</p>
+                            <p>Reservations 12Pm To 1.30Pm</p>
                         </div>
                     </div>
                 </div>
@@ -319,10 +356,29 @@
             <div class="">
                 <h2 class="h2 mb-8">THEY SAY</h2>
                 <div class=" pl-[100px]">
-                    {# Это должен быть слайдер -> #}
-
-                    <p class="max-w-[470px]">"I recently dined at [Restaurant Name], and it was a truly memorable experience! Whether you're looking for a cozy dinner spot or a place to celebrate a special occasion, [Restaurant Name] is the perfect choice!"</p>
-
+                    <div class="testimonials-slider">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <p class="max-w-[470px]">"I recently dined at [Restaurant Name], and it was a truly memorable experience! Whether you're looking for a cozy dinner spot or a place to celebrate a special occasion, [Restaurant Name] is the perfect choice!"</p>
+                                <div class=" mt-6 font-inter text-[12px] uppercase">
+                                    <span class="text-secondary">/</span> BY TARIQ GRAHIN 1
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <p class="max-w-[470px]">"The atmosphere, service, and food at [Restaurant Name] exceeded all expectations. Each dish was prepared with care and presented beautifully. I'll definitely be coming back again!"</p>
+                                <div class=" mt-6 font-inter text-[12px] uppercase">
+                                    <span class="text-secondary">/</span> BY TARIQ GRAHIN 1
+                                </div>
+                            </div>
+                            <div class="swiper-slide">
+                                <p class="max-w-[470px]">"From the moment we walked in, we felt welcome. The staff was attentive and knowledgeable, and the recommendations were spot on. A hidden gem in the city!"</p>
+                                <div class=" mt-6 font-inter text-[12px] uppercase">
+                                    <span class="text-secondary">/</span> BY TARIQ GRAHIN 1
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonials-pagination mt-8"></div>
+                    </div>
                 </div>
             </div>
 
@@ -335,11 +391,24 @@
                 <p class="opacity-65">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                     eiusmod tempor ut enim ad minim veniam, quis nostrud</p>
             </div>
-            <div class="grid grid-cols-4 gap-[100px]">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/home/menu.png" alt="Kapitan is for everyone who" class="w-full object-cover" />
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/home/menu.png" alt="Kapitan is for everyone who" class="w-full object-cover" />
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/home/menu.png" alt="Kapitan is for everyone who" class="w-full object-cover" />
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/home/menu.png" alt="Kapitan is for everyone who" class="w-full object-cover" />
+            <div class="instagram-slider instagram-slider--desktop-grid">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/img/home/menu.png" alt="Kapitan is for everyone who" class="w-full object-cover" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/img/home/menu.png" alt="Kapitan is for everyone who" class="w-full object-cover" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/img/home/menu.png" alt="Kapitan is for everyone who" class="w-full object-cover" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/img/home/menu.png" alt="Kapitan is for everyone who" class="w-full object-cover" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/img/home/menu.png" alt="Kapitan is for everyone who" class="w-full object-cover" />
+                    </div>
+                </div>
             </div>
             <p class="text-center text-[12px] mt-8">Inspired by you, always #kapitanpub</p>
         </div>

@@ -78,6 +78,8 @@ export default defineConfig({
 		rollupOptions: {
 			input: {
 				main: resolve(__dirname + "/main.js"),
+				home: resolve(__dirname + "/assets/js/home.js"),
+				booking: resolve(__dirname + "/assets/js/booking.js"),
 			},
 
 			/*
