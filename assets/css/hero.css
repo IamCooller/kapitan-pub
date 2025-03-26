@@ -10,6 +10,10 @@
 	@apply max-lg:flex-col;
 }
 
+.hero__buttons .button {
+	@apply bg-quaternary/40;
+}
+
 .booking-button {
 	@apply lg:hidden;
 }

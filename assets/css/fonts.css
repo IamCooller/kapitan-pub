@@ -1,7 +1,7 @@
 /* Inter Variable Font */
 @font-face {
 	font-family: "Inter";
-	src: url("../fonts/Inter/Inter-VariableFont_opsz,wght.ttf") format("truetype-variations");
+	src: url("/wp-content/themes/kapitan-pub/assets/fonts/Inter/Inter-VariableFont_opsz,wght.ttf") format("truetype-variations");
 	font-weight: 100 900;
 	font-style: normal;
 	font-display: swap;
@@ -9,7 +9,7 @@
 
 @font-face {
 	font-family: "Inter";
-	src: url("../fonts/Inter/Inter-Italic-VariableFont_opsz,wght.ttf") format("truetype-variations");
+	src: url("/wp-content/themes/kapitan-pub/assets/fonts/Inter/Inter-Italic-VariableFont_opsz,wght.ttf") format("truetype-variations");
 	font-weight: 100 900;
 	font-style: italic;
 	font-display: swap;
@@ -18,7 +18,7 @@
 /* Island Moments */
 @font-face {
 	font-family: "Island Moments";
-	src: url("../fonts/Island_Moments/IslandMoments-Regular.ttf") format("truetype");
+	src: url("/wp-content/themes/kapitan-pub/assets/fonts/Island_Moments/IslandMoments-Regular.ttf") format("truetype");
 	font-weight: 400;
 	font-style: normal;
 	font-display: swap;
@@ -27,7 +27,7 @@
 /* Jeju Myeongjo */
 @font-face {
 	font-family: "JejuMyeongjo";
-	src: url("../fonts/jejumyeongjo/JejuMyeongjo-Regular.ttf") format("truetype");
+	src: url("/wp-content/themes/kapitan-pub/assets/fonts/jejumyeongjo/JejuMyeongjo-Regular.ttf") format("truetype");
 	font-weight: 400;
 	font-style: normal;
 	font-display: swap;
@@ -36,40 +36,24 @@
 /* Jost */
 @font-face {
 	font-family: "Jost";
-	src: url("../fonts/Jost/Jost-Regular.ttf") format("truetype");
-	font-weight: 400;
+	src: url("/wp-content/themes/kapitan-pub/assets/fonts/Jost/Jost-VariableFont_wght.ttf") format("truetype-variations");
+	font-weight: 100 900;
 	font-style: normal;
 	font-display: swap;
 }
 
 @font-face {
 	font-family: "Jost";
-	src: url("../fonts/Jost/Jost-Medium.ttf") format("truetype");
-	font-weight: 500;
-	font-style: normal;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "Jost";
-	src: url("../fonts/Jost/Jost-SemiBold.ttf") format("truetype");
-	font-weight: 600;
-	font-style: normal;
-	font-display: swap;
-}
-
-@font-face {
-	font-family: "Jost";
-	src: url("../fonts/Jost/Jost-Light.ttf") format("truetype");
-	font-weight: 300;
-	font-style: normal;
+	src: url("/wp-content/themes/kapitan-pub/assets/fonts/Jost/Jost-Italic-VariableFont_wght.ttf") format("truetype-variations");
+	font-weight: 100 900;
+	font-style: italic;
 	font-display: swap;
 }
 
 /* Montserrat */
 @font-face {
 	font-family: "Montserrat";
-	src: url("../fonts/Montserrat/Montserrat-Regular.ttf") format("truetype");
+	src: url("/wp-content/themes/kapitan-pub/assets/fonts/Montserrat/Montserrat-Regular.ttf") format("truetype");
 	font-weight: 400;
 	font-style: normal;
 	font-display: swap;
@@ -77,13 +61,12 @@
 
 @font-face {
 	font-family: "Montserrat";
-	src: url("../fonts/Montserrat/Montserrat-SemiBold.ttf") format("truetype");
+	src: url("/wp-content/themes/kapitan-pub/assets/fonts/Montserrat/Montserrat-SemiBold.ttf") format("truetype");
 	font-weight: 600;
 	font-style: normal;
 	font-display: swap;
 }
 
-/* Theme configuration for fonts */
 @theme {
 	--font-inter: "Inter", sans-serif;
 	--font-island: "Island Moments", cursive;

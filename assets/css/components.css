@@ -1,7 +1,11 @@
 @layer components {
 	.button {
-		@apply border-2 border-secondary uppercase bg-quaternary/40 w-full  max-w-[163px] h-[59px] flex items-center justify-center;
-		@apply hover:bg-secondary transition-[background-color,transform] duration-300 ease-in-out;
+		@apply border-2 border-secondary uppercase bg-transparent w-full  max-w-[163px] h-[59px] flex items-center justify-center;
+		@apply hover:bg-secondary! transition-[background-color,transform] duration-300 ease-in-out;
 		@apply active:scale-95;
+	}
+
+	.h2 {
+		@apply font-jeju opacity-30 uppercase text-[100px];
 	}
 }
