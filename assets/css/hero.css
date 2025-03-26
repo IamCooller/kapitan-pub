@@ -1,0 +1,19 @@
+.hero {
+}
+
+.hero__inner {
+	@apply container flex flex-col py-12 h-full min-h-svh w-full gap-9;
+}
+
+.hero__buttons {
+	@apply lg:mt-auto flex items-center justify-center gap-5 lg:gap-16;
+	@apply max-lg:flex-col;
+}
+
+.booking-button {
+	@apply lg:hidden;
+}
+
+.hero__logo {
+	@apply lg:hidden max-w-[363px] w-full mx-auto;
+}
