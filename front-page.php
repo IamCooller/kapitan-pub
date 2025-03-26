@@ -1,4 +1,3 @@
 <?php get_header(); ?>
-<main class="main"></main>
+<main class="main">s</main>
 <?php get_footer(); ?>
-

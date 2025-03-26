@@ -1,0 +1,86 @@
+/* Header Desktop Classes */
+
+.header-desktop {
+	@apply absolute top-8 left-0 right-0 w-full z-10 flex items-center justify-center max-lg:hidden container;
+}
+
+.header-desktop__inner {
+	@apply flex items-center justify-between bg-black/40 backdrop-blur-xs px-8 py-4 w-full;
+}
+
+.header-desktop__menu {
+	@apply flex items-center gap-5 flex-1;
+}
+
+.header-desktop__menu > a {
+	@apply uppercase font-medium border-b-2 border-transparent hover:border-secondary transition-[border-color] duration-300 ease-in-out;
+}
+
+.header-desktop__menu > a.current-menu-item {
+	@apply border-secondary;
+}
+
+.header-desktop__logo {
+	@apply max-w-[174px] max-h-[97px] w-full;
+}
+
+.header-desktop__buttons {
+	@apply flex items-center gap-2.5 justify-end flex-1;
+}
+
+.header-desktop__buttons-phone {
+	@apply max-w-[73px];
+}
+
+.header-desktop__buttons-booking {
+}
+
+/* Header Mobile Classes */
+
+.header-mobile {
+	@apply lg:hidden absolute bottom-11 left-0 right-0 w-full z-10;
+}
+
+.header-mobile__inner {
+	@apply container flex items-center justify-between;
+}
+
+.header-mobile__phone {
+}
+
+.header-mobile__button {
+	@apply rounded-full aspect-square w-14 flex items-center justify-center bg-secondary active:scale-95 transition-[transform] duration-300 ease-in-out;
+}
+
+/* Mobile Menu Classes */
+
+.mobile-menu {
+	@apply lg:hidden! fixed top-0 left-0 w-full h-full z-20 bg-black/40 backdrop-blur-xs flex flex-col justify-between container py-11;
+	@apply transform translate-y-full transition-all duration-300 ease-in-out;
+}
+.header-mobile__menu-open {
+	@apply transform translate-y-0;
+}
+
+.mobile-menu__header {
+}
+
+.mobile-menu__logo {
+	@apply max-w-[174px] max-h-[97px] w-full mx-auto;
+}
+
+.mobile-menu__nav {
+	@apply flex flex-col gap-5 justify-center flex-1 items-center;
+}
+
+.mobile-menu__nav > a {
+	@apply uppercase font-medium border-b-2 border-transparent hover:border-secondary transition-[border-color] duration-300 ease-in-out;
+}
+
+.mobile-menu__nav > a.current-menu-item {
+	@apply border-secondary;
+}
+
+.mobile-menu__close {
+	@apply ml-auto;
+}

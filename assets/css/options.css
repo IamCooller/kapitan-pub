@@ -1,0 +1,22 @@
+@theme {
+	--color-primary: #012350;
+	--color-secondary: #ca8f4c;
+
+	--color-tertiary: #062e62;
+	--color-quaternary: #100a05;
+}
+
+@utility container {
+	margin-inline: auto;
+	padding-inline: 1.5rem;
+	max-width: 100%;
+	@variant lg {
+		max-width: 1240px;
+	}
+}
+
+@layer base {
+	body {
+		@apply font-jost text-base text-white bg-tertiary;
+	}
+}

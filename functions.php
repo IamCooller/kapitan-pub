@@ -1,4 +1,5 @@
 <?php
+
 /**
  * KAPITAN PUB functions and definitions
  *
@@ -12,14 +13,28 @@ if (! defined('_S_VERSION')) {
     define('_S_VERSION', '1.0.0');
 }
 
-                                                           // Подключаем функции
+
+define('IS_VITE_DEVELOPMENT', true);
+
+
+
+
+// Подключаем функции
 require get_template_directory() . '/inc/acf-blocks.php';  // ACF Gutenberg Blocks (создай файл позже)
 require get_template_directory() . '/inc/theme-setup.php'; // Поддержка темы, меню и т.д.
-require get_template_directory() . '/inc/scripts.php';     // Подключение CSS и JS
+
+require get_template_directory() . '/inc/inc.vite.php';
 require get_template_directory() . '/inc/languages.php';
-add_action('init', function () {
+add_action('after_switch_theme', function () {
     wp_cache_flush();
 });
+
+// Также добавляем очистку кеша при сохранении настроек темы
+add_action('acf/save_post', function ($post_id) {
+    if ($post_id === 'options') {
+        wp_cache_flush();
+    }
+}, 20);
 
 /**
  * Настройка ACF JSON
