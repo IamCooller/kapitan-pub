@@ -1,0 +1,41 @@
+/* Giveaway Section Styles */
+
+.giveaway-section {
+	@apply bg-blue py-[40px] md:py-[100px];
+}
+
+.giveaway-container {
+	@apply container grid lg:grid-cols-2 items-center gap-4 lg:gap-[200px];
+}
+
+.giveaway-content {
+	/* No specific tailwind classes needed */
+}
+
+.giveaway-text-wrapper {
+	@apply pl-[25px] md:pl-[100px];
+}
+
+.giveaway-text {
+	@apply max-w-[470px];
+}
+
+.giveaway-button {
+	@apply mt-6 max-w-[206px];
+}
+
+.giveaway-image-wrapper {
+	@apply relative h-fit pr-[58px];
+}
+
+.giveaway-image {
+	@apply w-full;
+}
+
+.giveaway-image-caption {
+	@apply absolute bottom-0 right-0 font-island text-5xl -rotate-4;
+}
+
+.giveaway-image-caption-text {
+	@apply text-white;
+}

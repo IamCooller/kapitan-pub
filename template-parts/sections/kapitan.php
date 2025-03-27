@@ -13,7 +13,7 @@ $text = !empty(get_sub_field('text')) ? get_sub_field('text') : '';
 $quote = !empty(get_sub_field('quote')) ? get_sub_field('quote') : '';
 $image = !empty(get_sub_field('image')) ? get_sub_field('image') : '';
 ?>
-<section class="space-y-16 py-14">
+<section class="kapitan-section">
     <div class="kapitan-for-everyone">
         <div class="kapitan-for-everyone__inner">
             <?php if (!empty($image)) : ?>

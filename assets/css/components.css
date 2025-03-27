@@ -6,6 +6,6 @@
 	}
 
 	.h2 {
-		@apply font-jeju opacity-30 uppercase text-[100px];
+		@apply font-jeju opacity-30 uppercase text-[60px] md:text-[100px];
 	}
 }

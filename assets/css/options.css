@@ -19,6 +19,6 @@
 
 @layer base {
 	body {
-		@apply font-jost text-base text-white bg-tertiary;
+		@apply font-jost max-lg:text-sm text-base text-white bg-tertiary;
 	}
 }

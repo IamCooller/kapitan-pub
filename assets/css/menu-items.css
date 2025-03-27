@@ -1,0 +1,52 @@
+/* Menu Items Section Styles */
+
+.menu-items-section {
+	@apply py-[100px];
+}
+
+.menu-items-container {
+	@apply container grid lg:grid-cols-3 gap-[100px];
+}
+
+/* Left column with images */
+.menu-items-left-column {
+	@apply space-y-16 max-lg:hidden;
+}
+
+.menu-items-left-image-1 {
+	/* No specific Tailwind classes needed for the wrapper */
+}
+
+.menu-items-left-image-2-wrapper {
+	@apply px-[52px];
+}
+
+/* Center column with menu categories */
+.menu-items-center-column {
+	@apply space-y-16 text-center;
+}
+
+.menu-category {
+	/* No specific Tailwind classes needed for the wrapper */
+}
+
+.menu-category-title {
+	@apply font-jeju text-2xl uppercase leading-none mb-2.5;
+}
+
+.menu-category-divider {
+	@apply w-6 block mx-auto mb-4;
+}
+
+.menu-category-items {
+	@apply opacity-65;
+}
+
+.menu-items-button {
+	@apply mx-auto;
+}
+
+/* Right column with image */
+.menu-items-right-column {
+	@apply py-[100px] max-lg:hidden;
+}

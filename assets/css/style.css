@@ -5,101 +5,13 @@
 @import "./header.css";
 @import "./hero.css";
 @import "./booking-form.css";
-.kapitan-for-everyone__inner {
-	@apply max-w-[538px] mx-auto text-center;
-}
-.kapitan-for-everyone__image {
-	@apply w-[80px] aspect-square mx-auto block mb-2;
-}
-
-.kapitan-for-everyone__title {
-	@apply text-center text-[32px];
-}
-.kapitan-for-everyone__text {
-	@apply mb-2;
-}
-
-.kapitan-for-everyone__quote {
-	@apply text-secondary font-island text-[40px];
-}
-
-/* Testimonials Slider */
-.testimonials-slider {
-	position: relative;
-	overflow: hidden;
-}
-
-.testimonials-pagination {
-	display: flex;
-	justify-content: flex-start;
-	align-items: center;
-	gap: 12px;
-	height: 20px;
-}
-
-.testimonials-pagination .swiper-pagination-bullet {
-	background: none;
-	@apply w-1 h-1  rounded-[1px]  bg-secondary opacity-100 transition-all duration-300 ease-in-out;
-}
-
-.testimonials-pagination .swiper-pagination-bullet-active {
-	@apply w-3 h-3 bg-transparent rounded-none border-2 border-secondary rotate-45;
-}
-
-/* Instagram Slider */
-.instagram-slider {
-	position: relative;
-	overflow: hidden;
-}
-
-.instagram-slider .swiper-slide {
-	transition: all 0.3s ease;
-	border-radius: 8px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: auto;
-}
-
-.instagram-slider .swiper-slide img {
-	width: 100%;
-	height: auto;
-	object-fit: contain;
-}
-
-.instagram-pagination {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	gap: 12px;
-	height: 20px;
-	margin-top: 20px;
-}
-
-.instagram-pagination .swiper-pagination-bullet {
-	background: #d9d9d9;
-	opacity: 0.5;
-	width: 10px;
-	height: 10px;
-	transition: all 0.3s ease;
-}
-
-.instagram-pagination .swiper-pagination-bullet-active {
-	background: #6e8171;
-	opacity: 1;
-	transform: scale(1.2);
-}
-
-@media (min-width: 1024px) {
-	.instagram-slider--desktop-grid {
-		height: 296px;
-	}
-}
-
-@media (max-width: 767px) {
-	.instagram-slider__slide--active {
-		transform: scale(1.15);
-		z-index: 2;
-		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-	}
-}
+@import "./footer.css";
+@import "./kapitan.css";
+@import "./testimonials.css";
+@import "./instagram.css";
+@import "./events.css";
+@import "./giveaway.css";
+@import "./map.css";
+@import "./cuisine-chefs.css";
+@import "./menu-banner.css";
+@import "./menu-items.css";

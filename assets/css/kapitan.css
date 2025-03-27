@@ -1,0 +1,21 @@
+.kapitan-section {
+	@apply space-y-16 py-14;
+}
+
+.kapitan-for-everyone__inner {
+	@apply max-w-[538px] mx-auto text-center;
+}
+.kapitan-for-everyone__image {
+	@apply w-[80px] aspect-square mx-auto block mb-2;
+}
+
+.kapitan-for-everyone__title {
+	@apply text-center text-[24px] md:text-[32px];
+}
+.kapitan-for-everyone__text {
+	@apply mb-2;
+}
+
+.kapitan-for-everyone__quote {
+	@apply text-secondary font-island text-[30px] md:text-[40px];
+}

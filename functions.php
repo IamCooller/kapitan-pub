@@ -24,6 +24,23 @@ require get_template_directory() . '/inc/inc.vite.php';
 
 require get_template_directory() . '/inc/booking-form.php'; // Форма бронирования
 
+// Enqueue scripts and styles
+function kapitan_pub_scripts()
+{
+    // Main styles and scripts are handled by Vite
+
+    // Register Swiper for potential use throughout the site
+    wp_register_style('swiper-css', 'https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css', array(), '10.0.0');
+    wp_register_script('swiper-js', 'https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js', array(), '10.0.0', true);
+
+    // Register custom component scripts
+    wp_register_script('events-slider-js', get_template_directory_uri() . '/assets/js/events-slider.js', array('swiper-js'), '1.0.0', true);
+
+    // Main JS
+    wp_enqueue_script('main-js', get_template_directory_uri() . '/assets/js/main.js', array(), '1.0.0', true);
+}
+add_action('wp_enqueue_scripts', 'kapitan_pub_scripts');
+
 add_action('after_switch_theme', function () {
     wp_cache_flush();
 });

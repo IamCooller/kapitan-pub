@@ -1,0 +1,93 @@
+/* Events Section Styles */
+
+.events-section {
+	@apply py-[100px];
+}
+
+.events-container {
+	@apply container space-y-16;
+}
+
+.events-header {
+	@apply text-center max-w-[448px] mx-auto;
+}
+
+.events-title {
+	@apply text-[32px] uppercase mb-2.5 leading-none;
+}
+
+.events-description {
+	@apply opacity-65;
+}
+
+/* Swiper slider styles */
+.events-grid {
+	@apply w-full overflow-hidden;
+}
+
+.event-item {
+	@apply flex flex-col h-auto;
+	width: 100%;
+}
+
+/* For swiper slides */
+.swiper-slide {
+	height: auto !important;
+}
+
+/* On mobile viewport */
+@media (max-width: 767px) {
+	.events-grid {
+		@apply px-4 -mx-4;
+	}
+
+	.event-item {
+		@apply w-[85vw] max-w-[300px];
+	}
+}
+
+/* On tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+	.event-item {
+		@apply w-[40vw] max-w-[400px];
+	}
+}
+
+/* On desktop */
+@media (min-width: 1024px) {
+	.event-item {
+		@apply w-[30%] max-w-none;
+	}
+}
+
+.event-image {
+	@apply w-full object-cover;
+}
+
+.event-content {
+	@apply mt-9 text-center space-y-4;
+}
+
+.event-title {
+	@apply uppercase;
+}
+
+.event-details {
+	@apply opacity-65;
+}
+
+.event-date {
+	@apply flex gap-4 items-center mb-5;
+}
+
+.event-date-icon {
+	@apply w-[18px] h-[20px];
+}
+
+.event-date-text {
+	@apply text-[12px] font-bold tracking-widest uppercase;
+}
+
+.event-text {
+	@apply opacity-65;
+}

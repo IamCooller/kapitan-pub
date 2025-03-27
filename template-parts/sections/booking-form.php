@@ -14,22 +14,22 @@ $right_text = !empty(get_sub_field('right_text')) ? get_sub_field('right_text') 
 $title = !empty(get_sub_field('title')) ? get_sub_field('title') : '';
 $subtitle = !empty(get_sub_field('subtitle')) ? get_sub_field('subtitle') : '';
 ?>
-<section class="pb-[100px]">
-    <div class="container grid grid-cols-2 gap-16">
-        <div class="">
+<section class="booking-section">
+    <div class="booking-container">
+        <div class="booking-content">
             <?php if (!empty($title)) : ?>
-                <h2 class="h2 mb-8">
+                <h2 class="h2 md:mb-8">
                     <?php echo esc_html($title); ?>
                 </h2>
             <?php endif; ?>
-            <div class="px-10">
+            <div class="booking-content-inner">
                 <?php if (!empty($subtitle)) : ?>
-                    <h3 class="text-[32px] uppercase mb-6">
+                    <h3 class="booking-subtitle">
                         <?php echo esc_html($subtitle); ?>
                     </h3>
                 <?php endif; ?>
 
-                <form id="booking-form" class="booking-form space-y-6" method="post">
+                <form id="booking-form" class="booking-form" method="post">
                     <div id="booking-response" class="booking-response hidden"></div>
                     <div class="form-group">
                         <label for="name" class="sr-only">
@@ -96,15 +96,15 @@ $subtitle = !empty(get_sub_field('subtitle')) ? get_sub_field('subtitle') : '';
             </div>
         </div>
         <?php if (!empty($image)) : ?>
-            <div class="relative pl-[58px]">
-                <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>" class="" />
-                <div class="absolute bottom-0 left-0 font-island text-5xl -rotate-4">
+            <div class="booking-image-wrapper">
+                <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>" />
+                <div class="booking-caption">
                     <?php if (!empty($left_text)) : ?>
                         <?php echo esc_html($left_text); ?>
                         <br />
                     <?php endif; ?>
                     <?php if (!empty($right_text)) : ?>
-                        <span class="pl-[100px]">
+                        <span class="booking-caption-right">
                             <?php echo esc_html($right_text); ?>
                         </span>
                     <?php endif; ?>

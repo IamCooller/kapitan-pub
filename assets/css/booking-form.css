@@ -1,6 +1,40 @@
-/* Booking Form Styles */
+/* Section Styles */
+.booking-section {
+	@apply pb-[100px];
+}
+
+.booking-container {
+	@apply container grid lg:grid-cols-2 gap-16;
+}
+
+.booking-content {
+	/* No specific tailwind classes needed for the wrapper */
+}
+
+.booking-content-inner {
+	@apply px-[25px] md:px-10;
+}
+
+.booking-subtitle {
+	@apply text-[32px] uppercase mb-6;
+}
+
+.booking-image-wrapper {
+	@apply relative pl-[58px] max-lg:hidden;
+}
+
+.booking-caption {
+	@apply absolute bottom-0 left-0 font-island text-5xl -rotate-4;
+}
+
+.booking-caption-right {
+	@apply pl-[100px];
+}
+
+/* Existing Booking Form Styles */
 .booking-form {
 	width: 100%;
+	@apply space-y-6;
 }
 
 .booking-form .form-input,

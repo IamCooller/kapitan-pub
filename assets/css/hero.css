@@ -1,13 +1,28 @@
 .hero {
+	@apply relative h-screen w-full flex items-center justify-center text-center px-14 bg-no-repeat overflow-hidden;
+	min-height: 560px;
 }
 
+/* Main hero inner container */
 .hero__inner {
-	@apply container flex flex-col py-12 h-full min-h-svh w-full gap-9;
+	@apply relative  flex flex-col items-center  container py-12 h-full min-h-svh w-full gap-9;
 }
 
+/* Logo styles */
+.hero__logo {
+	@apply w-[440px] max-h-[177px] mb-12 mx-auto;
+	@apply lg:hidden max-w-[363px] w-full mx-auto;
+}
+
+.hero__logo img {
+	@apply w-full h-full object-contain;
+}
+
+/* Button styles */
 .hero__buttons {
+	@apply flex flex-wrap w-full gap-4 justify-center;
 	@apply lg:mt-auto flex items-center justify-center gap-5 lg:gap-16;
-	@apply max-lg:flex-col;
+	@apply max-lg:flex-col lg:flex-row;
 }
 
 .hero__buttons .button {
@@ -15,9 +30,6 @@
 }
 
 .booking-button {
+	@apply bg-secondary text-white;
 	@apply lg:hidden;
-}
-
-.hero__logo {
-	@apply lg:hidden max-w-[363px] w-full mx-auto;
 }

@@ -1,0 +1,45 @@
+/* Instagram Section Styles */
+
+.instagram-section {
+	@apply py-[100px];
+}
+
+.instagram-container {
+	@apply container space-y-16;
+}
+
+.instagram-header {
+	@apply text-center max-w-[448px] mx-auto;
+}
+
+.instagram-title {
+	@apply text-[32px] uppercase mb-2.5 leading-none;
+}
+
+.instagram-description {
+	@apply opacity-65;
+}
+
+.instagram-hashtag {
+	@apply text-center text-[12px] mt-8;
+}
+/* Instagram Slider */
+.instagram-slider {
+	position: relative;
+	overflow: hidden;
+}
+
+.instagram-slider .swiper-slide {
+	transition: all 0.3s ease;
+	border-radius: 8px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: auto;
+}
+
+.instagram-slider .swiper-slide img {
+	width: 100%;
+	height: auto;
+	object-fit: contain;
+}

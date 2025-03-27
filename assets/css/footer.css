@@ -1,0 +1,165 @@
+.footer-menu {
+	@apply flex flex-col text-center items-center justify-center h-full;
+}
+
+.footer-menu > a {
+	@apply border-b-2 border-transparent hover:border-secondary transition-[border-color] duration-300 ease-in-out;
+}
+
+/* Footer Container */
+.footer-container {
+	@apply container pb-6 border-b border-white/18;
+}
+
+/* Footer Top Section */
+.footer-top {
+	@apply bg-blue -mt-16 pt-[50px] pb-[80px] px-[30px] relative z-10;
+}
+
+/* Footer Grid */
+.footer-main-grid {
+	@apply grid grid-cols-1 lg:grid-cols-3;
+}
+
+.footer-info-grid {
+	@apply grid grid-cols-2 lg:gap-x-[40px] col-span-2;
+}
+
+/* Footer Info Blocks */
+.footer-info-block {
+	@apply flex gap-2 md:gap-5 pb-5 md:pb-7 border-b border-white/12;
+}
+
+.footer-info-block__icon-wrapper {
+	@apply h-full shrink-0;
+}
+
+.footer-info-block__content {
+	/* No specific tailwind classes needed */
+}
+
+.footer-info-block__title {
+	@apply font-semibold mb-4;
+}
+
+.footer-info-block__text {
+	/* No specific tailwind classes needed */
+}
+
+/* Address Icon */
+.footer-address-icon {
+	@apply w-[35px] h-[35px] shrink-0;
+}
+
+/* Contact Icon */
+.footer-contact-icon {
+	@apply w-[33px] h-[33px];
+}
+
+/* Phone Link */
+.footer-phone-link {
+	@apply block underline;
+}
+
+/* Parking Block */
+.footer-parking-block {
+	@apply flex gap-5 pb-7 pt-4 border-b border-white/12 max-lg:col-span-2;
+}
+
+.footer-parking-icon {
+	@apply w-[38px] h-[34px] shrink-0;
+}
+
+/* Hours Block */
+.footer-hours-block {
+	@apply max-lg:pt-[25px] lg:px-4 flex gap-[20px];
+}
+
+.footer-hours-icon {
+	@apply w-[35px] h-[35px];
+}
+
+/* QR Codes Section */
+.footer-qr-section {
+	@apply flex gap-9 mt-[55px] lg:mt-3 max-lg:justify-center items-center;
+}
+
+.footer-qr-title {
+	@apply font-semibold mb-2.5;
+}
+
+.footer-qr-image {
+	@apply w-[150px] aspect-square;
+}
+
+/* Footer Middle Section */
+.footer-middle {
+	@apply mt-16 grid grid-cols-1 lg:grid-cols-3 items-center max-lg:justify-center max-lg:text-center gap-8;
+}
+
+.footer-brand {
+	@apply space-y-9 max-lg:flex max-lg:flex-col max-lg:items-center;
+}
+
+.footer-logo-wrapper {
+	@apply max-w-[201px] max-h-[89px];
+}
+
+.footer-text {
+	@apply max-w-[350px];
+}
+
+/* Contact Info */
+.footer-contact-info {
+	@apply text-secondary max-lg:text-center text-right space-y-8;
+}
+
+.footer-contact-heading {
+	@apply font-montserrat text-lg font-semibold;
+}
+
+.footer-contact-phone {
+	@apply font-montserrat text-lg font-bold block underline;
+}
+
+.footer-contact-email {
+	@apply font-montserrat text-lg block;
+}
+
+.footer-reservation-heading {
+	@apply text-lg font-semibold font-montserrat text-white bg-secondary w-fit max-lg:mx-auto lg:ml-auto;
+}
+
+.footer-reservation-email {
+	@apply font-montserrat text-lg block;
+}
+
+/* Footer Bottom Section */
+.footer-bottom {
+	@apply pt-12 pb-4 text-center container;
+}
+
+.footer-copyright {
+	@apply text-sm;
+}
+
+.footer-social {
+	@apply mt-8 flex max-w-[115px] mx-auto justify-between;
+}
+
+/* Social Icons */
+.footer-social-icon-facebook {
+	@apply w-[11px] h-[20px];
+}
+
+.footer-social-icon-youtube {
+	@apply w-[20px] h-[20px];
+}
+
+.footer-social-icon-instagram {
+	@apply w-[17px] h-[20px];
+}
+
+.footer-social-icon-default {
+	@apply w-[20px] h-[20px];
+}

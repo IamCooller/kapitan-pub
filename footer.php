@@ -32,18 +32,18 @@ $reservation_label = function_exists('pll__') ? pll__('Rezervácia') : 'Rezervá
 ?>
 
 <footer>
-	<div class="container pb-6 border-b border-white/18">
-		<div class="bg-blue -mt-16  pt-[50px] pb-[80px] px-[30px] relative z-10 ">
-			<div class="grid grid-cols-3">
-				<div class="grid grid-cols-2 gap-x-[40px] col-span-2">
+	<div class="footer-container">
+		<div class="footer-top">
+			<div class="footer-main-grid">
+				<div class="footer-info-grid">
 					<?php if (!empty($address)) : ?>
-						<div class="flex gap-5 pb-7   border-b border-white/12 ">
-							<div class="h-full">
-								<img src="<?php echo get_template_directory_uri(); ?>/assets/img/address-icon.png" alt="address" class="w-[35px] h-[35px]" />
+						<div class="footer-info-block">
+							<div class="footer-info-block__icon-wrapper">
+								<img src="<?php echo get_template_directory_uri(); ?>/assets/img/address-icon.png" alt="address" class="footer-address-icon" />
 							</div>
-							<div class="">
-								<div class="font-semibold mb-4"><?php echo esc_html($address_label); ?></div>
-								<div>
+							<div class="footer-info-block__content">
+								<div class="footer-info-block__title"><?php echo esc_html($address_label); ?></div>
+								<div class="footer-info-block__text">
 									<?php echo wp_kses_post($address); ?>
 								</div>
 							</div>
@@ -51,15 +51,15 @@ $reservation_label = function_exists('pll__') ? pll__('Rezervácia') : 'Rezervá
 					<?php endif; ?>
 
 					<?php if (!empty($phone) || !empty($email)) : ?>
-						<div class="flex gap-5 pb-7  border-b border-white/12 ">
-							<div class="h-full">
-								<img src="<?php echo get_template_directory_uri(); ?>/assets/img/Contact-icon.png" alt="contact" class="w-[33px] h-[33px]" />
+						<div class="footer-info-block">
+							<div class="footer-info-block__icon-wrapper">
+								<img src="<?php echo get_template_directory_uri(); ?>/assets/img/Contact-icon.png" alt="contact" class="footer-contact-icon" />
 							</div>
-							<div class="">
-								<div class="font-semibold mb-4"><?php echo esc_html($contact_label); ?></div>
-								<div>
+							<div class="footer-info-block__content">
+								<div class="footer-info-block__title"><?php echo esc_html($contact_label); ?></div>
+								<div class="footer-info-block__text">
 									<?php if (!empty($phone)) : ?>
-										<a href="tel:<?php echo esc_attr($phone); ?>" class="block underline"><?php echo esc_html($phone); ?></a>
+										<a href="tel:<?php echo esc_attr($phone); ?>" class="footer-phone-link"><?php echo esc_html($phone); ?></a>
 									<?php endif; ?>
 									<?php if (!empty($email)) : ?>
 										<a href="mailto:<?php echo esc_attr($email); ?>"><?php echo esc_html($email); ?></a>
@@ -70,13 +70,13 @@ $reservation_label = function_exists('pll__') ? pll__('Rezervácia') : 'Rezervá
 					<?php endif; ?>
 
 					<?php if (!empty($parking_text)) : ?>
-						<div class="flex gap-5 pb-7 pt-4 border-b border-white/12 ">
-							<div class="h-full">
-								<img src="<?php echo get_template_directory_uri(); ?>/assets/img/Parking-icon.svg" alt="parging" class="w-[38px] h-[34px]" />
+						<div class="footer-parking-block">
+							<div class="footer-info-block__icon-wrapper">
+								<img src="<?php echo get_template_directory_uri(); ?>/assets/img/Parking-icon.svg" alt="parking" class="footer-parking-icon" />
 							</div>
-							<div class="">
-								<div class="font-semibold mb-4"><?php echo esc_html($parking_label); ?></div>
-								<div>
+							<div class="footer-info-block__content">
+								<div class="footer-info-block__title"><?php echo esc_html($parking_label); ?></div>
+								<div class="footer-info-block__text">
 									<p><?php echo esc_html($parking_text); ?></p>
 								</div>
 							</div>
@@ -85,13 +85,13 @@ $reservation_label = function_exists('pll__') ? pll__('Rezervácia') : 'Rezervá
 				</div>
 
 				<?php if (!empty($open_hours)) : ?>
-					<div class="px-4 flex gap-[20px]">
-						<div class="h-full">
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/img/hours-icon.png" alt="hours" class="w-[35px] h-[35px]" />
+					<div class="footer-hours-block">
+						<div class="footer-info-block__icon-wrapper">
+							<img src="<?php echo get_template_directory_uri(); ?>/assets/img/hours-icon.png" alt="hours" class="footer-hours-icon" />
 						</div>
-						<div class="">
-							<div class="font-semibold mb-4"><?php echo esc_html($open_hours_label); ?></div>
-							<div>
+						<div class="footer-info-block__content">
+							<div class="footer-info-block__title"><?php echo esc_html($open_hours_label); ?></div>
+							<div class="footer-info-block__text">
 								<?php echo wp_kses_post($open_hours); ?>
 							</div>
 						</div>
@@ -100,19 +100,19 @@ $reservation_label = function_exists('pll__') ? pll__('Rezervácia') : 'Rezervá
 			</div>
 
 			<?php if (!empty($qr_codes) && is_array($qr_codes)) : ?>
-				<div class="flex gap-9 mt-3">
+				<div class="footer-qr-section">
 					<?php foreach ($qr_codes as $qr_code) :
 						$qr_image = !empty($qr_code['qr_image']) ? $qr_code['qr_image'] : '';
 						$qr_title = !empty($qr_code['qr_title']) ? $qr_code['qr_title'] : '';
 
 						if (!empty($qr_image) && !empty($qr_title)) :
 					?>
-							<div class="">
-								<div class="font-semibold mb-2.5"><?php echo esc_html($qr_title); ?></div>
+							<div>
+								<div class="footer-qr-title"><?php echo esc_html($qr_title); ?></div>
 								<?php if (is_array($qr_image) && !empty($qr_image['url'])) : ?>
-									<img src="<?php echo esc_url($qr_image['url']); ?>" alt="<?php echo esc_attr($qr_title); ?>" class="w-[150px] aspect-square" />
+									<img src="<?php echo esc_url($qr_image['url']); ?>" alt="<?php echo esc_attr($qr_title); ?>" class="footer-qr-image" />
 								<?php else : ?>
-									<img src="<?php echo esc_url($qr_image); ?>" alt="<?php echo esc_attr($qr_title); ?>" class="w-[150px] aspect-square" />
+									<img src="<?php echo esc_url($qr_image); ?>" alt="<?php echo esc_attr($qr_title); ?>" class="footer-qr-image" />
 								<?php endif; ?>
 							</div>
 					<?php
@@ -123,9 +123,9 @@ $reservation_label = function_exists('pll__') ? pll__('Rezervácia') : 'Rezervá
 			<?php endif; ?>
 		</div>
 
-		<div class="mt-6 grid grid-cols-3 gap-8">
-			<div class="space-y-9">
-				<div class="max-w-[201px] max-h-[89px]">
+		<div class="footer-middle">
+			<div class="footer-brand">
+				<div class="footer-logo-wrapper">
 					<?php
 					if (has_custom_logo()) {
 						the_custom_logo();
@@ -135,67 +135,77 @@ $reservation_label = function_exists('pll__') ? pll__('Rezervácia') : 'Rezervá
 					?>
 				</div>
 				<?php if (!empty($footer_text)) : ?>
-					<p class="max-w-[350px]"><?php echo esc_html($footer_text); ?></p>
+					<p class="footer-text"><?php echo esc_html($footer_text); ?></p>
 				<?php endif; ?>
 			</div>
-			<div class="">
+			<div>
 				<?php
 				wp_nav_menu([
 					'theme_location' => 'footer-menu',
 					'container'      => false,
-					'menu_class'     => 'flex flex-col text-center items-center justify-center',
+					'menu_class'     => 'footer-menu',
 					'menu_id'        => 'footer-menu',
 					'echo'           => true,
 					'fallback_cb'    => false,
-					'items_wrap'     => '<nav id="%1$s" class="%2$s" role="navigation" aria-label="' . esc_attr__('Main menu', 'kapitan-pub') . '">%3$s</nav>',
+					'items_wrap'     => '<nav id="%1$s" class="%2$s" role="navigation" aria-label="' . esc_attr__('Footer menu', 'kapitan-pub') . '">%3$s</nav>',
 					'walker'         => new Custom_Walker_Nav_Menu(),
 				]);
 				?>
 			</div>
-			<div class="text-secondary text-right space-y-8">
+			<div class="footer-contact-info">
 				<?php if (!empty($phone) || !empty($email)) : ?>
-					<div class="">
-						<div class="font-montserrat text-lg font-semibold"><?php echo esc_html($contact_info_label); ?></div>
+					<div>
+						<div class="footer-contact-heading"><?php echo esc_html($contact_info_label); ?></div>
 						<?php if (!empty($phone)) : ?>
-							<a href="tel:<?php echo esc_attr($phone); ?>" class="font-montserrat text-lg font-bold block underline"><?php echo esc_html($phone); ?></a>
+							<a href="tel:<?php echo esc_attr($phone); ?>" class="footer-contact-phone"><?php echo esc_html($phone); ?></a>
 						<?php endif; ?>
 						<?php if (!empty($email)) : ?>
-							<a href="mailto:<?php echo esc_attr($email); ?>" class="font-montserrat text-lg block"><?php echo esc_html($email); ?></a>
+							<a href="mailto:<?php echo esc_attr($email); ?>" class="footer-contact-email"><?php echo esc_html($email); ?></a>
 						<?php endif; ?>
 					</div>
 				<?php endif; ?>
 
 				<?php if (!empty($reservation_email)) : ?>
-					<div class="">
-						<div class="text-lg font-semibold font-montserrat text-white bg-secondary w-fit ml-auto"><?php echo esc_html($reservation_label); ?></div>
-						<a href="mailto:<?php echo esc_attr($reservation_email); ?>" class="font-montserrat text-lg block"><?php echo esc_html($reservation_email); ?></a>
+					<div>
+						<div class="footer-reservation-heading"><?php echo esc_html($reservation_label); ?></div>
+						<a href="mailto:<?php echo esc_attr($reservation_email); ?>" class="footer-reservation-email"><?php echo esc_html($reservation_email); ?></a>
 					</div>
 				<?php endif; ?>
 			</div>
 		</div>
 	</div>
-	<div class="pt-12 pb-4 text-center container">
+	<div class="footer-bottom">
 		<?php if (!empty($copyright_text)) : ?>
-			<p class="text-sm"><?php echo esc_html($copyright_text); ?></p>
+			<p class="footer-copyright"><?php echo esc_html($copyright_text); ?></p>
 		<?php endif; ?>
 
 		<?php if (!empty($social_links) && is_array($social_links)) : ?>
-			<div class="mt-8 flex max-w-[115px] mx-auto justify-between">
+			<div class="footer-social">
 				<?php foreach ($social_links as $social) :
 					$social_url = !empty($social['url']) ? $social['url'] : '';
 					$social_icon = !empty($social['icon']) ? $social['icon'] : '';
 					$social_name = !empty($social['name']) ? $social['name'] : '';
 
-
+					if (!empty($social_url) && !empty($social_icon)) :
+						// Определяем класс иконки на основе имени соцсети
+						$icon_class = 'footer-social-icon-default';
+						if (strtolower($social_name) === 'facebook') {
+							$icon_class = 'footer-social-icon-facebook';
+						} elseif (strtolower($social_name) === 'youtube') {
+							$icon_class = 'footer-social-icon-youtube';
+						} elseif (strtolower($social_name) === 'instagram') {
+							$icon_class = 'footer-social-icon-instagram';
+						}
 				?>
-					<a href="<?php echo esc_url($social_url); ?>">
-						<?php if (is_array($social_icon) && !empty($social_icon['url'])) : ?>
-							<img src="<?php echo esc_url($social_icon['url']); ?>" alt="<?php echo esc_attr($social_name); ?>" class="" />
-						<?php else : ?>
-							<img src="<?php echo esc_url($social_icon); ?>" alt="<?php echo esc_attr($social_name); ?>" class="<?php echo esc_attr($icon_class); ?>" />
-						<?php endif; ?>
-					</a>
+						<a href="<?php echo esc_url($social_url); ?>">
+							<?php if (is_array($social_icon) && !empty($social_icon['url'])) : ?>
+								<img src="<?php echo esc_url($social_icon['url']); ?>" alt="<?php echo esc_attr($social_name); ?>" class="<?php echo esc_attr($icon_class); ?>" />
+							<?php else : ?>
+								<img src="<?php echo esc_url($social_icon); ?>" alt="<?php echo esc_attr($social_name); ?>" class="<?php echo esc_attr($icon_class); ?>" />
+							<?php endif; ?>
+						</a>
 				<?php
+					endif;
 				endforeach;
 				?>
 			</div>

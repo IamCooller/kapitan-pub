@@ -1,0 +1,82 @@
+/* Testimonials Slider */
+.testimonials-slider {
+	position: relative;
+	overflow: hidden;
+}
+
+.testimonials-pagination {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 12px;
+	height: 20px;
+}
+
+.testimonials-pagination .swiper-pagination-bullet {
+	background: none;
+	@apply w-1 h-1  rounded-[1px]  bg-secondary opacity-100 transition-all duration-300 ease-in-out;
+}
+
+.testimonials-pagination .swiper-pagination-bullet-active {
+	@apply w-3 h-3 bg-transparent rounded-none border-2 border-secondary rotate-45;
+}
+
+/* Testimonials Section Styles */
+.testimonials-section {
+	@apply bg-blue py-[100px];
+}
+
+.testimonials-container {
+	@apply container lg:grid lg:grid-cols-2 items-center gap-4 lg:gap-[200px];
+}
+
+.testimonials-image-wrapper {
+	@apply relative h-fit pr-[58px];
+}
+
+.testimonials-image {
+	@apply w-full;
+}
+
+.testimonials-image-caption {
+	@apply absolute bottom-0 right-0 font-island text-5xl -rotate-4;
+}
+
+.testimonials-image-caption-text {
+	@apply text-white;
+}
+
+.testimonials-content {
+	/* No specific tailwind classes needed */
+}
+
+.testimonials-slider-wrapper {
+	@apply pl-[25px] md:pl-[100px];
+}
+
+.testimonials-quote {
+	@apply max-w-[470px];
+}
+
+.testimonials-author {
+	@apply mt-6 font-inter text-[12px] uppercase;
+}
+
+.testimonials-author-separator {
+	@apply text-secondary;
+}
+
+/* Existing styles from the previous testimonials.css file */
+.testimonials-pagination {
+	--swiper-pagination-bullet-inactive-color: #fff;
+	--swiper-pagination-color: #ffb649;
+	--swiper-pagination-bullet-width: 38px;
+	--swiper-pagination-bullet-height: 6px;
+	--swiper-pagination-bullet-horizontal-gap: 6px;
+	--swiper-pagination-bullet-inactive-opacity: 0.2;
+	--swiper-pagination-bullet-border-radius: 0px;
+}
+
+.swiper-pagination-bullet {
+	border-radius: 0 !important;
+}

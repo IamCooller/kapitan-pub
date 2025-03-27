@@ -18,21 +18,21 @@ $categories = !empty(get_sub_field('categories')) ? get_sub_field('categories') 
 
 
 ?>
-<section class="py-[100px]">
-    <div class="container grid grid-cols-3 gap-[100px]">
-        <div class="space-y-16">
+<section class="menu-items-section">
+    <div class="menu-items-container">
+        <div class="menu-items-left-column">
             <?php if (!empty($left_image_1)) : ?>
-                <div class="">
+                <div class="menu-items-left-image-1">
                     <img src="<?php echo esc_url($left_image_1['url']); ?>" alt="<?php echo esc_attr($left_image_1['alt']); ?>" width="<?php echo esc_attr($left_image_1['width']); ?>" height="<?php echo esc_attr($left_image_1['height']); ?>" />
                 </div>
             <?php endif; ?>
             <?php if (!empty($left_image_2)) : ?>
-                <div class="px-[52px]">
+                <div class="menu-items-left-image-2-wrapper">
                     <img src="<?php echo esc_url($left_image_2['url']); ?>" alt="<?php echo esc_attr($left_image_2['alt']); ?>" width="<?php echo esc_attr($left_image_2['width']); ?>" height="<?php echo esc_attr($left_image_2['height']); ?>" />
                 </div>
             <?php endif; ?>
         </div>
-        <div class="space-y-16 text-center">
+        <div class="menu-items-center-column">
             <?php
             if (!empty($categories)) :
                 foreach ($categories as $category) :
@@ -41,15 +41,15 @@ $categories = !empty(get_sub_field('categories')) ? get_sub_field('categories') 
 
                     if (!empty($category_title) || !empty($category_items)) :
             ?>
-                        <div>
+                        <div class="menu-category">
                             <?php if (!empty($category_title)) : ?>
-                                <div class="font-jeju text-2xl uppercase leading-none mb-2.5">
+                                <div class="menu-category-title">
                                     <?php echo esc_html($category_title); ?>
                                 </div>
-                                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/Rhombus.svg" alt="<?php echo esc_attr($category_title); ?>" class="w-6 block mx-auto mb-4" />
+                                <img src="<?php echo get_template_directory_uri(); ?>/assets/img/Rhombus.svg" alt="<?php echo esc_attr($category_title); ?>" class="menu-category-divider" />
                             <?php endif; ?>
                             <?php if (!empty($category_items)) : ?>
-                                <div class="opacity-65">
+                                <div class="menu-category-items">
                                     <?php echo wp_kses_post($category_items); ?>
                                 </div>
                             <?php endif; ?>
@@ -60,11 +60,11 @@ $categories = !empty(get_sub_field('categories')) ? get_sub_field('categories') 
             endif;
             ?>
             <?php if (!empty($button_text) && !empty($button_link)) : ?>
-                <a href="<?php echo esc_url($button_link); ?>" class="button mx-auto"><?php echo esc_html($button_text); ?></a>
+                <a href="<?php echo esc_url($button_link); ?>" class="button menu-items-button"><?php echo esc_html($button_text); ?></a>
             <?php endif; ?>
         </div>
         <?php if (!empty($right_image)) : ?>
-            <div class="py-[100px]">
+            <div class="menu-items-right-column">
                 <img src="<?php echo esc_url($right_image['url']); ?>" alt="<?php echo esc_attr($right_image['alt']); ?>" width="<?php echo esc_attr($right_image['width']); ?>" height="<?php echo esc_attr($right_image['height']); ?>" />
             </div>
         <?php endif; ?>

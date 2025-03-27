@@ -1,0 +1,52 @@
+/* Cuisine and Chefs Section Styles */
+
+.cuisine-chefs-section {
+	@apply space-y-16 pb-[100px];
+}
+
+.cuisine-chefs-container {
+	@apply container grid lg:grid-cols-2 gap-16 items-center;
+}
+
+.cuisine-chefs-image-wrapper {
+	@apply relative;
+}
+
+.cuisine-chefs-main-image-wrapper {
+	@apply overflow-hidden max-w-[490px] lg:min-h-[559px] max-lg:mx-auto;
+}
+
+.cuisine-chefs-main-image-wrapper--right {
+	@apply ml-auto;
+}
+
+.cuisine-chefs-main-image {
+	@apply w-full h-full object-cover;
+}
+
+.cuisine-chefs-secondary-image {
+	@apply absolute bottom-8 aspect-square w-[211px];
+}
+
+.cuisine-chefs-image-wrapper--right {
+	@apply max-lg:-order-1;
+}
+
+.cuisine-chefs-secondary-image--right {
+}
+
+.cuisine-chefs-content {
+	/* No specific tailwind classes needed for the wrapper */
+}
+
+.cuisine-chefs-content-inner {
+	@apply px-[25px] md:px-10 space-y-6;
+}
+
+.cuisine-chefs-subtitle {
+	@apply text-[24px] md:text-[32px];
+}
+
+.cuisine-chefs-text {
+	@apply opacity-65;
+}

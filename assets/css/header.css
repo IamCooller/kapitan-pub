@@ -38,7 +38,7 @@
 /* Header Mobile Classes */
 
 .header-mobile {
-	@apply lg:hidden absolute bottom-11 left-0 right-0 w-full z-10;
+	@apply lg:hidden fixed bottom-11 left-0 right-0 w-full z-10;
 }
 
 .header-mobile__inner {

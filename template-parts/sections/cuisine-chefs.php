@@ -9,7 +9,7 @@
 // Check if we have rows in the repeater
 if (have_rows('content_blocks')) :
 ?>
-    <section class="space-y-16 pb-[100px]">
+    <section class="cuisine-chefs-section">
         <?php
         // Loop through the rows of the repeater
         while (have_rows('content_blocks')) : the_row();
@@ -31,32 +31,32 @@ if (have_rows('content_blocks')) :
             // Determine the layout based on image position
             $is_image_left = ($image_position === 'left');
         ?>
-            <div class="container grid grid-cols-2 gap-16 items-center">
+            <div class="cuisine-chefs-container">
                 <?php if ($is_image_left) : ?>
-                    <div class="relative">
+                    <div class="cuisine-chefs-image-wrapper cuisine-chefs-image-wrapper--left">
                         <?php if (!empty($main_image)) : ?>
-                            <div class="overflow-hidden max-w-[490px] min-h-[559px]">
-                                <img src="<?php echo esc_url($main_image['url']); ?>" alt="<?php echo esc_attr($main_image['alt']); ?>" class="w-full h-full object-cover" />
+                            <div class="cuisine-chefs-main-image-wrapper">
+                                <img src="<?php echo esc_url($main_image['url']); ?>" alt="<?php echo esc_attr($main_image['alt']); ?>" class="cuisine-chefs-main-image" />
                             </div>
                         <?php endif; ?>
 
                         <?php if (!empty($secondary_image)) : ?>
-                            <img src="<?php echo esc_url($secondary_image['url']); ?>" alt="<?php echo esc_attr($secondary_image['alt']); ?>" class="absolute bottom-8 right-0 aspect-square w-[211px]" />
+                            <img src="<?php echo esc_url($secondary_image['url']); ?>" alt="<?php echo esc_attr($secondary_image['alt']); ?>" class="cuisine-chefs-secondary-image cuisine-chefs-secondary-image--right" />
                         <?php endif; ?>
                     </div>
 
-                    <div class="">
+                    <div class="cuisine-chefs-content">
                         <?php if (!empty($title)) : ?>
-                            <h2 class="h2 mb-8"><?php echo esc_html($title); ?></h2>
+                            <h2 class="h2 md:mb-8"><?php echo esc_html($title); ?></h2>
                         <?php endif; ?>
 
-                        <div class="px-10 space-y-6">
+                        <div class="cuisine-chefs-content-inner">
                             <?php if (!empty($subtitle)) : ?>
-                                <h3 class="text-[32px]"><?php echo esc_html($subtitle); ?></h3>
+                                <h3 class="cuisine-chefs-subtitle"><?php echo esc_html($subtitle); ?></h3>
                             <?php endif; ?>
 
                             <?php if (!empty($text)) : ?>
-                                <p class="opacity-65"><?php echo esc_html($text); ?></p>
+                                <p class="cuisine-chefs-text"><?php echo esc_html($text); ?></p>
                             <?php endif; ?>
 
                             <?php if (!empty($button_text) && !empty($button_link)) : ?>
@@ -65,18 +65,18 @@ if (have_rows('content_blocks')) :
                         </div>
                     </div>
                 <?php else : ?>
-                    <div class="">
+                    <div class="cuisine-chefs-content">
                         <?php if (!empty($title)) : ?>
-                            <h2 class="h2 mb-8"><?php echo esc_html($title); ?></h2>
+                            <h2 class="h2 md:mb-8"><?php echo esc_html($title); ?></h2>
                         <?php endif; ?>
 
-                        <div class="px-10 space-y-6">
+                        <div class="cuisine-chefs-content-inner">
                             <?php if (!empty($subtitle)) : ?>
-                                <h3 class="text-[32px]"><?php echo esc_html($subtitle); ?></h3>
+                                <h3 class="cuisine-chefs-subtitle"><?php echo esc_html($subtitle); ?></h3>
                             <?php endif; ?>
 
                             <?php if (!empty($text)) : ?>
-                                <p class="opacity-65"><?php echo esc_html($text); ?></p>
+                                <p class="cuisine-chefs-text"><?php echo esc_html($text); ?></p>
                             <?php endif; ?>
 
                             <?php if (!empty($button_text) && !empty($button_link)) : ?>
@@ -85,14 +85,14 @@ if (have_rows('content_blocks')) :
                         </div>
                     </div>
 
-                    <div class="relative">
+                    <div class="cuisine-chefs-image-wrapper cuisine-chefs-image-wrapper--right  ">
                         <?php if (!empty($secondary_image)) : ?>
-                            <img src="<?php echo esc_url($secondary_image['url']); ?>" alt="<?php echo esc_attr($secondary_image['alt']); ?>" class="absolute bottom-8 left-0 aspect-square w-[211px]" />
+                            <img src="<?php echo esc_url($secondary_image['url']); ?>" alt="<?php echo esc_attr($secondary_image['alt']); ?>" class="cuisine-chefs-secondary-image cuisine-chefs-secondary-image--left" />
                         <?php endif; ?>
 
                         <?php if (!empty($main_image)) : ?>
-                            <div class="overflow-hidden max-w-[490px] min-h-[559px] ml-auto">
-                                <img src="<?php echo esc_url($main_image['url']); ?>" alt="<?php echo esc_attr($main_image['alt']); ?>" class="w-full h-full object-cover" />
+                            <div class="cuisine-chefs-main-image-wrapper cuisine-chefs-main-image-wrapper--right">
+                                <img src="<?php echo esc_url($main_image['url']); ?>" alt="<?php echo esc_attr($main_image['alt']); ?>" class="cuisine-chefs-main-image" />
                             </div>
                         <?php endif; ?>
                     </div>
