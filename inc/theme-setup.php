@@ -6,8 +6,7 @@
 
 add_action('after_setup_theme', function () {
 
-    // Мультиязычность — Polylang
-    load_theme_textdomain('kapitan-pub', get_template_directory() . '/languages');
+
 
     // Регистрация строк для перевода
     if (function_exists('pll_register_string')) {
@@ -35,6 +34,7 @@ add_action('after_setup_theme', function () {
     // Меню
     register_nav_menus([
         'header-menu' => __('Header Menu', 'kapitan-pub'),
+        'footer-menu' => __('Footer Menu', 'kapitan-pub'),
     ]);
 
     // Поддержка кастомного логотипа
@@ -113,16 +113,6 @@ add_action('after_setup_theme', function () {
 
 
 
-// Добавляем поддержку языков для ACF
-add_filter('acf/load_value', function ($value, $post_id, $field) {
-    if (function_exists('pll_get_post_language')) {
-        $lang = pll_get_post_language($post_id);
-        if ($lang) {
-            $value = get_field($field['name'], $post_id, $lang);
-        }
-    }
-    return $value;
-}, 10, 3);
 
 class Custom_Walker_Nav_Menu extends Walker_Nav_Menu
 {
@@ -151,3 +141,21 @@ class Custom_Walker_Nav_Menu extends Walker_Nav_Menu
         $output .= '</a>';
     }
 }
+
+// Разрешаем загрузку SVG файлов
+add_filter('upload_mimes', function ($mimes) {
+    $mimes['svg'] = 'image/svg+xml';
+    return $mimes;
+});
+
+// Исправляем проверку MIME типа для SVG файлов
+add_filter('wp_check_filetype_and_ext', function ($data, $file, $filename, $mimes) {
+    $filetype = wp_check_filetype($filename, $mimes);
+
+    if ('svg' === $filetype['ext']) {
+        $data['ext'] = 'svg';
+        $data['type'] = 'image/svg+xml';
+    }
+
+    return $data;
+}, 10, 4);

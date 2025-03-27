@@ -1,4 +1,5 @@
 import Swiper from "swiper";
+import { Pagination, Autoplay } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -9,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	// Single slide with custom pagination and autoplay
 	if (document.querySelector(".testimonials-slider")) {
 		const testimonialSlider = new Swiper(".testimonials-slider", {
+			modules: [Pagination, Autoplay],
 			slidesPerView: 1,
 			spaceBetween: 30,
 			loop: true,
@@ -19,6 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			pagination: {
 				el: ".testimonials-pagination",
 				clickable: true,
+				type: "bullets",
 			},
 			navigation: false,
 		});
@@ -28,44 +31,43 @@ document.addEventListener("DOMContentLoaded", () => {
 	// 5 slides on desktop, 1 on mobile with center slide bigger
 	if (document.querySelector(".instagram-slider")) {
 		const instagramSlider = new Swiper(".instagram-slider", {
+			modules: [Pagination, Autoplay],
 			slidesPerView: 5,
 			spaceBetween: 20,
-			loop: false,
+			loop: true,
 			centeredSlides: true,
-			allowTouchMove: window.innerWidth < 1024,
-
+			allowTouchMove: true,
+			autoplay: {
+				delay: 3000,
+				disableOnInteraction: false,
+			},
+			pagination: {
+				el: ".instagram-pagination",
+				clickable: true,
+				type: "bullets",
+			},
 			breakpoints: {
 				// when window width is >= 320px
 				320: {
 					slidesPerView: 1,
 					spaceBetween: 10,
 					centeredSlides: true,
-					allowTouchMove: true,
 				},
 				// when window width is >= 480px
 				480: {
 					slidesPerView: 2,
 					spaceBetween: 20,
-					allowTouchMove: true,
 				},
 				// when window width is >= 768px
 				768: {
 					slidesPerView: 3,
 					spaceBetween: 30,
-					allowTouchMove: true,
-					autoplay: {
-						delay: 3000,
-						disableOnInteraction: false,
-					},
 				},
 				// when window width is >= 1024px
 				1024: {
 					slidesPerView: 5,
 					spaceBetween: 20,
 					centeredSlides: false,
-					allowTouchMove: false,
-					loop: false,
-					autoplay: false,
 				},
 			},
 			on: {

@@ -79,7 +79,7 @@ export default defineConfig({
 			input: {
 				main: resolve(__dirname + "/main.js"),
 				home: resolve(__dirname + "/assets/js/home.js"),
-				booking: resolve(__dirname + "/assets/js/booking.js"),
+				booking: resolve(__dirname + "/assets/js/booking-form.js"),
 			},
 
 			/*

@@ -8,7 +8,7 @@ add_action('acf/init', function () {
 
     if (function_exists('acf_register_block_type')) {
 
-        acf_register_block_type([
+        /*  acf_register_block_type([
             'name'            => 'home-hero',
             'title'           => __('Home Hero Block', 'kapitan-pub'),
             'description'     => __('Main banner', 'kapitan-pub'),
@@ -17,7 +17,7 @@ add_action('acf/init', function () {
             'icon'            => 'format-image',
             'mode'            => 'edit',
             'supports'        => ['align' => false],
-        ]);
+        ]); */
 
         // Можно добавить другие блоки тут же
     }

@@ -42,7 +42,7 @@ add_action('wp_enqueue_scripts', function () {
 
             // Также загружаем booking.js на странице бронирования
             if (is_front_page()) {
-                echo '<script type="module" crossorigin src="' . VITE_SERVER . '/assets/js/booking.js"></script>';
+                echo '<script type="module" crossorigin src="' . VITE_SERVER . '/assets/js/booking-form.js"></script>';
             }
         }
         add_action('wp_head', 'vite_head_module_hook');
