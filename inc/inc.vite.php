@@ -36,14 +36,13 @@ add_action('wp_enqueue_scripts', function () {
             echo '<script type="module" crossorigin src="' . VITE_SERVER . VITE_ENTRY_POINT . '"></script>';
 
             // Также загружаем home.js на главной странице в режиме разработки
-            if (is_front_page()) {
-                echo '<script type="module" crossorigin src="' . VITE_SERVER . '/assets/js/home.js"></script>';
-            }
+
+            echo '<script type="module" crossorigin src="' . VITE_SERVER . '/assets/js/home.js"></script>';
+
 
             // Также загружаем booking.js на странице бронирования
-            if (is_front_page()) {
-                echo '<script type="module" crossorigin src="' . VITE_SERVER . '/assets/js/booking-form.js"></script>';
-            }
+
+            echo '<script type="module" crossorigin src="' . VITE_SERVER . '/assets/js/booking-form.js"></script>';
         }
         add_action('wp_head', 'vite_head_module_hook');
     } else {

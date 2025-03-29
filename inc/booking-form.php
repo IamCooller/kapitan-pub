@@ -199,48 +199,47 @@ function kapitan_pub_register_booking_form_translations()
  */
 function kapitan_pub_enqueue_booking_form_script()
 {
-    if (is_front_page()) {
-        wp_enqueue_script(
-            'booking-form-js',
-            get_template_directory_uri() . '/assets/js/booking-form.js',
-            array(),
-            _S_VERSION,
-            true
-        );
 
-        // Initialize translations array with default values
+    wp_enqueue_script(
+        'booking-form-js',
+        get_template_directory_uri() . '/assets/js/booking-form.js',
+        array(),
+        _S_VERSION,
+        true
+    );
+
+    // Initialize translations array with default values
+    $translations = array(
+        'required' => __('This field is required', 'kapitan-pub'),
+        'email' => __('Please enter a valid email address', 'kapitan-pub'),
+        'phone' => __('Please enter a valid phone number', 'kapitan-pub'),
+        'date' => __('Please enter a valid date', 'kapitan-pub'),
+        'pastDate' => __('Please select a future date', 'kapitan-pub'),
+        'time' => __('Please select a time within our opening hours', 'kapitan-pub'),
+        'server_error' => __('Server error. Please try again later.', 'kapitan-pub'),
+        'success' => __('Thank you! Your booking request has been sent successfully. We will contact you shortly.', 'kapitan-pub'),
+    );
+
+    // Override with Polylang translations if available
+    if (function_exists('pll__')) {
         $translations = array(
-            'required' => __('This field is required', 'kapitan-pub'),
-            'email' => __('Please enter a valid email address', 'kapitan-pub'),
-            'phone' => __('Please enter a valid phone number', 'kapitan-pub'),
-            'date' => __('Please enter a valid date', 'kapitan-pub'),
-            'pastDate' => __('Please select a future date', 'kapitan-pub'),
-            'time' => __('Please select a time within our opening hours', 'kapitan-pub'),
-            'server_error' => __('Server error. Please try again later.', 'kapitan-pub'),
-            'success' => __('Thank you! Your booking request has been sent successfully. We will contact you shortly.', 'kapitan-pub'),
+            'required' => pll__('This field is required'),
+            'email' => pll__('Please enter a valid email address'),
+            'phone' => pll__('Please enter a valid phone number'),
+            'date' => pll__('Please enter a valid date'),
+            'pastDate' => pll__('Please select a future date'),
+            'time' => pll__('Please select a time within our opening hours'),
+            'server_error' => pll__('Server error. Please try again later.'),
+            'success' => pll__('Thank you! Your booking request has been sent successfully. We will contact you shortly.'),
         );
-
-        // Override with Polylang translations if available
-        if (function_exists('pll__')) {
-            $translations = array(
-                'required' => pll__('This field is required'),
-                'email' => pll__('Please enter a valid email address'),
-                'phone' => pll__('Please enter a valid phone number'),
-                'date' => pll__('Please enter a valid date'),
-                'pastDate' => pll__('Please select a future date'),
-                'time' => pll__('Please select a time within our opening hours'),
-                'server_error' => pll__('Server error. Please try again later.'),
-                'success' => pll__('Thank you! Your booking request has been sent successfully. We will contact you shortly.'),
-            );
-        }
-
-        wp_localize_script('booking-form-js', 'bookingFormTranslations', $translations);
-
-        // Correctly pass AJAX URL as an array
-        wp_localize_script('booking-form-js', 'bookingFormData', array(
-            'ajaxurl' => admin_url('admin-ajax.php')
-        ));
     }
+
+    wp_localize_script('booking-form-js', 'bookingFormTranslations', $translations);
+
+    // Correctly pass AJAX URL as an array
+    wp_localize_script('booking-form-js', 'bookingFormData', array(
+        'ajaxurl' => admin_url('admin-ajax.php')
+    ));
 }
 
 // Hook into WordPress
