@@ -49,6 +49,41 @@
                     ?>
                 </div>
                 <div class="header-desktop__buttons">
+                    <?php if (function_exists('pll_the_languages')) : ?>
+                        <div class="header-desktop__languages">
+                            <?php
+                            $languages = pll_the_languages([
+                                'show_flags' => 0,
+                                'show_names' => 1,
+                                'hide_if_empty' => 0,
+                                'raw' => 1,
+                                'hide_current' => 0,
+                                'force_home' => 1,
+                                'post_id' => get_the_ID(),
+                                'hide_if_no_translation' => 0,
+                                'use_search_url_filter' => 1,
+                                'rewrite' => 1
+                            ]);
+
+                            if (!empty($languages)) {
+                                echo '<ul>';
+                                foreach ($languages as $lang) {
+                                    $classes = [];
+                                    if ($lang['current_lang']) {
+                                        $classes[] = 'lang-item-current';
+                                    }
+                                    echo '<li class="' . implode(' ', $classes) . '">';
+                                    echo '<a href="' . esc_url($lang['url']) . '">';
+                                    echo '<span>' . esc_html($lang['slug']) . '</span>';
+                                    echo '</a>';
+                                    echo '</li>';
+                                }
+                                echo '</ul>';
+                            }
+                            ?>
+                        </div>
+                    <?php endif; ?>
+
                     <a href="tel:<?php echo esc_attr(get_field('phone_number', 'option')); ?>"
                         class="button header-desktop__buttons-phone"
                         aria-label="<?php echo esc_attr__('Call us', 'kapitan-pub'); ?>">
@@ -113,6 +148,43 @@
                 'walker'         => new Custom_Walker_Nav_Menu(),
             ]);
             ?>
+
+            <?php if (function_exists('pll_the_languages')) : ?>
+                <div class="mobile-menu__languages">
+                    <?php
+                    $languages = pll_the_languages([
+                        'show_flags' => 0,
+                        'show_names' => 1,
+                        'hide_if_empty' => 0,
+                        'raw' => 1,
+                        'hide_current' => 0,
+                        'force_home' => 1,
+                        'post_id' => get_the_ID(),
+                        'hide_if_no_translation' => 0,
+                        'use_search_url_filter' => 1,
+                        'rewrite' => 1
+                    ]);
+
+                    if (!empty($languages)) {
+                        echo '<ul>';
+                        foreach ($languages as $lang) {
+
+                            $classes = [];
+                            if ($lang['current_lang']) {
+                                $classes[] = 'lang-item-current';
+                            }
+                            echo '<li class="' . implode(' ', $classes) . '">';
+                            echo '<a href="' . esc_url($lang['url']) . '">';
+
+                            echo '<span>' . esc_html($lang['slug']) . '</span>';
+                            echo '</a>';
+                            echo '</li>';
+                        }
+                        echo '</ul>';
+                    }
+                    ?>
+                </div>
+            <?php endif; ?>
 
             <button type="button"
                 class="mobile-menu__close header-mobile__button"

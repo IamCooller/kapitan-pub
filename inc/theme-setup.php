@@ -12,6 +12,16 @@ add_action('after_setup_theme', function () {
     if (function_exists('pll_register_string')) {
         pll_register_string('book_table', 'BOOK A TABLE', 'kapitan-pub');
         pll_register_string('main_menu', 'Main Menu', 'kapitan-pub');
+
+        // Проверяем настройки Polylang
+        if (function_exists('pll_current_language')) {
+            $current_lang = pll_current_language();
+            $languages = pll_the_languages(['hide_if_empty' => 0, 'raw' => 1]);
+
+            if (empty($languages)) {
+                error_log('Polylang: No languages configured. Please add languages in Polylang settings.');
+            }
+        }
     }
 
     // Заголовок страницы
