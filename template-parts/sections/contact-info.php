@@ -8,52 +8,49 @@
 
 // Fallback values
 $title = !empty(get_sub_field('title')) ? get_sub_field('title') : 'WRITE TO US';
-$email_text = !empty(get_sub_field('email_text')) ? get_sub_field('email_text') : 'For general enquiries please email:';
-$email = !empty(get_sub_field('email')) ? get_sub_field('email') : 'fidalgo@example.com';
+$contact_intro = !empty(get_sub_field('contact_intro')) ? get_sub_field('contact_intro') : '';
 $info_blocks = !empty(get_sub_field('info_blocks')) ? get_sub_field('info_blocks') : [];
 ?>
-
 <section class="contact-info-section">
     <div class="contact-info-container">
         <div class="contact-info-grid">
             <div class="contact-info-form-col">
-                <div class="contact-info-title"><?php echo esc_html($title); ?></div>
-                <p class="contact-info-text">
-                    <?php echo esc_html($email_text); ?>
-                    <a href="mailto:<?php echo esc_attr($email); ?>" class="contact-info-email"><?php echo esc_html($email); ?></a>
-                </p>
+                <div class="h3 mb-2.5"><?php echo esc_html($title); ?></div>
+                <div class="contact-info-text">
+                    <?php echo wp_kses_post($contact_intro); ?>
+                </div>
 
-                <form id="contact-form" class="contact-form" method="post">
-                    <div id="response" class="contact-form-response hidden"></div>
-                    <div class="contact-form-group">
+                <form id="contact-form" class="form" method="post">
+                    <div id="response" class="response hidden"></div>
+                    <div class="form-group">
                         <label for="name" class="sr-only">
                             <?php echo function_exists('pll__') ? pll__('Name') : 'Name'; ?>
                         </label>
-                        <input type="text" id="name" name="name" class="contact-form-input" placeholder="<?php echo function_exists('pll__') ? pll__('Name') : 'Name'; ?>" required />
-                        <div class="contact-form-error"></div>
+                        <input type="text" id="name" name="name" class="form-input" placeholder="<?php echo function_exists('pll__') ? pll__('Name') : 'Name'; ?>" required />
+                        <div class="form-error"></div>
                     </div>
 
-                    <div class="contact-form-group">
+                    <div class="form-group">
                         <label for="email" class="sr-only">
                             <?php echo function_exists('pll__') ? pll__('Email') : 'Email'; ?>
                         </label>
-                        <input type="email" id="email" name="email" class="contact-form-input" placeholder="<?php echo function_exists('pll__') ? pll__('Email') : 'Email'; ?>" required />
-                        <div class="contact-form-error"></div>
+                        <input type="email" id="email" name="email" class="form-input" placeholder="<?php echo function_exists('pll__') ? pll__('Email') : 'Email'; ?>" required />
+                        <div class="form-error"></div>
                     </div>
 
-                    <div class="contact-form-group">
+                    <div class="form-group">
                         <label for="message" class="sr-only">
                             <?php echo function_exists('pll__') ? pll__('Message') : 'Message'; ?>
                         </label>
-                        <textarea id="message" name="message" class="contact-form-textarea" placeholder="<?php echo function_exists('pll__') ? pll__('Message') : 'Message'; ?>" required></textarea>
-                        <div class="contact-form-error"></div>
+                        <textarea id="message" name="message" class="form-textarea" placeholder="<?php echo function_exists('pll__') ? pll__('Message') : 'Message'; ?>" required></textarea>
+                        <div class="form-error"></div>
                     </div>
 
                     <?php wp_nonce_field('contact_nonce', 'contact_nonce_field'); ?>
                     <input type="hidden" name="action" value="process_contact">
                     <input type="hidden" name="lang" value="<?php echo function_exists('pll_current_language') ? pll_current_language() : 'en'; ?>">
 
-                    <button type="submit" class="contact-form-button">
+                    <button type="submit" class="button submit">
                         <?php echo function_exists('pll__') ? pll__('SUBMIT') : 'SUBMIT'; ?>
                     </button>
                 </form>
@@ -74,59 +71,142 @@ $info_blocks = !empty(get_sub_field('info_blocks')) ? get_sub_field('info_blocks
                             </div>
                         </div>
                     <?php endforeach; ?>
-                <?php else : ?>
-                    <!-- Default info blocks if none are defined -->
-                    <div class="contact-info-block">
-                        <div class="contact-info-block-title">LUNCH TIME</div>
-                        <div class="contact-info-block-content">
-                            <span class="contact-info-block-icon"></span>
-                            <div class="contact-info-block-text">
-                                Monday to Sunday <br>
-                                10:30am - 03:00pm
-                            </div>
-                        </div>
-                    </div>
-                    <div class="contact-info-block">
-                        <div class="contact-info-block-title">DINNER TIME</div>
-                        <div class="contact-info-block-content">
-                            <span class="contact-info-block-icon"></span>
-                            <div class="contact-info-block-text">
-                                Monday to Sunday <br>
-                                10:30am - 03:00pm
-                            </div>
-                        </div>
-                    </div>
-                    <div class="contact-info-block">
-                        <div class="contact-info-block-title">BOOK A TABLE</div>
-                        <div class="contact-info-block-content">
-                            <span class="contact-info-block-icon"></span>
-                            <div class="contact-info-block-text">
-                                Monday to Sunday <br>
-                                10:30am - 03:00pm
-                            </div>
-                        </div>
-                    </div>
-                    <div class="contact-info-block">
-                        <div class="contact-info-block-title">RESTAURANT CONTACT</div>
-                        <div class="contact-info-block-content">
-                            <span class="contact-info-block-icon"></span>
-                            <div class="contact-info-block-text">
-                                Monday to Sunday <br>
-                                10:30am - 03:00pm
-                            </div>
-                        </div>
-                    </div>
-                    <div class="contact-info-block">
-                        <div class="contact-info-block-title">RESTAURANT ADDRESS</div>
-                        <div class="contact-info-block-content">
-                            <div class="contact-info-block-text">
-                                Monday to Sunday <br>
-                                10:30am - 03:00pm
-                            </div>
-                        </div>
-                    </div>
+
+
                 <?php endif; ?>
             </div>
         </div>
     </div>
 </section>
+
+<script>
+    /**
+     * Contact Form Handler
+     * Handles validation and AJAX submission of the contact form
+     */
+    document.addEventListener("DOMContentLoaded", function() {
+        const form = document.getElementById("contact-form");
+        if (!form) return;
+
+        const responseContainer = form.querySelector("#contact-form #response");
+        const submitButton = form.querySelector("#contact-form .submit");
+
+        // Validation messages based on language
+        const translations = window.contactFormTranslations || {};
+        const messages = {
+            required: translations.required || "This field is required",
+            email: translations.email || "Please enter a valid email address",
+            server_error: translations.server_error || "Server error. Please try again later.",
+            success: translations.success || "Thank you! Your message has been sent successfully. We will contact you shortly."
+        };
+
+        // Form Validation
+        const validators = {
+            email: (value) => {
+                const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return regex.test(value);
+            }
+        };
+
+        // Clear all errors
+        const clearErrors = () => {
+            form.querySelectorAll(".form-group").forEach((group) => {
+                group.classList.remove("has-error");
+                const errorElement = group.querySelector(".form-error");
+                if (errorElement) errorElement.textContent = "";
+            });
+
+            responseContainer.classList.add("hidden");
+            responseContainer.classList.remove("success", "error");
+            responseContainer.textContent = "";
+        };
+
+        // Set error for a field
+        const setFieldError = (field, message) => {
+            const formGroup = field.closest(".form-group");
+            formGroup.classList.add("has-error");
+            const errorElement = formGroup.querySelector(".form-error");
+            if (errorElement) errorElement.textContent = message;
+        };
+
+        // Show form response
+        const showResponse = (message, isSuccess) => {
+            responseContainer.textContent = message;
+            responseContainer.classList.remove("hidden");
+            responseContainer.classList.add(isSuccess ? "success" : "error");
+
+            if (isSuccess) {
+                form.reset();
+            }
+
+            // Scroll to response
+            responseContainer.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+        };
+
+        // Validate form
+        const validateForm = () => {
+            clearErrors();
+            let isValid = true;
+
+            form.querySelectorAll("[required]").forEach((field) => {
+                // Required check
+                if (!field.value.trim()) {
+                    setFieldError(field, messages.required);
+                    isValid = false;
+                    return;
+                }
+
+                // Type-specific validations
+                if (field.type === "email" && !validators.email(field.value)) {
+                    setFieldError(field, messages.email);
+                    isValid = false;
+                }
+            });
+
+            return isValid;
+        };
+
+        // Form submission
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            if (!validateForm()) return;
+
+            // Prepare form data
+            const formData = new FormData(form);
+
+            // Show loading state
+            submitButton.classList.add("loading");
+
+            // Send AJAX request
+            fetch((window.kapitan_pub_data && window.kapitan_pub_data.ajaxurl) || "/wp-admin/admin-ajax.php", {
+                    method: "POST",
+                    body: formData,
+                    credentials: "same-origin",
+                })
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error(messages.server_error);
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    submitButton.classList.remove("loading");
+
+                    if (data.success) {
+                        showResponse(data.data || messages.success, true);
+                    } else {
+                        showResponse(data.data || messages.server_error, false);
+                    }
+                })
+                .catch((error) => {
+                    submitButton.classList.remove("loading");
+                    showResponse(error.message || messages.server_error, false);
+                    console.error("Contact form error:", error);
+                });
+        });
+    });
+</script>

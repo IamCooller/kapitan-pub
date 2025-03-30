@@ -1,7 +1,7 @@
 /* Contact Info Section Styles */
 
 .contact-info-section {
-	@apply py-[100px];
+	@apply py-[50px] md:py-[100px];
 }
 
 .contact-info-container {
@@ -9,15 +9,11 @@
 }
 
 .contact-info-grid {
-	@apply grid grid-cols-2 gap-16;
+	@apply grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16;
 }
 
 .contact-info-form-col {
 	@apply flex flex-col;
-}
-
-.contact-info-title {
-	@apply h3 mb-2.5;
 }
 
 .contact-info-text {
@@ -28,36 +24,8 @@
 	@apply hover:text-secondary-light transition-colors;
 }
 
-.contact-form {
-	@apply form;
-}
-
-.contact-form-response {
-	@apply response hidden;
-}
-
-.contact-form-group {
-	@apply form-group;
-}
-
-.contact-form-input {
-	@apply form-input;
-}
-
-.contact-form-textarea {
-	@apply form-textarea;
-}
-
-.contact-form-error {
-	@apply error-message;
-}
-
-.contact-form-button {
-	@apply button submit;
-}
-
 .contact-info-details-col {
-	@apply grid grid-cols-2 gap-6;
+	@apply grid md:grid-cols-2 gap-6;
 }
 
 .contact-info-block {

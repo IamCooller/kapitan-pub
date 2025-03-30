@@ -23,6 +23,9 @@ require get_template_directory() . '/inc/theme-setup.php'; // Поддержка
 require get_template_directory() . '/inc/inc.vite.php';
 
 require get_template_directory() . '/inc/booking-form.php'; // Форма бронирования
+require get_template_directory() . '/inc/contact-form.php'; // Форма контактов
+require get_template_directory() . '/inc/newsletter.php'; // Форма подписки на новости
+
 
 // Enqueue scripts and styles
 function kapitan_pub_scripts()
@@ -38,6 +41,11 @@ function kapitan_pub_scripts()
 
     // Main JS
     wp_enqueue_script('main-js', get_template_directory_uri() . '/assets/js/main.js', array(), '1.0.0', true);
+
+    // Localize script with AJAX URL for all AJAX-powered forms
+    wp_localize_script('main-js', 'kapitan_pub_data', array(
+        'ajaxurl' => admin_url('admin-ajax.php')
+    ));
 }
 add_action('wp_enqueue_scripts', 'kapitan_pub_scripts');
 

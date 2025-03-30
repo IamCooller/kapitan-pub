@@ -1,0 +1,111 @@
+/* Newsletter Section Styles */
+
+.newsletter-section {
+	background-color: #1e3a8a; /* bg-blue */
+	background-image: url("../images/bg-blue.jpg");
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	padding-top: 100px;
+	padding-bottom: 100px;
+}
+
+.newsletter-container {
+	max-width: 1200px;
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 1rem;
+	padding-right: 1rem;
+}
+
+.newsletter-title {
+	font-family: "Jeju Myeongjo", serif;
+	font-size: 80px;
+	text-align: center;
+	width: 100%;
+	margin-bottom: 0.625rem; /* mb-2.5 */
+	color: white;
+}
+
+.newsletter-subtitle {
+	text-align: center;
+	color: white;
+	font-weight: 500;
+}
+
+.newsletter-form {
+	display: flex;
+	gap: 0.625rem; /* gap-2.5 */
+	justify-content: center;
+	border-bottom: 1px solid white;
+	padding-bottom: 0.5rem;
+	margin-top: 4rem; /* mt-16 */
+}
+
+.newsletter-input {
+	border: 0;
+	background-color: transparent;
+	outline: none;
+	flex: 1;
+	font-weight: 500;
+	color: white;
+}
+
+.newsletter-input::placeholder {
+	color: white;
+}
+
+.newsletter-submit {
+	background-color: transparent;
+	border: 0;
+	cursor: pointer;
+	font-weight: 500;
+	color: white;
+}
+
+.newsletter-socials {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 4rem; /* mt-16 */
+	gap: 0.625rem; /* gap-2.5 */
+}
+
+.newsletter-social-link {
+	color: white;
+	font-weight: 500;
+	font-size: 0.75rem; /* text-xs */
+	text-decoration: none;
+}
+
+.newsletter-response {
+	margin-bottom: 1rem;
+	padding: 0.5rem;
+	border-radius: 0.25rem;
+}
+
+.newsletter-response.success {
+	background-color: rgba(16, 185, 129, 0.1);
+	color: #10b981;
+}
+
+.newsletter-response.error {
+	background-color: rgba(239, 68, 68, 0.1);
+	color: #ef4444;
+}
+
+.newsletter-response.hidden {
+	display: none;
+}
+
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
+}

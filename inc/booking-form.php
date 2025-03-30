@@ -200,13 +200,7 @@ function kapitan_pub_register_booking_form_translations()
 function kapitan_pub_enqueue_booking_form_script()
 {
 
-    wp_enqueue_script(
-        'booking-form-js',
-        get_template_directory_uri() . '/assets/js/booking-form.js',
-        array(),
-        _S_VERSION,
-        true
-    );
+
 
     // Initialize translations array with default values
     $translations = array(
@@ -234,12 +228,8 @@ function kapitan_pub_enqueue_booking_form_script()
         );
     }
 
-    wp_localize_script('booking-form-js', 'bookingFormTranslations', $translations);
-
-    // Correctly pass AJAX URL as an array
-    wp_localize_script('booking-form-js', 'bookingFormData', array(
-        'ajaxurl' => admin_url('admin-ajax.php')
-    ));
+    // Localize script - we'll add this in the wp_footer
+    wp_localize_script('main-js', 'bookingFormTranslations', $translations);
 }
 
 // Hook into WordPress

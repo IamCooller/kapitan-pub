@@ -38,11 +38,6 @@ add_action('wp_enqueue_scripts', function () {
             // Также загружаем home.js на главной странице в режиме разработки
 
             echo '<script type="module" crossorigin src="' . VITE_SERVER . '/assets/js/home.js"></script>';
-
-
-            // Также загружаем booking.js на странице бронирования
-
-            echo '<script type="module" crossorigin src="' . VITE_SERVER . '/assets/js/booking-form.js"></script>';
         }
         add_action('wp_head', 'vite_head_module_hook');
     } else {
