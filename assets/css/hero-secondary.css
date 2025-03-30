@@ -1,0 +1,26 @@
+.hero-secondary {
+	@apply relative h-screen w-full flex items-center justify-center text-center px-14 bg-no-repeat overflow-hidden;
+	min-height: 560px;
+}
+
+/* Main hero inner container */
+.hero-secondary__inner {
+	@apply relative  flex flex-col items-center  justify-center container py-12 h-full min-h-svh w-full gap-9;
+}
+
+.hero-secondary__overlay {
+	@apply absolute inset-0 w-full h-full bg-black pointer-events-none;
+}
+
+/* Logo styles */
+.hero-secondary__logo {
+	@apply w-[440px] max-h-[177px] mb-12 mx-auto;
+	@apply lg:hidden max-w-[363px] w-full mx-auto;
+}
+
+.hero-secondary__logo img {
+	@apply w-full h-full object-contain;
+}
+.hero-secondary__title {
+	@apply font-medium text-5xl text-center uppercase;
+}

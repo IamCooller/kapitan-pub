@@ -1,0 +1,65 @@
+/* About History Section Styles */
+
+.about-history-section {
+	@apply py-[100px];
+}
+
+.about-history-container {
+	@apply container;
+}
+
+.about-history-grid {
+	@apply grid lg:grid-cols-2 gap-8 xl:gap-16;
+}
+
+.about-history-main-image-wrapper {
+	@apply max-lg:aspect-square lg:h-full w-full;
+}
+
+.about-history-main-image {
+	@apply w-full h-full object-contain;
+}
+
+.about-history-content {
+	@apply lg:py-[100px];
+}
+
+.about-history-info {
+	@apply md:px-[100px] space-y-6 mb-8 md:mb-16;
+}
+
+.about-history-description {
+	@apply opacity-64;
+}
+
+.about-history-details {
+	@apply flex gap-4 max-md:flex-col;
+}
+
+.about-history-secondary-image-wrapper {
+	@apply relative max-lg:aspect-square lg:min-h-[434px] flex-1;
+}
+
+.about-history-secondary-image {
+	@apply w-full h-full object-cover;
+}
+
+.about-history-meta {
+	@apply flex flex-col;
+}
+
+.about-history-hours {
+	@apply mb-auto;
+}
+
+.about-history-hours-title {
+	@apply font-medium text-[12px] mb-2;
+}
+
+.about-history-hours-content {
+	@apply font-medium opacity-64;
+}
+
+.about-history-tagline {
+	@apply font-island text-5xl text-secondary-light mt-auto transform md:-translate-x-4/9 -rotate-4;
+}

@@ -1,0 +1,3 @@
+.big-banner-section {
+	@apply h-[540px] bg-blue bg-cover bg-center bg-no-repeat;
+}

@@ -8,4 +8,7 @@
 	.h2 {
 		@apply font-jeju opacity-30 uppercase text-[60px] md:text-[100px];
 	}
+	.h3 {
+		@apply text-[24px] md:text-[32px];
+	}
 }

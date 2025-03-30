@@ -43,10 +43,6 @@
 	@apply px-[25px] md:px-10 space-y-6;
 }
 
-.cuisine-chefs-subtitle {
-	@apply text-[24px] md:text-[32px];
-}
-
 .cuisine-chefs-text {
 	@apply opacity-65;
 }

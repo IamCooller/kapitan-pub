@@ -52,7 +52,7 @@ if (have_rows('content_blocks')) :
 
                         <div class="cuisine-chefs-content-inner">
                             <?php if (!empty($subtitle)) : ?>
-                                <h3 class="cuisine-chefs-subtitle"><?php echo esc_html($subtitle); ?></h3>
+                                <h3 class="h3"><?php echo esc_html($subtitle); ?></h3>
                             <?php endif; ?>
 
                             <?php if (!empty($text)) : ?>
@@ -72,7 +72,7 @@ if (have_rows('content_blocks')) :
 
                         <div class="cuisine-chefs-content-inner">
                             <?php if (!empty($subtitle)) : ?>
-                                <h3 class="cuisine-chefs-subtitle"><?php echo esc_html($subtitle); ?></h3>
+                                <h3 class="h3"><?php echo esc_html($subtitle); ?></h3>
                             <?php endif; ?>
 
                             <?php if (!empty($text)) : ?>

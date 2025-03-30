@@ -61,7 +61,7 @@
 }
 
 .event-image {
-	@apply w-full object-cover;
+	@apply w-full object-contain max-h-[470px];
 }
 
 .event-content {

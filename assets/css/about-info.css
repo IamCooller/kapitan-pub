@@ -1,0 +1,29 @@
+/* About Info Section Styles */
+
+.about-info-section {
+	@apply bg-blue mt-[50px];
+}
+
+.about-info-container {
+	@apply container max-lg:py-8;
+}
+
+.about-info-grid {
+	@apply grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-36 items-center;
+}
+
+.about-info-content {
+	@apply space-y-6;
+}
+
+.about-info-description {
+	@apply opacity-64;
+}
+
+.about-info-image-wrapper {
+	@apply w-full h-full;
+}
+
+.about-info-image {
+	@apply relative lg:top-[-50px] max-lg:w-full;
+}
