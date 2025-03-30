@@ -29,8 +29,8 @@ $subtitle = !empty(get_sub_field('subtitle')) ? get_sub_field('subtitle') : '';
                     </h3>
                 <?php endif; ?>
 
-                <form id="booking-form" class="booking-form" method="post">
-                    <div id="booking-response" class="booking-response hidden"></div>
+                <form id="booking-form" class="form" method="post">
+                    <div id="response" class="response hidden"></div>
                     <div class="form-group">
                         <label for="name" class="sr-only">
                             <?php echo function_exists('pll__') ? pll__('Name') : 'Name'; ?>
@@ -89,7 +89,7 @@ $subtitle = !empty(get_sub_field('subtitle')) ? get_sub_field('subtitle') : '';
                     <input type="hidden" name="action" value="process_booking">
                     <input type="hidden" name="lang" value="<?php echo function_exists('pll_current_language') ? pll_current_language() : 'en'; ?>">
 
-                    <button type="submit" class="button booking-submit">
+                    <button type="submit" class="button submit">
                         <?php echo function_exists('pll__') ? pll__('BOOK NOW') : 'BOOK NOW'; ?>
                     </button>
                 </form>

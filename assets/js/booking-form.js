@@ -6,8 +6,8 @@ document.addEventListener("DOMContentLoaded", function () {
 	const form = document.getElementById("booking-form");
 	if (!form) return;
 
-	const responseContainer = document.getElementById("booking-response");
-	const submitButton = form.querySelector(".booking-submit");
+	const responseContainer = form.querySelector("#booking-form #response");
+	const submitButton = form.querySelector("#booking-form .submit");
 	const dateInput = form.querySelector("#date");
 	const timeInput = form.querySelector("#time");
 
