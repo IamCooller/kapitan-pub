@@ -8,7 +8,7 @@
 @import "./footer.css";
 @import "./kapitan.css";
 @import "./testimonials.css";
-@import "./instagram.css";
+@import "./connect-with-us.css";
 @import "./events.css";
 @import "./giveaway.css";
 @import "./map.css";
@@ -22,3 +22,5 @@
 @import "./form.css";
 @import "./contact-info.css";
 @import "./newsletter.css";
+@import "./404.css";
+@import "./offers.css";

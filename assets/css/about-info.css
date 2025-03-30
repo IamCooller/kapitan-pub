@@ -13,11 +13,15 @@
 }
 
 .about-info-content {
-	@apply space-y-6;
+	@apply space-y-6 py-4 sm:py-10;
 }
 
 .about-info-description {
 	@apply opacity-64;
+}
+
+.about-info-description ol {
+	@apply list-decimal pl-4;
 }
 
 .about-info-image-wrapper {

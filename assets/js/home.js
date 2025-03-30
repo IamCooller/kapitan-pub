@@ -27,10 +27,10 @@ document.addEventListener("DOMContentLoaded", () => {
 		});
 	}
 
-	// Initialize Instagram gallery slider (CONNECT WITH US section)
+	// Initialize connect-with-us gallery slider (CONNECT WITH US section)
 	// 5 slides on desktop, 1 on mobile with center slide bigger
-	if (document.querySelector(".instagram-slider")) {
-		const instagramSlider = new Swiper(".instagram-slider", {
+	if (document.querySelector(".connect-with-us-slider")) {
+		const connectWithUsSlider = new Swiper(".connect-with-us-slider", {
 			modules: [Pagination, Autoplay],
 			slidesPerView: 5,
 			spaceBetween: 20,
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				disableOnInteraction: false,
 			},
 			pagination: {
-				el: ".instagram-pagination",
+				el: ".connect-with-us-pagination",
 				clickable: true,
 				type: "bullets",
 			},
@@ -76,9 +76,9 @@ document.addEventListener("DOMContentLoaded", () => {
 					if (window.innerWidth < 768) {
 						this.slides.forEach((slide, index) => {
 							if (index === this.activeIndex) {
-								slide.classList.add("instagram-slider__slide--active");
+								slide.classList.add("connect-with-us-slider__slide--active");
 							} else {
-								slide.classList.remove("instagram-slider__slide--active");
+								slide.classList.remove("connect-with-us-slider__slide--active");
 							}
 						});
 					}
@@ -88,9 +88,9 @@ document.addEventListener("DOMContentLoaded", () => {
 					if (window.innerWidth < 768) {
 						this.slides.forEach((slide, index) => {
 							if (index === this.activeIndex) {
-								slide.classList.add("instagram-slider__slide--active");
+								slide.classList.add("connect-with-us-slider__slide--active");
 							} else {
-								slide.classList.remove("instagram-slider__slide--active");
+								slide.classList.remove("connect-with-us-slider__slide--active");
 							}
 						});
 					}
