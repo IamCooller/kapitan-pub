@@ -34,12 +34,15 @@ if (!defined('IS_VITE_DEVELOPMENT')) {
  */
 function vite_enqueue_assets()
 {
-    if (IS_VITE_DEVELOPMENT) {
-        // Development mode
-        wp_enqueue_script('vite', 'http://localhost:3002/@vite/client', [], null);
+    if (defined('IS_VITE_DEVELOPMENT') && IS_VITE_DEVELOPMENT === true) {
+        function vite_head_module_hook()
+        {
+            echo '<script type="module" crossorigin src="' . VITE_SERVER . VITE_ENTRY_POINT . '"></script>';
+        }
+        add_action('wp_head', 'vite_head_module_hook');
     } else {
         // Production mode
-        $manifest = json_decode(file_get_contents(get_template_directory() . '/dist/.vite/manifest.json'), true);
+        $manifest = json_decode(file_get_contents(get_template_directory() . DIST_PATH . '/.vite/manifest.json'), true);
 
         if (is_array($manifest)) {
             // Process all entries in manifest
@@ -47,13 +50,13 @@ function vite_enqueue_assets()
                 // Enqueue CSS files
                 if (isset($entry['css'])) {
                     foreach ($entry['css'] as $css_file) {
-                        wp_enqueue_style('vite-' . $entry['name'], get_template_directory_uri() . '/dist/' . $css_file);
+                        wp_enqueue_style('vite-' . $entry['name'], DIST_URI . '/' . $css_file);
                     }
                 }
 
                 // Enqueue JS files
                 if (isset($entry['file'])) {
-                    wp_enqueue_script('vite-' . $entry['name'], get_template_directory_uri() . '/dist/' . $entry['file'], [], null, true);
+                    wp_enqueue_script('vite-' . $entry['name'], DIST_URI . '/' . $entry['file'], [], null, true);
                 }
             }
         } else {
