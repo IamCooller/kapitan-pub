@@ -25,78 +25,40 @@ define('JS_LOAD_IN_FOOTER', true); // load scripts in footer?
 define('VITE_SERVER', 'http://localhost:3002');
 define('VITE_ENTRY_POINT', '/main.js');
 
-// enqueue hook
-add_action('wp_enqueue_scripts', function () {
+if (!defined('IS_VITE_DEVELOPMENT')) {
+    define('IS_VITE_DEVELOPMENT', false);
+}
 
-    if (defined('IS_VITE_DEVELOPMENT') && IS_VITE_DEVELOPMENT === true) {
-
-        // insert hmr into head for live reload
-        function vite_head_module_hook()
-        {
-            echo '<script type="module" crossorigin src="' . VITE_SERVER . VITE_ENTRY_POINT . '"></script>';
-
-            // Также загружаем home.js на главной странице в режиме разработки
-
-            echo '<script type="module" crossorigin src="' . VITE_SERVER . '/assets/js/home.js"></script>';
-        }
-        add_action('wp_head', 'vite_head_module_hook');
+/**
+ * Enqueue Vite assets
+ */
+function vite_enqueue_assets()
+{
+    if (IS_VITE_DEVELOPMENT) {
+        // Development mode
+        wp_enqueue_script('vite', 'http://localhost:3002/@vite/client', [], null);
     } else {
+        // Production mode
+        $manifest = json_decode(file_get_contents(get_template_directory() . '/dist/.vite/manifest.json'), true);
 
-        // production version, 'npm run build' must be executed in order to generate assets
-        // ----------
-
-        // read manifest.json to figure out what to enqueue
-        $manifest = json_decode(file_get_contents(DIST_PATH . '/.vite/manifest.json'), true);
-
-        // is ok
         if (is_array($manifest)) {
-
-            // get first key, by default is 'main.js' but it can change
-            $manifest_key = array_keys($manifest);
-            if (isset($manifest_key[0])) {
-
-                // enqueue CSS files
-                foreach (@$manifest[$manifest_key[0]]['css'] as $css_file) {
-                    wp_enqueue_style('main', DIST_URI . '/' . $css_file);
-                }
-
-                // enqueue main JS file
-                $js_file = @$manifest[$manifest_key[0]]['file'];
-                if (! empty($js_file)) {
-                    wp_enqueue_script('main', DIST_URI . '/' . $js_file, JS_DEPENDENCY, '', JS_LOAD_IN_FOOTER);
-                }
-            }
-
-            // Check for home.js entry if on front page
-            if (is_front_page() && isset($manifest['home'])) {
-                // Enqueue home.js from Vite build
-                $home_js_file = $manifest['home']['file'];
-                if (!empty($home_js_file)) {
-                    wp_enqueue_script('home-js', DIST_URI . '/' . $home_js_file, array(), '', JS_LOAD_IN_FOOTER);
-                }
-
-                // Enqueue any CSS that might be extracted from home.js
-                if (isset($manifest['home']['css'])) {
-                    foreach ($manifest['home']['css'] as $css_file) {
-                        wp_enqueue_style('home-css', DIST_URI . '/' . $css_file);
+            // Process all entries in manifest
+            foreach ($manifest as $entry) {
+                // Enqueue CSS files
+                if (isset($entry['css'])) {
+                    foreach ($entry['css'] as $css_file) {
+                        wp_enqueue_style('vite-' . $entry['name'], get_template_directory_uri() . '/dist/' . $css_file);
                     }
                 }
-            }
 
-            // Check for booking.js entry if on front page
-            if (is_front_page() && isset($manifest['booking'])) {
-                $booking_js_file = $manifest['booking']['file'];
-                if (!empty($booking_js_file)) {
-                    wp_enqueue_script('booking-js', DIST_URI . '/' . $booking_js_file, array(), '', JS_LOAD_IN_FOOTER);
-                }
-
-                // Enqueue any CSS that might be extracted from booking.js
-                if (isset($manifest['booking']['css'])) {
-                    foreach ($manifest['booking']['css'] as $css_file) {
-                        wp_enqueue_style('booking-css', DIST_URI . '/' . $css_file);
-                    }
+                // Enqueue JS files
+                if (isset($entry['file'])) {
+                    wp_enqueue_script('vite-' . $entry['name'], get_template_directory_uri() . '/dist/' . $entry['file'], [], null, true);
                 }
             }
+        } else {
+            echo 'no manifest';
         }
     }
-});
+}
+add_action('wp_enqueue_scripts', 'vite_enqueue_assets');

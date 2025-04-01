@@ -18,96 +18,95 @@ import { resolve } from "path";
 //import liveReload from "vite-plugin-live-reload";
 
 const paths = {
-	styles: {
-		src: "./assets/css/**/*.css",
-		dest: "./assets/dist",
-	},
-	php: {
-		src: "**/*.php",
-		exclude: ["node_modules/**/*", "vendor/**/*", "assets/css/**/*"],
-	},
-	js: {
-		src: "./assets/js/**/*.js",
-		dest: "./assets/dist",
-	},
+    styles: {
+        src: "./assets/css/**/*.css",
+        dest: "./assets/dist",
+    },
+    php: {
+        src: "**/*.php",
+        exclude: ["node_modules/**/*", "vendor/**/*", "assets/css/**/*"],
+    },
+    js: {
+        src: "./assets/js/**/*.js",
+        dest: "./assets/dist",
+    },
 };
 
 export default defineConfig({
-	plugins: [
-		tailwindcss(),
-		//liveReload([__dirname + "/**/*.php", __dirname + "/**/*.js", __dirname + "/**/*.css"]),
-		VitePluginBrowserSync({
-			dev: {
-				bs: {
-					proxy: "http://kapitan-pub.localhost",
-					files: [paths.php.src, paths.styles.src, paths.js.src],
-					ignore: paths.php.exclude,
-					reloadDelay: 300,
-					ghostMode: false,
-					notify: false,
-					open: true,
-					snippetOptions: {
-						ignorePaths: ["node_modules/**/*", "vendor/**/*", "assets/css/**/*"],
-					},
-					watchOptions: {
-						ignoreInitial: true,
-						ignored: ["node_modules/**/*", "vendor/**/*", "assets/css/**/*"],
-						usePolling: true,
-						interval: 1000,
-						debounceDelay: 300,
-					},
-				},
-			},
-		}),
-	],
-	// config
-	root: "",
-	base: process.env.NODE_ENV === "development" ? "/" : "/dist/",
-	build: {
-		// output dir for production build
-		outDir: resolve(__dirname, "./dist"),
-		emptyOutDir: true,
+    plugins: [
+        tailwindcss(),
+        //liveReload([__dirname + "/**/*.php", __dirname + "/**/*.js", __dirname + "/**/*.css"]),
+        VitePluginBrowserSync({
+            dev: {
+                bs: {
+                    proxy: "http://kapitan-pub.localhost",
+                    files: [paths.php.src, paths.styles.src, paths.js.src],
+                    ignore: paths.php.exclude,
+                    reloadDelay: 300,
+                    ghostMode: false,
+                    notify: false,
+                    open: true,
+                    snippetOptions: {
+                        ignorePaths: ["node_modules/**/*", "vendor/**/*", "assets/css/**/*"],
+                    },
+                    watchOptions: {
+                        ignoreInitial: true,
+                        ignored: ["node_modules/**/*", "vendor/**/*", "assets/css/**/*"],
+                        usePolling: true,
+                        interval: 1000,
+                        debounceDelay: 300,
+                    },
+                },
+            },
+        }),
+    ],
+    // config
+    root: "",
+    base: process.env.NODE_ENV === "development" ? "/" : "/dist/",
+    build: {
+        // output dir for production build
+        outDir: resolve(__dirname, "./dist"),
+        emptyOutDir: true,
 
-		// emit manifest so PHP can find the hashed files
-		manifest: true,
+        // emit manifest so PHP can find the hashed files
+        manifest: true,
 
-		// esbuild target
-		target: "es2018",
+        // esbuild target
+        target: "es2018",
 
-		// our entry
-		rollupOptions: {
-			input: {
-				main: resolve(__dirname + "/main.js"),
-				home: resolve(__dirname + "/assets/js/home.js"),
-			},
+        // our entry
+        rollupOptions: {
+            input: {
+                main: resolve(__dirname + "/main.js"),
+            },
 
-			/*
+            /*
       output: {
           entryFileNames: `[name].js`,
           chunkFileNames: `[name].js`,
           assetFileNames: `[name].[ext]`
       }*/
-		},
+        },
 
-		// minifying switch
-		minify: true,
-		write: true,
-	},
-	server: {
-		// required to load scripts from custom host
-		cors: true,
+        // minifying switch
+        minify: true,
+        write: true,
+    },
+    server: {
+        // required to load scripts from custom host
+        cors: true,
 
-		// we need a strict port to match on PHP side
-		strictPort: true,
-		port: 3002,
+        // we need a strict port to match on PHP side
+        strictPort: true,
+        port: 3002,
 
-		// serve over http
-		https: false,
+        // serve over http
+        https: false,
 
-		host: true,
-		hmr: {
-			host: "localhost",
-			overlay: true,
-		},
-	},
+        host: true,
+        hmr: {
+            host: "localhost",
+            overlay: true,
+        },
+    },
 });

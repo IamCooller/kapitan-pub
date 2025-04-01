@@ -55,8 +55,11 @@
 /* Mobile Menu Classes */
 
 .mobile-menu {
-	@apply lg:hidden! fixed top-0 left-0 w-full h-full z-20 bg-black/40 backdrop-blur-xs flex flex-col justify-between container py-11;
+	@apply lg:hidden! fixed top-0 left-0 w-full h-full z-20 bg-black/40 backdrop-blur-xs  py-11;
 	@apply transform translate-y-full transition-all duration-300 ease-in-out;
+}
+.mobile-menu .container {
+	@apply w-full h-full flex flex-col justify-between;
 }
 .header-mobile__menu-open {
 	@apply transform translate-y-0;

@@ -124,75 +124,77 @@
         </div>
 
         <div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="<?php echo esc_attr__('Mobile menu', 'kapitan-pub'); ?>">
-            <div class="mobile-menu__header">
-                <div class="mobile-menu__logo">
-                    <?php
-                    if (has_custom_logo()) {
-                        the_custom_logo();
-                    } else {
-                        echo '<a href="' . esc_url(home_url('/')) . '" aria-label="' . esc_attr(get_bloginfo('name')) . '">' . get_bloginfo('name') . '</a>';
-                    }
-                    ?>
-                </div>
-            </div>
-
-            <?php
-            wp_nav_menu([
-                'theme_location' => 'header-menu',
-                'container'      => false,
-                'menu_class'     => 'mobile-menu__nav header__menu',
-                'menu_id'        => 'mobile-menu-nav',
-                'echo'           => true,
-                'fallback_cb'    => false,
-                'items_wrap'     => '<nav id="%1$s" class="%2$s" role="navigation" aria-label="' . esc_attr__('Mobile menu navigation', 'kapitan-pub') . '">%3$s</nav>',
-                'walker'         => new Custom_Walker_Nav_Menu(),
-            ]);
-            ?>
-
-            <?php if (function_exists('pll_the_languages')) : ?>
-                <div class="mobile-menu__languages">
-                    <?php
-                    $languages = pll_the_languages([
-                        'show_flags' => 0,
-                        'show_names' => 1,
-                        'hide_if_empty' => 0,
-                        'raw' => 1,
-                        'hide_current' => 0,
-                        'force_home' => 1,
-                        'post_id' => get_the_ID(),
-                        'hide_if_no_translation' => 0,
-                        'use_search_url_filter' => 1,
-                        'rewrite' => 1
-                    ]);
-
-                    if (!empty($languages)) {
-                        echo '<ul>';
-                        foreach ($languages as $lang) {
-
-                            $classes = [];
-                            if ($lang['current_lang']) {
-                                $classes[] = 'lang-item-current';
-                            }
-                            echo '<li class="' . implode(' ', $classes) . '">';
-                            echo '<a href="' . esc_url($lang['url']) . '">';
-
-                            echo '<span>' . esc_html($lang['slug']) . '</span>';
-                            echo '</a>';
-                            echo '</li>';
+            <div class="container">
+                <div class="mobile-menu__header">
+                    <div class="mobile-menu__logo">
+                        <?php
+                        if (has_custom_logo()) {
+                            the_custom_logo();
+                        } else {
+                            echo '<a href="' . esc_url(home_url('/')) . '" aria-label="' . esc_attr(get_bloginfo('name')) . '">' . get_bloginfo('name') . '</a>';
                         }
-                        echo '</ul>';
-                    }
-                    ?>
+                        ?>
+                    </div>
                 </div>
-            <?php endif; ?>
 
-            <button type="button"
-                class="mobile-menu__close header-mobile__button"
-                aria-label="<?php echo esc_attr__('Close menu', 'kapitan-pub'); ?>">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M18 6L6 18" stroke="currentColor" stroke-width="2" />
-                    <path d="M6 6L18 18" stroke="currentColor" stroke-width="2" />
-                </svg>
-            </button>
+                <?php
+                wp_nav_menu([
+                    'theme_location' => 'header-menu',
+                    'container'      => false,
+                    'menu_class'     => 'mobile-menu__nav header__menu',
+                    'menu_id'        => 'mobile-menu-nav',
+                    'echo'           => true,
+                    'fallback_cb'    => false,
+                    'items_wrap'     => '<nav id="%1$s" class="%2$s" role="navigation" aria-label="' . esc_attr__('Mobile menu navigation', 'kapitan-pub') . '">%3$s</nav>',
+                    'walker'         => new Custom_Walker_Nav_Menu(),
+                ]);
+                ?>
+
+                <?php if (function_exists('pll_the_languages')) : ?>
+                    <div class="mobile-menu__languages">
+                        <?php
+                        $languages = pll_the_languages([
+                            'show_flags' => 0,
+                            'show_names' => 1,
+                            'hide_if_empty' => 0,
+                            'raw' => 1,
+                            'hide_current' => 0,
+                            'force_home' => 1,
+                            'post_id' => get_the_ID(),
+                            'hide_if_no_translation' => 0,
+                            'use_search_url_filter' => 1,
+                            'rewrite' => 1
+                        ]);
+
+                        if (!empty($languages)) {
+                            echo '<ul>';
+                            foreach ($languages as $lang) {
+
+                                $classes = [];
+                                if ($lang['current_lang']) {
+                                    $classes[] = 'lang-item-current';
+                                }
+                                echo '<li class="' . implode(' ', $classes) . '">';
+                                echo '<a href="' . esc_url($lang['url']) . '">';
+
+                                echo '<span>' . esc_html($lang['slug']) . '</span>';
+                                echo '</a>';
+                                echo '</li>';
+                            }
+                            echo '</ul>';
+                        }
+                        ?>
+                    </div>
+                <?php endif; ?>
+
+                <button type="button"
+                    class="mobile-menu__close header-mobile__button"
+                    aria-label="<?php echo esc_attr__('Close menu', 'kapitan-pub'); ?>">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <path d="M18 6L6 18" stroke="currentColor" stroke-width="2" />
+                        <path d="M6 6L18 18" stroke="currentColor" stroke-width="2" />
+                    </svg>
+                </button>
+            </div>
         </div>
     </header>
