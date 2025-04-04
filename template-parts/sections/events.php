@@ -12,7 +12,7 @@ $subtitle = !empty(get_sub_field('subtitle')) ? get_sub_field('subtitle') : '';
 $events = !empty(get_sub_field('events')) ? get_sub_field('events') : [];
 
 ?>
-<section class="events-section relative">
+<section class="events-section relative" id="events">
     <div class="lines"></div>
     <div class="events-container relative">
         <div class="events-header">
