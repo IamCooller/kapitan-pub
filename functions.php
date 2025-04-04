@@ -23,6 +23,7 @@ require get_template_directory() . '/inc/inc.vite.php';
 require get_template_directory() . '/inc/booking-form.php'; // Форма бронирования
 require get_template_directory() . '/inc/contact-form.php'; // Форма контактов
 require get_template_directory() . '/inc/newsletter.php'; // Форма подписки на новости
+require get_template_directory() . '/inc/polylang-strings.php'; // Регистрация строк для Polylang
 
 // Enqueue scripts and styles
 function kapitan_pub_scripts()
