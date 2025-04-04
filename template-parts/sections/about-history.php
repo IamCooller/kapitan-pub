@@ -16,7 +16,7 @@ $hours_content = !empty(get_sub_field('hours_content')) ? get_sub_field('hours_c
 $tagline = !empty(get_sub_field('tagline')) ? get_sub_field('tagline') : '';
 ?>
 
-<section class="about-history-section relative">
+<section class="about-history-section relative" id="about-history">
     <div class="lines"></div>
     <div class="about-history-container">
         <div class="about-history-grid">

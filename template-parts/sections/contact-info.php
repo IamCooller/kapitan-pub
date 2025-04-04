@@ -11,7 +11,7 @@ $title = !empty(get_sub_field('title')) ? get_sub_field('title') : 'WRITE TO US'
 $contact_intro = !empty(get_sub_field('contact_intro')) ? get_sub_field('contact_intro') : '';
 $info_blocks = !empty(get_sub_field('info_blocks')) ? get_sub_field('info_blocks') : [];
 ?>
-<section class="contact-info-section relative">
+<section class="contact-info-section relative" id="contact-info">
     <div class="lines"></div>
     <div class="contact-info-container">
         <div class="contact-info-grid">

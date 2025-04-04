@@ -89,6 +89,17 @@ This theme is licensed under the GPL v2 or later.
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
+## Using Translations with Polylang
+
+The Kapitan Pub theme uses the Polylang plugin for multilingual functionality. Translation strings are registered in several theme files:
+
+- `inc/polylang-strings.php` - main string registration file
+- `inc/theme-setup.php` - registration of some strings during theme setup
+- `inc/booking-form.php` - booking form strings
+
+### How to Use Translations in Templates
+
+To output translatable strings in templates, use the check with the `pll__` function:
 
 ---
 

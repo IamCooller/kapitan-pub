@@ -18,7 +18,7 @@ $categories = !empty(get_sub_field('categories')) ? get_sub_field('categories') 
 
 
 ?>
-<section class="menu-items-section relative">
+<section class="menu-items-section relative" id="menu-items">
     <div class="lines"></div>
     <div class="menu-items-container">
         <div class="menu-items-left-column">

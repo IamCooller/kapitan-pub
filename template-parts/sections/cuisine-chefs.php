@@ -9,7 +9,7 @@
 // Check if we have rows in the repeater
 if (have_rows('content_blocks')) :
 ?>
-    <section class="cuisine-chefs-section relative">
+    <section class="cuisine-chefs-section relative" id="cuisine-chefs">
         <div class="lines"></div>
         <?php
         // Loop through the rows of the repeater

@@ -12,7 +12,7 @@ $background_image = !empty(get_sub_field('background_image')) ? get_sub_field('b
 $title = !empty(get_sub_field('title')) ? get_sub_field('title') : '';
 $subtitle = !empty(get_sub_field('subtitle')) ? get_sub_field('subtitle') : '';
 ?>
-<section class="menu-banner relative"
+<section class="menu-banner relative" id="menu-banner"
     <?php if (!empty($background_image)) : ?>
     style="background-image: url(<?php echo esc_url($background_image['url']); ?>);"
     <?php endif; ?>>

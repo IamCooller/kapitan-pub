@@ -13,7 +13,7 @@ $title = !empty(get_sub_field('title')) ? get_sub_field('title') : '';
 $opacity = !empty(get_sub_field('opacity')) ? get_sub_field('opacity') : 0.7;
 ?>
 
-<section class="hero-secondary" <?php if (!empty($background_image)) : ?>style="background-image: url(<?php echo esc_url($background_image['url']); ?>); background-size: cover; background-position: center;" <?php endif; ?>>
+<section class="hero-secondary" id="hero-secondary" <?php if (!empty($background_image)) : ?>style="background-image: url(<?php echo esc_url($background_image['url']); ?>); background-size: cover; background-position: center;" <?php endif; ?>>
     <div class="hero-secondary__overlay"
         style="opacity: <?php echo esc_attr($opacity); ?>;"></div>
     <div class="hero-secondary__inner relative z-[1]">

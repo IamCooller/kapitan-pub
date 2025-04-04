@@ -13,7 +13,7 @@ $text = !empty(get_sub_field('text')) ? get_sub_field('text') : '';
 $quote = !empty(get_sub_field('quote')) ? get_sub_field('quote') : '';
 $image = !empty(get_sub_field('image')) ? get_sub_field('image') : '';
 ?>
-<section class="kapitan-section relative">
+<section class="kapitan-section relative" id="kapitan">
     <div class="lines"></div>
     <div class="kapitan-for-everyone">
         <div class="kapitan-for-everyone__inner">

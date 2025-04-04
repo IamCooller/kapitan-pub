@@ -11,7 +11,7 @@ $subtitle = !empty(get_sub_field('subtitle')) ? get_sub_field('subtitle') : '';
 $bg_image = !empty(get_sub_field('bg_image')) ? get_sub_field('bg_image') : get_template_directory_uri() . '';
 $socials = !empty(get_sub_field('socials')) ? get_sub_field('socials') : [];
 ?>
-<section class="newsletter-section"
+<section class="newsletter-section" id="newsletter"
     style="
     <?php if (!empty($bg_image)) : ?>
         background-image: url(<?php echo esc_url($bg_image['url']); ?>);

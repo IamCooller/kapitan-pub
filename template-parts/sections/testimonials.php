@@ -16,7 +16,7 @@ $image_text = !empty(get_sub_field('image_text')) ? get_sub_field('image_text') 
 $testimonials = !empty(get_sub_field('testimonials')) ? get_sub_field('testimonials') : [];
 
 ?>
-<section class="testimonials-section">
+<section class="testimonials-section" id="testimonials">
     <div class="testimonials-container">
         <?php if (!empty($image)) : ?>
             <div class="testimonials-image-wrapper">

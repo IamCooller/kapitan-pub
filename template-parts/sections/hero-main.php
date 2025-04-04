@@ -12,7 +12,7 @@ $background_image = !empty(get_sub_field('background_image')) ? get_sub_field('b
 $buttons = !empty(get_sub_field('buttons')) ? get_sub_field('buttons') : [];
 ?>
 
-<section class="hero " <?php if (!empty($background_image)) : ?>style="background-image: url(<?php echo esc_url($background_image['url']); ?>); background-size: cover; background-position: center;" <?php endif; ?>>
+<section class="hero " id="hero-main" <?php if (!empty($background_image)) : ?>style="background-image: url(<?php echo esc_url($background_image['url']); ?>); background-size: cover; background-position: center;" <?php endif; ?>>
     <div class="hero__inner relative z-[1]">
 
 

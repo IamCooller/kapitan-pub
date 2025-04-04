@@ -12,7 +12,7 @@ $description = !empty(get_sub_field('description')) ? get_sub_field('description
 $image = !empty(get_sub_field('image')) ? get_sub_field('image') : '';
 ?>
 
-<section class="about-info-section">
+<section class="about-info-section" id="about-info">
     <div class="about-info-container">
         <div class="about-info-grid">
             <div class="about-info-content">

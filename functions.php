@@ -19,6 +19,7 @@ define('IS_VITE_DEVELOPMENT', false);
 require get_template_directory() . '/inc/acf-blocks.php';  // ACF Gutenberg Blocks (создай файл позже)
 require get_template_directory() . '/inc/theme-setup.php'; // Поддержка темы, меню и т.д.
 require get_template_directory() . '/inc/inc.vite.php';
+require get_template_directory() . '/inc/polylang-strings.php'; // Регистрация строк для Polylang
 
 require get_template_directory() . '/inc/booking-form.php'; // Форма бронирования
 require get_template_directory() . '/inc/contact-form.php'; // Форма контактов

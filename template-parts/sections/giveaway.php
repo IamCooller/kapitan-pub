@@ -15,7 +15,7 @@ $button_link = !empty(get_sub_field('button_link')) ? get_sub_field('button_link
 $image = !empty(get_sub_field('image')) ? get_sub_field('image') : '';
 $image_text = !empty(get_sub_field('image_text')) ? get_sub_field('image_text') : '';
 ?>
-<section class="giveaway-section">
+<section class="giveaway-section" id="giveaway">
     <div class="giveaway-container">
         <div class="giveaway-content">
             <?php if (!empty($title)) : ?>
