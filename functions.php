@@ -320,18 +320,30 @@ function kapitanpub_display_tracking_page()
 // $ip_address = wp_privacy_anonymize_ip( $ip_address );
 
 /**
- * Redirect to the correct language version based on referer if possible.
+ * Redirects to the preferred language version if landing on the default language page unintentionally.
  *
- * This attempts to redirect a user back to the language version they were previously
- * browsing if they land on the default language page from a non-default language URL.
+ * Checks if the user is on the default language page, prefers a different language (via cookie),
+ * and did NOT arrive directly from the corresponding translated page URL (which implies 
+ * intentional switching to the default language via the language switcher).
  */
 add_action('template_redirect', function () {
-    // Only run if Polylang functions are available
-    if (!function_exists('pll_current_language') || !function_exists('pll_default_language') || !function_exists('pll_get_post')) {
+    // Check dependencies
+    if (
+        !function_exists('pll_current_language') ||
+        !function_exists('pll_default_language') ||
+        !function_exists('pll_get_post') ||
+        !function_exists('get_permalink') ||
+        !function_exists('get_queried_object_id') ||
+        !function_exists('sanitize_key') ||
+        !function_exists('esc_url_raw') ||
+        !function_exists('wp_safe_redirect') ||
+        !function_exists('is_admin') ||
+        !function_exists('is_singular')
+    ) {
         return;
     }
 
-    // Only run on singular pages/posts (not archive, home, etc.) and not in admin
+    // Only run on frontend, for singular pages/posts
     if (is_admin() || !is_singular()) {
         return;
     }
@@ -339,57 +351,58 @@ add_action('template_redirect', function () {
     $current_lang = pll_current_language();
     $default_lang = pll_default_language();
 
-    // Only proceed if the current page is in the default language
+    // Only act if we are currently on the default language page
     if ($current_lang !== $default_lang) {
         return;
     }
 
-    // Check if we have a referer URL
-    if (empty($_SERVER['HTTP_REFERER'])) {
+    // Check the Polylang cookie for preferred language
+    $preferred_lang = isset($_COOKIE['pll_language']) ? sanitize_key($_COOKIE['pll_language']) : null;
+
+    // Only act if user has a cookie preferring a DIFFERENT language
+    if (empty($preferred_lang) || $preferred_lang === $default_lang) {
         return;
     }
 
-    $referer_url = esc_url_raw($_SERVER['HTTP_REFERER']);
-    $referer_host = parse_url($referer_url, PHP_URL_HOST);
-    $current_host = parse_url(home_url(), PHP_URL_HOST);
-
-    // Ensure the referer is from the same site (basic check)
-    if ($referer_host !== $current_host) {
-        return;
-    }
-
-    // Try to detect the language from the referer URL
-    $referer_lang_slug = '';
-    $languages = pll_languages_list();
-    foreach ($languages as $lang_slug) {
-        // Check if the referer URL path starts with /<lang_slug>/
-        // Adjust this check based on your Polylang URL structure settings
-        if (strpos(parse_url($referer_url, PHP_URL_PATH), '/' . $lang_slug . '/') === 0) {
-            $referer_lang_slug = $lang_slug;
-            break;
-        }
-    }
-
-    // Only proceed if the referer language is different from the default and not empty
-    if (empty($referer_lang_slug) || $referer_lang_slug === $default_lang) {
-        return;
-    }
-
-    // Get the ID of the current post
+    // Check if a translation exists for the preferred language
     $current_post_id = get_queried_object_id();
     if (!$current_post_id) {
         return;
     }
+    $translated_post_id = pll_get_post($current_post_id, $preferred_lang);
 
-    // Check if a translation exists for the detected referer language
-    $translated_post_id = pll_get_post($current_post_id, $referer_lang_slug);
-
-    if ($translated_post_id && $translated_post_id !== $current_post_id) {
-        $translated_url = get_permalink($translated_post_id);
-        if ($translated_url) {
-            // Perform the redirect
-            wp_safe_redirect($translated_url, 302); // Use 302 for temporary redirect
-            exit;
-        }
+    // Only act if translation exists and is different from current post
+    if (!$translated_post_id || $translated_post_id === $current_post_id) {
+        return;
     }
+
+    $translated_url = get_permalink($translated_post_id);
+    if (!$translated_url) {
+        return; // Should not happen if ID is valid, but safety check
+    }
+
+    // Check the referer URL
+    $referer_url = isset($_SERVER['HTTP_REFERER']) ? esc_url_raw($_SERVER['HTTP_REFERER']) : null;
+
+    // *** The Core Logic ***
+    // If the user came EXACTLY from the translated page URL, 
+    // assume they intentionally clicked the link/switcher to the default language page.
+    // Therefore, DO NOT redirect in this specific case.
+    if ($referer_url === $translated_url) {
+        return; // User likely clicked the default language link in the switcher
+    }
+
+    // If we reach here:
+    // 1. On default language page.
+    // 2. User prefers a different language (cookie).
+    // 3. A translation exists for that preferred language.
+    // 4. User did NOT just arrive from the translated page URL.
+    // ==> Redirect to the preferred language translation.
+
+    // Prevent caching issues and potential redirect loops 
+    header('Cache-Control: no-cache, no-store, must-revalidate');
+    header('Pragma: no-cache');
+    header('Expires: 0');
+    wp_safe_redirect($translated_url, 302);
+    exit;
 });
