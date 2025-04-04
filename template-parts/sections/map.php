@@ -17,7 +17,7 @@ if (strpos($map_frame, '<iframe') !== false) {
 
 ?>
 <?php if (!empty($map_frame)) : ?>
-    <section class="map-section">
+    <section class="map-section" id="map">
         <?php echo $map_frame; ?>
     </section>
 <?php endif; ?>
