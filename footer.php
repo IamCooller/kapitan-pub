@@ -27,8 +27,8 @@ $address_label = function_exists('pll__') ? pll__('Address') : 'Address';
 $contact_label = function_exists('pll__') ? pll__('Contact') : 'Contact';
 $parking_label = function_exists('pll__') ? pll__('Parking') : 'Parking';
 $open_hours_label = function_exists('pll__') ? pll__('Open hours') : 'Open hours';
-$contact_info_label = function_exists('pll__') ? pll__('Kontaktné údaje') : 'Kontaktné údaje';
-$reservation_label = function_exists('pll__') ? pll__('Rezervácia') : 'Rezervácia';
+$contact_info_label = function_exists('pll__') ? pll__('Contact Details') : 'Contact Details';
+$reservation_label = function_exists('pll__') ? pll__('Reservation') : 'Reservation';
 
 // Define trackable social link types
 $trackable_social_types = ['facebook', 'instagram', 'tiktok'];
@@ -43,7 +43,7 @@ $trackable_social_types = ['facebook', 'instagram', 'tiktok'];
 					<?php if (!empty($address)) : ?>
 						<div class="footer-info-block">
 							<div class="footer-info-block__icon-wrapper">
-								<img src="<?php echo get_template_directory_uri(); ?>/assets/img/address-icon.png" alt="address" class="footer-address-icon" />
+								<img src="<?php echo get_template_directory_uri(); ?>/assets/img/address-icon.png" alt="<?php echo function_exists('pll__') ? pll__('Address icon') : 'Address icon'; ?>" class="footer-address-icon" />
 							</div>
 							<div class="footer-info-block__content">
 								<div class="footer-info-block__title"><?php echo esc_html($address_label); ?></div>
@@ -57,7 +57,7 @@ $trackable_social_types = ['facebook', 'instagram', 'tiktok'];
 					<?php if (!empty($phone) || !empty($email)) : ?>
 						<div class="footer-info-block">
 							<div class="footer-info-block__icon-wrapper">
-								<img src="<?php echo get_template_directory_uri(); ?>/assets/img/Contact-icon.png" alt="contact" class="footer-contact-icon" />
+								<img src="<?php echo get_template_directory_uri(); ?>/assets/img/Contact-icon.png" alt="<?php echo function_exists('pll__') ? pll__('Contact icon') : 'Contact icon'; ?>" class="footer-contact-icon" />
 							</div>
 							<div class="footer-info-block__content">
 								<div class="footer-info-block__title"><?php echo esc_html($contact_label); ?></div>
@@ -76,7 +76,7 @@ $trackable_social_types = ['facebook', 'instagram', 'tiktok'];
 					<?php if (!empty($parking_text)) : ?>
 						<div class="footer-parking-block">
 							<div class="footer-info-block__icon-wrapper">
-								<img src="<?php echo get_template_directory_uri(); ?>/assets/img/Parking-icon.svg" alt="parking" class="footer-parking-icon" />
+								<img src="<?php echo get_template_directory_uri(); ?>/assets/img/Parking-icon.svg" alt="<?php echo function_exists('pll__') ? pll__('Parking icon') : 'Parking icon'; ?>" class="footer-parking-icon" />
 							</div>
 							<div class="footer-info-block__content">
 								<div class="footer-info-block__title"><?php echo esc_html($parking_label); ?></div>
@@ -91,7 +91,7 @@ $trackable_social_types = ['facebook', 'instagram', 'tiktok'];
 				<?php if (!empty($open_hours)) : ?>
 					<div class="footer-hours-block">
 						<div class="footer-info-block__icon-wrapper">
-							<img src="<?php echo get_template_directory_uri(); ?>/assets/img/hours-icon.png" alt="hours" class="footer-hours-icon" />
+							<img src="<?php echo get_template_directory_uri(); ?>/assets/img/hours-icon.png" alt="<?php echo function_exists('pll__') ? pll__('Opening hours icon') : 'Opening hours icon'; ?>" class="footer-hours-icon" />
 						</div>
 						<div class="footer-info-block__content">
 							<div class="footer-info-block__title"><?php echo esc_html($open_hours_label); ?></div>

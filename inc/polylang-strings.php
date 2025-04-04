@@ -57,6 +57,12 @@ if (function_exists('pll_register_string')) {
     pll_register_string('footer_hours_weekdays', 'Monday - Friday: 9am - 10pm', 'Footer');
     pll_register_string('footer_hours_weekends', 'Saturday - Sunday: 10am - 11pm', 'Footer');
     pll_register_string('footer_copyright', '© 2023 Kapitan Pub. All rights reserved.', 'Footer');
+    pll_register_string('footer_contact_details', 'Contact Details', 'Footer');
+    pll_register_string('footer_reservation', 'Reservation', 'Footer');
+    pll_register_string('footer_icon_alt_address', 'Address icon', 'Footer Icons');
+    pll_register_string('footer_icon_alt_contact', 'Contact icon', 'Footer Icons');
+    pll_register_string('footer_icon_alt_parking', 'Parking icon', 'Footer Icons');
+    pll_register_string('footer_icon_alt_hours', 'Opening hours icon', 'Footer Icons');
 
     // 404 Page
     pll_register_string('404_title', 'Page Not Found', '404 Page');
