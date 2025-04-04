@@ -19,7 +19,6 @@ define('IS_VITE_DEVELOPMENT', false);
 require get_template_directory() . '/inc/acf-blocks.php';  // ACF Gutenberg Blocks (создай файл позже)
 require get_template_directory() . '/inc/theme-setup.php'; // Поддержка темы, меню и т.д.
 require get_template_directory() . '/inc/inc.vite.php';
-require get_template_directory() . '/inc/polylang-strings.php'; // Регистрация строк для Polylang
 
 require get_template_directory() . '/inc/booking-form.php'; // Форма бронирования
 require get_template_directory() . '/inc/contact-form.php'; // Форма контактов
@@ -313,96 +312,3 @@ function kapitanpub_display_tracking_page()
     </div>
 <?php
 }
-
-// Important: Note on GDPR compliance
-// Storing IP addresses and potentially user agent strings might require user consent
-// depending on your location and privacy policy. Consider using IP anonymization:
-// $ip_address = wp_privacy_anonymize_ip( $ip_address );
-
-/**
- * Redirects to the preferred language version if landing on the default language page unintentionally.
- *
- * Checks if the user is on the default language page, prefers a different language (via cookie),
- * and did NOT arrive directly from the corresponding translated page URL (which implies 
- * intentional switching to the default language via the language switcher).
- */
-add_action('template_redirect', function () {
-    // Check dependencies
-    if (
-        !function_exists('pll_current_language') ||
-        !function_exists('pll_default_language') ||
-        !function_exists('pll_get_post') ||
-        !function_exists('get_permalink') ||
-        !function_exists('get_queried_object_id') ||
-        !function_exists('sanitize_key') ||
-        !function_exists('esc_url_raw') ||
-        !function_exists('wp_safe_redirect') ||
-        !function_exists('is_admin') ||
-        !function_exists('is_singular')
-    ) {
-        return;
-    }
-
-    // Only run on frontend, for singular pages/posts
-    if (is_admin() || !is_singular()) {
-        return;
-    }
-
-    $current_lang = pll_current_language();
-    $default_lang = pll_default_language();
-
-    // Only act if we are currently on the default language page
-    if ($current_lang !== $default_lang) {
-        return;
-    }
-
-    // Check the Polylang cookie for preferred language
-    $preferred_lang = isset($_COOKIE['pll_language']) ? sanitize_key($_COOKIE['pll_language']) : null;
-
-    // Only act if user has a cookie preferring a DIFFERENT language
-    if (empty($preferred_lang) || $preferred_lang === $default_lang) {
-        return;
-    }
-
-    // Check if a translation exists for the preferred language
-    $current_post_id = get_queried_object_id();
-    if (!$current_post_id) {
-        return;
-    }
-    $translated_post_id = pll_get_post($current_post_id, $preferred_lang);
-
-    // Only act if translation exists and is different from current post
-    if (!$translated_post_id || $translated_post_id === $current_post_id) {
-        return;
-    }
-
-    $translated_url = get_permalink($translated_post_id);
-    if (!$translated_url) {
-        return; // Should not happen if ID is valid, but safety check
-    }
-
-    // Check the referer URL
-    $referer_url = isset($_SERVER['HTTP_REFERER']) ? esc_url_raw($_SERVER['HTTP_REFERER']) : null;
-
-    // *** The Core Logic ***
-    // If the user came EXACTLY from the translated page URL, 
-    // assume they intentionally clicked the link/switcher to the default language page.
-    // Therefore, DO NOT redirect in this specific case.
-    if ($referer_url === $translated_url) {
-        return; // User likely clicked the default language link in the switcher
-    }
-
-    // If we reach here:
-    // 1. On default language page.
-    // 2. User prefers a different language (cookie).
-    // 3. A translation exists for that preferred language.
-    // 4. User did NOT just arrive from the translated page URL.
-    // ==> Redirect to the preferred language translation.
-
-    // Prevent caching issues and potential redirect loops 
-    header('Cache-Control: no-cache, no-store, must-revalidate');
-    header('Pragma: no-cache');
-    header('Expires: 0');
-    wp_safe_redirect($translated_url, 302);
-    exit;
-});
