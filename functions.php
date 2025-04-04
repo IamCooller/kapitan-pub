@@ -318,3 +318,78 @@ function kapitanpub_display_tracking_page()
 // Storing IP addresses and potentially user agent strings might require user consent
 // depending on your location and privacy policy. Consider using IP anonymization:
 // $ip_address = wp_privacy_anonymize_ip( $ip_address );
+
+/**
+ * Redirect to the correct language version based on referer if possible.
+ *
+ * This attempts to redirect a user back to the language version they were previously
+ * browsing if they land on the default language page from a non-default language URL.
+ */
+add_action('template_redirect', function () {
+    // Only run if Polylang functions are available
+    if (!function_exists('pll_current_language') || !function_exists('pll_default_language') || !function_exists('pll_get_post')) {
+        return;
+    }
+
+    // Only run on singular pages/posts (not archive, home, etc.) and not in admin
+    if (is_admin() || !is_singular()) {
+        return;
+    }
+
+    $current_lang = pll_current_language();
+    $default_lang = pll_default_language();
+
+    // Only proceed if the current page is in the default language
+    if ($current_lang !== $default_lang) {
+        return;
+    }
+
+    // Check if we have a referer URL
+    if (empty($_SERVER['HTTP_REFERER'])) {
+        return;
+    }
+
+    $referer_url = esc_url_raw($_SERVER['HTTP_REFERER']);
+    $referer_host = parse_url($referer_url, PHP_URL_HOST);
+    $current_host = parse_url(home_url(), PHP_URL_HOST);
+
+    // Ensure the referer is from the same site (basic check)
+    if ($referer_host !== $current_host) {
+        return;
+    }
+
+    // Try to detect the language from the referer URL
+    $referer_lang_slug = '';
+    $languages = pll_languages_list();
+    foreach ($languages as $lang_slug) {
+        // Check if the referer URL path starts with /<lang_slug>/
+        // Adjust this check based on your Polylang URL structure settings
+        if (strpos(parse_url($referer_url, PHP_URL_PATH), '/' . $lang_slug . '/') === 0) {
+            $referer_lang_slug = $lang_slug;
+            break;
+        }
+    }
+
+    // Only proceed if the referer language is different from the default and not empty
+    if (empty($referer_lang_slug) || $referer_lang_slug === $default_lang) {
+        return;
+    }
+
+    // Get the ID of the current post
+    $current_post_id = get_queried_object_id();
+    if (!$current_post_id) {
+        return;
+    }
+
+    // Check if a translation exists for the detected referer language
+    $translated_post_id = pll_get_post($current_post_id, $referer_lang_slug);
+
+    if ($translated_post_id && $translated_post_id !== $current_post_id) {
+        $translated_url = get_permalink($translated_post_id);
+        if ($translated_url) {
+            // Perform the redirect
+            wp_safe_redirect($translated_url, 302); // Use 302 for temporary redirect
+            exit;
+        }
+    }
+});

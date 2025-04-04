@@ -172,7 +172,7 @@
                         'hide_if_empty' => 0,
                         'raw' => 1,
                         'hide_current' => 0,
-                        'force_home' => 0,
+                        'force_home' => 1,
                         'post_id' => get_the_ID(),
                         'hide_if_no_translation' => 0,
                         'use_search_url_filter' => 1,
