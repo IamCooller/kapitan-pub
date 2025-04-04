@@ -39,7 +39,8 @@ $socials = !empty(get_sub_field('socials')) ? get_sub_field('socials') : [];
 
                 <button type="submit" class="newsletter-submit" title="Subscribe">
                     <span class="newsletter-submit-text">SIGN UP</span>
-                    <div class="newsletter-loader">
+                    <div class="newsletter-loader"
+                        style="display: none;">
                         <svg class="animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -151,8 +152,9 @@ $socials = !empty(get_sub_field('socials')) ? get_sub_field('socials') : [];
             const formData = new FormData(form);
 
             // Show loading state
-            submitButton.classList.add("loading");
-
+            document.querySelector(".newsletter-submit-text").style.opacity = "0";
+            document.querySelector(".newsletter-submit").style.pointerEvents = "none";
+            document.querySelector(".newsletter-loader").style.display = "block";
             // Send AJAX request
             fetch((window.kapitan_pub_data && window.kapitan_pub_data.ajaxurl) || "/wp-admin/admin-ajax.php", {
                     method: "POST",
@@ -166,8 +168,9 @@ $socials = !empty(get_sub_field('socials')) ? get_sub_field('socials') : [];
                     return response.json();
                 })
                 .then((data) => {
-                    submitButton.classList.remove("loading");
-
+                    document.querySelector(".newsletter-submit-text").style.opacity = "1";
+                    document.querySelector(".newsletter-submit").style.pointerEvents = "auto";
+                    document.querySelector(".newsletter-loader").style.display = "none";
                     if (data.success) {
                         showResponse(data.data || messages.success, true);
                     } else {
@@ -175,7 +178,9 @@ $socials = !empty(get_sub_field('socials')) ? get_sub_field('socials') : [];
                     }
                 })
                 .catch((error) => {
-                    submitButton.classList.remove("loading");
+                    document.querySelector(".newsletter-submit-text").style.opacity = "1";
+                    document.querySelector(".newsletter-submit").style.pointerEvents = "auto";
+                    document.querySelector(".newsletter-loader").style.display = "none";
                     showResponse(error.message || messages.server_error, false);
                     console.error("Newsletter form error:", error);
                 });

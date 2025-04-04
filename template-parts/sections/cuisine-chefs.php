@@ -9,7 +9,8 @@
 // Check if we have rows in the repeater
 if (have_rows('content_blocks')) :
 ?>
-    <section class="cuisine-chefs-section">
+    <section class="cuisine-chefs-section relative">
+        <div class="lines"></div>
         <?php
         // Loop through the rows of the repeater
         while (have_rows('content_blocks')) : the_row();
@@ -60,7 +61,9 @@ if (have_rows('content_blocks')) :
                             <?php endif; ?>
 
                             <?php if (!empty($button_text) && !empty($button_link)) : ?>
-                                <a href="<?php echo esc_url($button_link); ?>" class="button"><?php echo esc_html($button_text); ?></a>
+                                <div class="cuisine-chefs-button-wrapper">
+                                    <a href="<?php echo esc_url($button_link); ?>" class="button"><?php echo esc_html($button_text); ?></a>
+                                </div>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -80,7 +83,9 @@ if (have_rows('content_blocks')) :
                             <?php endif; ?>
 
                             <?php if (!empty($button_text) && !empty($button_link)) : ?>
-                                <a href="<?php echo esc_url($button_link); ?>" class="button"><?php echo esc_html($button_text); ?></a>
+                                <div class="cuisine-chefs-button-wrapper">
+                                    <a href="<?php echo esc_url($button_link); ?>" class="button"><?php echo esc_html($button_text); ?></a>
+                                </div>
                             <?php endif; ?>
                         </div>
                     </div>

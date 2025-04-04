@@ -1,8 +1,9 @@
 @layer components {
 	.button {
-		@apply border-2 border-secondary uppercase bg-transparent w-full  max-w-[163px] h-[59px] flex items-center justify-center;
-		@apply hover:bg-secondary! transition-[background-color,transform] duration-300 ease-in-out;
-		@apply active:scale-95;
+		@apply border-2 border-secondary uppercase bg-transparent w-full max-w-[163px] h-[59px] flex items-center justify-center relative overflow-hidden;
+		@apply hover:text-white transition-[color,transform] duration-300 ease-in-out;
+		@apply before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-full before:bg-secondary before:origin-left before:scale-x-0 before:-z-1 before:transition-transform before:duration-300 before:ease-out;
+		@apply hover:before:scale-x-100;
 	}
 
 	.h2 {
@@ -10,5 +11,19 @@
 	}
 	.h3 {
 		@apply text-[24px] md:text-[32px];
+	}
+
+
+
+	.lines {
+		@apply absolute max-sm:hidden top-0 left-1/2 -translate-x-1/2 max-w-[30%] w-full h-full flex items-center justify-between  pointer-events-none animate-pulse duration-300 ease-in-out z-[-1];
+	}
+
+	.lines::before {
+		@apply content-[''] bg-[#0D2E62] w-0.5 h-full;
+	}
+
+	.lines::after {
+		@apply content-[''] bg-[#0D2E62] w-0.5 h-full;
 	}
 }

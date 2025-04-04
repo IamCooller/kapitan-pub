@@ -37,10 +37,10 @@ document.addEventListener("DOMContentLoaded", () => {
 			loop: true,
 			centeredSlides: true,
 			allowTouchMove: true,
-			autoplay: {
+			/* autoplay: {
 				delay: 3000,
-				disableOnInteraction: false,
-			},
+				disableOnInteraction: true,
+			}, */
 			pagination: {
 				el: ".connect-with-us-pagination",
 				clickable: true,
@@ -49,20 +49,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			breakpoints: {
 				// when window width is >= 320px
 				320: {
-					slidesPerView: 1,
+					slidesPerView: 2.5,
 					spaceBetween: 10,
 					centeredSlides: true,
 				},
-				// when window width is >= 480px
-				480: {
-					slidesPerView: 2,
-					spaceBetween: 20,
-				},
-				// when window width is >= 768px
-				768: {
-					slidesPerView: 3,
-					spaceBetween: 30,
-				},
+				
+				
 				// when window width is >= 1024px
 				1024: {
 					slidesPerView: 5,

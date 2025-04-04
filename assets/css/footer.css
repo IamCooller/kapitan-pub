@@ -115,23 +115,23 @@
 }
 
 .footer-contact-heading {
-	@apply font-montserrat text-lg font-semibold;
+	@apply font-montserrat sm:text-lg font-semibold;
 }
 
 .footer-contact-phone {
-	@apply font-montserrat text-lg font-bold block underline;
+	@apply font-montserrat sm:text-lg font-bold block underline;
 }
 
 .footer-contact-email {
-	@apply font-montserrat text-lg block;
+	@apply font-montserrat sm:text-lg block;
 }
 
 .footer-reservation-heading {
-	@apply text-lg font-semibold font-montserrat text-white bg-secondary w-fit max-lg:mx-auto lg:ml-auto;
+	@apply sm:text-lg font-semibold font-montserrat text-white bg-secondary w-fit max-lg:mx-auto lg:ml-auto;
 }
 
 .footer-reservation-email {
-	@apply font-montserrat text-lg block;
+	@apply font-montserrat sm:text-lg block;
 }
 
 /* Footer Bottom Section */

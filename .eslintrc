@@ -1,6 +1,7 @@
 {
     "extends": [
-        "plugin:@wordpress/eslint-plugin/esnext"
+        "plugin:@wordpress/eslint-plugin/esnext",
+        "plugin:prettier/recommended"
     ],
     "env": {
         "browser": true

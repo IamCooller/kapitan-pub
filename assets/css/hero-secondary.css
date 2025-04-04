@@ -1,15 +1,18 @@
 .hero-secondary {
-	@apply relative h-screen w-full flex items-center justify-center text-center px-14 bg-no-repeat overflow-hidden;
-	min-height: 560px;
+	@apply relative w-full flex items-center justify-center text-center px-14 bg-no-repeat overflow-hidden;
+    @apply lg:h-screen lg:min-h-[400px] h-fit lg:max-h-[50vh] max-lg:bg-[#092350];
+	 @media (width < 64rem /* 1024px */) {
+        background-image: none !important;
+    }
 }
 
 /* Main hero inner container */
 .hero-secondary__inner {
-	@apply relative  flex flex-col items-center  justify-center container py-12 h-full min-h-svh w-full gap-9;
+	@apply relative  flex flex-col items-center  justify-center container py-12 h-full w-full gap-9;
 }
 
 .hero-secondary__overlay {
-	@apply absolute inset-0 w-full h-full bg-black pointer-events-none;
+	@apply absolute inset-0 w-full h-full bg-black pointer-events-none max-lg:hidden;
 }
 
 /* Logo styles */
@@ -22,5 +25,5 @@
 	@apply w-full h-full object-contain;
 }
 .hero-secondary__title {
-	@apply font-medium text-5xl text-center uppercase;
+	@apply font-medium text-3xl sm:text-5xl text-center uppercase;
 }

@@ -5,7 +5,7 @@
 }
 
 .connect-with-us-container {
-	@apply container space-y-16;
+	@apply container space-y-4 sm:space-y-16;
 }
 
 .connect-with-us-header {
@@ -21,12 +21,13 @@
 }
 
 .connect-with-us-hashtag {
-	@apply text-center text-[12px] mt-8;
+	@apply text-center text-[12px] mt-4 sm:mt-8;
 }
 /* connect-with-us Slider */
 .connect-with-us-slider {
 	position: relative;
 	overflow: hidden;
+	@apply max-sm:m-0;
 }
 
 .connect-with-us-slider .swiper-slide {
@@ -36,6 +37,10 @@
 	justify-content: center;
 	align-items: center;
 	height: auto;
+	@apply max-lg:scale-75;
+}
+.connect-with-us-slider .swiper-slide-active{
+	@apply max-lg:scale-100;
 }
 
 .connect-with-us-slider .swiper-slide img {

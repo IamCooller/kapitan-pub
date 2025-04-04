@@ -14,7 +14,8 @@ $hashtag = !empty(get_field('connect_hashtag', 'option')) ? get_field('connect_h
 $images = !empty(get_field('connect_images', 'option')) ? get_field('connect_images', 'option') : [];
 
 ?>
-<section class="connect-with-us-section">
+<section class="connect-with-us-section relative">
+    <div class="lines"></div>
     <div class="connect-with-us-container">
         <div class="connect-with-us-header">
             <?php if (!empty($title)) : ?>

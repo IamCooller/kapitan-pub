@@ -8,6 +8,8 @@ import "./assets/css/style.css";
 import "./assets/js/main.js";
 import "./assets/js/home.js";
 import "./assets/js/events-slider.js";
+import "./assets/js/lenis-scroll.js"; // Добавляем плавный скролл
+import "./assets/js/animations.js"; // Добавляем анимации
 /*
 document.querySelector('#app').innerHTML = `
   <h1>Hello Vite!</h1>

@@ -12,30 +12,23 @@ $background_image = !empty(get_sub_field('background_image')) ? get_sub_field('b
 $buttons = !empty(get_sub_field('buttons')) ? get_sub_field('buttons') : [];
 ?>
 
-<section class="hero" <?php if (!empty($background_image)) : ?>style="background-image: url(<?php echo esc_url($background_image['url']); ?>); background-size: cover; background-position: center;" <?php endif; ?>>
-    <div class="hero__inner">
-        <div class="hero__logo">
-            <?php
-            if (has_custom_logo()) {
-                the_custom_logo();
-            } else {
-                echo '<a href="' . esc_url(home_url('/')) . '" aria-label="' . esc_attr(get_bloginfo('name')) . '">' . get_bloginfo('name') . '</a>';
-            }
-            ?>
-        </div>
+<section class="hero " <?php if (!empty($background_image)) : ?>style="background-image: url(<?php echo esc_url($background_image['url']); ?>); background-size: cover; background-position: center;" <?php endif; ?>>
+    <div class="hero__inner relative z-[1]">
 
-        <div class="hero__buttons">
-            <a href="/booking" class="button booking-button">
+
+        <div class="hero__buttons hero-stagger-container">
+            <a href="/booking" class="button booking-button ">
                 <?php echo function_exists('pll__') ? pll__('BOOK A TABLE') : 'BOOK A TABLE'; ?>
             </a>
             <?php if (!empty($buttons)) : ?>
-                <?php foreach ($buttons as $button) :
+                <?php
+                foreach ($buttons as $button) :
                     $button_text = !empty($button['text']) ? $button['text'] : '';
                     $button_link = !empty($button['link']) ? $button['link'] : '#';
 
                     if (!empty($button_text)) :
                 ?>
-                        <a href="<?php echo esc_url($button_link); ?>" class="button">
+                        <a href="<?php echo esc_url($button_link); ?>" class="button ">
                             <?php echo esc_html($button_text); ?>
                         </a>
                 <?php

@@ -1,9 +1,12 @@
 @import "tailwindcss";
 @import "./fonts.css";
 @import "./components.css";
+@import "./button-animations.css";
 @import "./options.css";
 @import "./header.css";
+
 @import "./hero.css";
+
 @import "./booking-form.css";
 @import "./footer.css";
 @import "./kapitan.css";

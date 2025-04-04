@@ -18,7 +18,8 @@ $categories = !empty(get_sub_field('categories')) ? get_sub_field('categories') 
 
 
 ?>
-<section class="menu-items-section">
+<section class="menu-items-section relative">
+    <div class="lines"></div>
     <div class="menu-items-container">
         <div class="menu-items-left-column">
             <?php if (!empty($left_image_1)) : ?>

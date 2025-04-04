@@ -12,7 +12,7 @@ $background_image = !empty(get_sub_field('background_image')) ? get_sub_field('b
 $title = !empty(get_sub_field('title')) ? get_sub_field('title') : '';
 $subtitle = !empty(get_sub_field('subtitle')) ? get_sub_field('subtitle') : '';
 ?>
-<section class="menu-banner"
+<section class="menu-banner relative"
     <?php if (!empty($background_image)) : ?>
     style="background-image: url(<?php echo esc_url($background_image['url']); ?>);"
     <?php endif; ?>>
@@ -27,5 +27,6 @@ $subtitle = !empty(get_sub_field('subtitle')) ? get_sub_field('subtitle') : '';
                 <p class="menu-banner-subtitle"><?php echo esc_html($subtitle); ?></p>
             <?php endif; ?>
         </div>
+        <a href="/menu" class="absolute bottom-0 left-0 w-full h-full"></a>
     </div>
 </section>

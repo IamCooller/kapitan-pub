@@ -1,11 +1,11 @@
 /* Events Section Styles */
 
 .events-section {
-	@apply py-[100px];
+	@apply py-[100px] overflow-hidden;
 }
 
 .events-container {
-	@apply container space-y-16;
+	@apply  space-y-16 container;
 }
 
 .events-header {
@@ -21,43 +21,23 @@
 }
 
 /* Swiper slider styles */
-.events-grid {
-	@apply w-full overflow-hidden;
+.events-swiper {
+	@apply w-full overflow-hidden relative ;
 }
-
+.swiper-mobile .swiper-wrapper{
+	@apply lg:grid lg:grid-cols-3 lg:gap-4;
+}
 .event-item {
 	@apply flex flex-col h-auto;
 	width: 100%;
+	transition-property: all !important;
+	transition-duration: 400ms;
+	transition-timing-function: ease-in-out;
 }
 
 /* For swiper slides */
 .swiper-slide {
 	height: auto !important;
-}
-
-/* On mobile viewport */
-@media (max-width: 767px) {
-	.events-grid {
-		@apply px-4 -mx-4;
-	}
-
-	.event-item {
-		@apply w-[85vw] max-w-[300px];
-	}
-}
-
-/* On tablet */
-@media (min-width: 768px) and (max-width: 1023px) {
-	.event-item {
-		@apply w-[40vw] max-w-[400px];
-	}
-}
-
-/* On desktop */
-@media (min-width: 1024px) {
-	.event-item {
-		@apply w-[30%] max-w-none;
-	}
 }
 
 .event-image {
@@ -90,4 +70,17 @@
 
 .event-text {
 	@apply opacity-65;
+}
+
+.button-prev,
+.button-next {
+	@apply absolute max-lg:-bottom-10 lg:top-1/2 translate-y-0 lg:-translate-y-1/2 lg:scale-150 bg-white rounded-full p-2 flex items-center justify-center text-primary z-10 cursor-pointer max-lg:m-0;
+}
+
+.button-prev {
+	@apply left-10 lg:left-14;
+}
+
+.button-next {
+	@apply right-10 lg:right-14;
 }

@@ -21,10 +21,10 @@ get_header();
 
 
 			<div class="error-404-actions">
-				<a href="<?php echo esc_url(home_url('/')); ?>" class="error-404-button">
+				<a href="<?php echo esc_url(home_url('/')); ?>" class="button">
 					<?php esc_html_e('Back to Home', 'kapitan-pub'); ?>
 				</a>
-				<a href="<?php echo esc_url(home_url('/contact-us/')); ?>" class="error-404-button">
+				<a href="<?php echo esc_url(home_url('/contact-us/')); ?>" class="button">
 					<?php esc_html_e('Contact Us', 'kapitan-pub'); ?>
 				</a>
 			</div>

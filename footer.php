@@ -29,6 +29,10 @@ $parking_label = function_exists('pll__') ? pll__('Parking') : 'Parking';
 $open_hours_label = function_exists('pll__') ? pll__('Open hours') : 'Open hours';
 $contact_info_label = function_exists('pll__') ? pll__('Kontaktné údaje') : 'Kontaktné údaje';
 $reservation_label = function_exists('pll__') ? pll__('Rezervácia') : 'Rezervácia';
+
+// Define trackable social link types
+$trackable_social_types = ['facebook', 'instagram', 'tiktok'];
+
 ?>
 
 <footer>
@@ -140,16 +144,32 @@ $reservation_label = function_exists('pll__') ? pll__('Rezervácia') : 'Rezervá
 			</div>
 			<div>
 				<?php
-				wp_nav_menu([
-					'theme_location' => 'footer-menu',
-					'container'      => false,
-					'menu_class'     => 'footer-menu',
-					'menu_id'        => 'footer-menu',
-					'echo'           => true,
-					'fallback_cb'    => false,
-					'items_wrap'     => '<nav id="%1$s" class="%2$s" role="navigation" aria-label="' . esc_attr__('Footer menu', 'kapitan-pub') . '">%3$s</nav>',
-					'walker'         => new Custom_Walker_Nav_Menu(),
-				]);
+				// Ensure Custom_Walker_Nav_Menu class exists before using it
+				if (class_exists('Custom_Walker_Nav_Menu')) {
+					wp_nav_menu([
+						'theme_location' => 'footer-menu',
+						'container'      => false,
+						'menu_class'     => 'footer-menu',
+						'menu_id'        => 'footer-menu',
+						'echo'           => true,
+						'fallback_cb'    => false,
+						'items_wrap'     => '<nav id="%1$s" class="%2$s" role="navigation" aria-label="' . esc_attr__('Footer menu', 'kapitan-pub') . '">%3$s</nav>',
+						'walker'         => new Custom_Walker_Nav_Menu(),
+					]);
+				} else {
+					// Fallback if walker class doesn't exist
+					wp_nav_menu([
+						'theme_location' => 'footer-menu',
+						'container'      => 'nav',
+						'container_class' => 'footer-menu-container',
+						'menu_class'     => 'footer-menu',
+						'menu_id'        => 'footer-menu',
+						'echo'           => true,
+						'fallback_cb'    => false,
+						'items_wrap'     => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+						'depth'          => 1, // Adjust depth as needed
+					]);
+				}
 				?>
 			</div>
 			<div class="footer-contact-info">
@@ -184,20 +204,27 @@ $reservation_label = function_exists('pll__') ? pll__('Rezervácia') : 'Rezervá
 				<?php foreach ($social_links as $social) :
 					$social_url = !empty($social['url']) ? $social['url'] : '';
 					$social_icon = !empty($social['icon']) ? $social['icon'] : '';
-					$social_name = !empty($social['name']) ? $social['name'] : '';
+					$social_name = !empty($social['name']) ? $social['name'] : ''; // Expecting 'Facebook', 'Instagram', 'Tiktok' etc.
+					$social_type = strtolower($social_name); // Convert name to lowercase type like 'facebook'
 
-					if (!empty($social_url) && !empty($social_icon)) :
-						// Определяем класс иконки на основе имени соцсети
+					if (!empty($social_url) && !empty($social_icon) && !empty($social_name)) :
+						// Determine class and tracking attribute
 						$icon_class = 'footer-social-icon-default';
-						if (strtolower($social_name) === 'facebook') {
-							$icon_class = 'footer-social-icon-facebook';
-						} elseif (strtolower($social_name) === 'youtube') {
+						$tracking_attr = '';
+						$link_href = esc_url($social_url); // Default href
+
+						if (in_array($social_type, $trackable_social_types)) {
+							// Add specific class for trackable icons if needed, e.g., 'footer-social-icon-facebook'
+							$icon_class = 'footer-social-icon-' . $social_type;
+							// Add data attributes for JS tracking
+							$tracking_attr = ' data-track-type="' . esc_attr($social_type) . '" data-track-url="' . esc_url($social_url) . '"';
+							$link_href = '#'; // Change href to '#' for JS handling
+						} elseif (strtolower($social_name) === 'youtube') { // Example for non-tracked icon styling
 							$icon_class = 'footer-social-icon-youtube';
-						} elseif (strtolower($social_name) === 'instagram') {
-							$icon_class = 'footer-social-icon-instagram';
 						}
 				?>
-						<a href="<?php echo esc_url($social_url); ?>">
+						<a href="<?php echo $link_href; ?>" <?php echo $tracking_attr; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Attributes are escaped above 
+															?> target="_blank" rel="noopener noreferrer">
 							<?php if (is_array($social_icon) && !empty($social_icon['url'])) : ?>
 								<img src="<?php echo esc_url($social_icon['url']); ?>" alt="<?php echo esc_attr($social_name); ?>" class="<?php echo esc_attr($icon_class); ?>" />
 							<?php else : ?>
@@ -215,6 +242,55 @@ $reservation_label = function_exists('pll__') ? pll__('Rezervácia') : 'Rezervá
 
 
 <?php wp_footer(); ?>
+
+<?php // Add JS for tracking right before closing body tag 
+?>
+<script>
+	document.addEventListener('DOMContentLoaded', function() {
+		const socialLinks = document.querySelectorAll('.footer-social a[data-track-type]');
+
+		socialLinks.forEach(link => {
+			link.addEventListener('click', function(event) {
+				event.preventDefault(); // Prevent default navigation
+
+				const linkType = this.getAttribute('data-track-type');
+				const targetUrl = this.getAttribute('data-track-url');
+				const restUrl = '<?php echo esc_url_raw(rest_url('kapitanpub/v1/track-click')); ?>';
+
+				// Prepare data to send
+				const data = {
+					type: linkType,
+					url: targetUrl // Send original URL for verification/logging if needed
+				};
+
+				// Use Fetch API to send data to the REST endpoint
+				fetch(restUrl, {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+							// Include nonce if endpoint requires authentication/verification
+							'X-WP-Nonce': '<?php echo wp_create_nonce('wp_rest'); ?>'
+						},
+						body: JSON.stringify(data)
+					})
+					.then(response => response.json())
+					.then(result => {
+						// Optional: Check result success status if API returns one
+						console.log('Tracking data sent:', result);
+						// Redirect to the original URL after logging
+						window.open(targetUrl, '_blank'); // Use window.open for target="_blank" behavior
+						// Or use: window.location.href = targetUrl; // For same tab redirection
+					})
+					.catch(error => {
+						console.error('Error tracking click:', error);
+						// Fallback: Still redirect even if tracking fails
+						window.open(targetUrl, '_blank');
+						// Or use: window.location.href = targetUrl;
+					});
+			});
+		});
+	});
+</script>
 
 </body>
 

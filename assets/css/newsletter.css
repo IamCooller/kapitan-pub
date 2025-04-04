@@ -19,7 +19,7 @@
 }
 
 .newsletter-form-wrapper {
-	@apply flex gap-2.5 justify-center border-b border-white mb-6 pb-2 mt-8 md:mt-16 max-w-[744px] mx-auto text-xl;
+	@apply flex gap-2.5 justify-center border-b border-white mb-6 pb-2 mt-8 md:mt-16 max-w-[744px] mx-auto sm:text-xl;
 }
 
 .newsletter-input {

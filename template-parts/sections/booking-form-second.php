@@ -2,7 +2,8 @@
 $title = get_sub_field('title');
 
 ?>
-<section class="py-[50px] lg:py-[100px]">
+<section class="py-[50px] lg:py-[100px] relative">
+    <div class="lines"></div>
     <div class="container">
         <div class=" h3 mb-8 sm:mb-16 uppercase text-center"><?php echo $title; ?></div>
 
