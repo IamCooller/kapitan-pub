@@ -47,13 +47,14 @@ if (function_exists('pll_register_string')) {
     pll_register_string('big_banner_title', 'Welcome to Kapitan Pub', 'Banners');
     pll_register_string('big_banner_text', 'Experience authentic cuisine and beverages in the heart of the city', 'Banners');
 
+
     // Footer section
-    pll_register_string('footer_address_title', 'Our Address', 'Footer');
+    pll_register_string('footer_address_title', 'Address', 'Footer');
     pll_register_string('footer_address', '123 Main Street, City, Country', 'Footer');
     pll_register_string('footer_contact_title', 'Contact Us', 'Footer');
     pll_register_string('footer_parking_title', 'Parking', 'Footer');
     pll_register_string('footer_parking_info', 'Free parking available', 'Footer');
-    pll_register_string('footer_hours_title', 'Opening Hours', 'Footer');
+    pll_register_string('footer_hours_title', 'Open hours', 'Footer');
     pll_register_string('footer_hours_weekdays', 'Monday - Friday: 9am - 10pm', 'Footer');
     pll_register_string('footer_hours_weekends', 'Saturday - Sunday: 10am - 11pm', 'Footer');
     pll_register_string('footer_copyright', '© 2023 Kapitan Pub. All rights reserved.', 'Footer');
