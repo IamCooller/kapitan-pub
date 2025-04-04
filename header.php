@@ -96,7 +96,7 @@
                     <a href="<?php echo esc_url('/booking'); ?>"
                         class="button header-desktop__buttons-booking"
                         aria-label="<?php echo esc_attr__('Book a table', 'kapitan-pub'); ?>">
-                        <?php esc_html_e('BOOK A TABLE', 'kapitan'); ?>
+                        <?php echo function_exists('pll__') ? pll__('BOOK A TABLE') : 'BOOK A TABLE'; ?>
                     </a>
                 </div>
             </div>
