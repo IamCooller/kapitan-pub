@@ -13,7 +13,8 @@ const initAnimations = () => {
 		const headerLogo = document.querySelector(".header-desktop__logo");
 		const headerMenu = document.querySelector(".header-desktop__menu");
 		const headerButtons = document.querySelector(".header-desktop__buttons");
-
+		const headerHome = document.querySelector(".header-home");
+		const headerLogoHome = document.querySelector(".header-home .header-desktop__logo");
 		// Создаем таймлайн для анимации шапки
 		const headerTimeline = gsap.timeline({
 			defaults: {
@@ -21,6 +22,75 @@ const initAnimations = () => {
 				duration: 0.8,
 			},
 		});
+
+		// Скрываем headerHome на мобильных устройствах (до 1024px)
+		if (window.innerWidth <= 1024 && headerHome) {
+			gsap.set(headerHome, {
+				opacity: 0,
+				y: -20,
+			});
+			
+			// Также скрываем лого внутри headerHome
+			if (headerLogoHome) {
+				gsap.set(headerLogoHome, {
+					opacity: 0,
+					y: -10,
+				});
+			}
+
+			// Создаем ScrollTrigger для появления headerHome при скролле только на мобильных устройствах
+			ScrollTrigger.create({
+				start: "top+=350 top", // Начинаем анимацию, когда страница прокручена на 100px вниз
+				onEnter: () => {
+					// Создаем отдельный timeline для последовательной анимации
+					const mobileHeaderTimeline = gsap.timeline({
+						defaults: {
+							ease: "power3.out",
+						}
+					});
+					
+					// Сначала анимируем сам headerHome
+					mobileHeaderTimeline.to(headerHome, {
+						opacity: 1,
+						y: 0,
+						duration: 0.6,
+					});
+					
+					// Затем анимируем лого с небольшой задержкой
+					if (headerLogoHome) {
+						mobileHeaderTimeline.to(headerLogoHome, {
+							opacity: 1,
+							y: 0,
+							duration: 0.5,
+						}, "+=0.5"); // Добавляем задержку в 0.2 секунды после первой анимации
+					}
+				},
+				onLeaveBack: () => {
+					// При скролле обратно наверх анимируем исчезновение в обратном порядке
+					const mobileHeaderReverseTimeline = gsap.timeline({
+						defaults: {
+							ease: "power3.in",
+						}
+					});
+					
+					// Сначала скрываем лого
+					if (headerLogoHome) {
+						mobileHeaderReverseTimeline.to(headerLogoHome, {
+							opacity: 0,
+							y: -10,
+							duration: 0.3,
+						});
+					}
+					
+					// Затем скрываем весь headerHome
+					mobileHeaderReverseTimeline.to(headerHome, {
+						opacity: 0,
+						y: -20,
+						duration: 0.4,
+					}, "+=0.1");
+				},
+			});
+		}
 
 		// Сначала скрываем все элементы
 		gsap.set([headerDesktop, headerMobile], {

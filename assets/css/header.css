@@ -1,9 +1,9 @@
 /* Header Desktop Classes */
 .header{
-@apply max-lg:bg-[#14397E];
+@apply max-lg:bg-[#14397E] fixed top-0 lg:top-8 left-0 right-0 w-full z-10;
 }
 .header-desktop {
-	@apply fixed top-8 left-0 right-0 w-full z-10 flex items-center justify-center max-lg:hidden container;
+	@apply  flex items-center justify-center max-lg:hidden container;
 }
 
 .header-desktop__inner {

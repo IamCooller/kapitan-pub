@@ -13,9 +13,9 @@
         define('_S_VERSION', '1.0.0');
     }
 
-    define('IS_VITE_DEVELOPMENT', true);
+    define('IS_VITE_DEVELOPMENT', false);
 
-    // Подключаем функции
+                                                               // Подключаем функции
     require get_template_directory() . '/inc/acf-blocks.php';  // ACF Gutenberg Blocks (создай файл позже)
     require get_template_directory() . '/inc/theme-setup.php'; // Поддержка темы, меню и т.д.
     require get_template_directory() . '/inc/inc.vite.php';
@@ -290,16 +290,16 @@
                                     $user_info = $user_data ? esc_html($user_data->display_name) . ' (ID: ' . $click['user_id'] . ')' : __('Unknown User', 'kapitan-pub') . ' (ID: ' . $click['user_id'] . ')';
                                 }
                             ?>
-	                        <tr>
-	                            <td><?php echo esc_html(ucfirst($click['link_type'])); ?></td>
-	                            <td><a href="<?php echo esc_url($click['target_url']); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html($click['target_url']); ?></a></td>
-	                            <td><?php echo esc_html($click['click_time']); ?></td>
-	                            <td><?php echo $user_info; // Already escaped
-                                            ?></td>
-	                            <td><?php echo esc_html($click['ip_address']); ?></td>
-	                            <td><?php echo esc_html($click['user_agent']); ?></td>
-	                        </tr>
-	                    <?php endforeach; ?>
+		                        <tr>
+		                            <td><?php echo esc_html(ucfirst($click['link_type'])); ?></td>
+		                            <td><a href="<?php echo esc_url($click['target_url']); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html($click['target_url']); ?></a></td>
+		                            <td><?php echo esc_html($click['click_time']); ?></td>
+		                            <td><?php echo $user_info; // Already escaped
+                                                ?></td>
+		                            <td><?php echo esc_html($click['ip_address']); ?></td>
+		                            <td><?php echo esc_html($click['user_agent']); ?></td>
+		                        </tr>
+		                    <?php endforeach; ?>
                 </tbody>
             </table>
         <?php else: ?>
