@@ -260,6 +260,7 @@ const initAnimations = () => {
 			scrollTrigger: {
 				trigger: footerElement,
 				start: 'top 90%', // Начать чуть раньше
+				once: true,
 				toggleActions: 'play reverse play reverse', // Проигрывать при входе/выходе
 				// markers: true, // Раскомментируйте для отладки
 			},

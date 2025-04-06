@@ -74,13 +74,13 @@
 
 .button-prev,
 .button-next {
-	@apply absolute max-lg:-bottom-10 lg:top-1/2 translate-y-0 lg:-translate-y-1/2 lg:scale-150 bg-white rounded-full p-2 flex items-center justify-center text-primary z-10 cursor-pointer max-lg:m-0;
+	@apply absolute  top-1/2 -translate-y-1/2 sm:scale-150 bg-white rounded-full p-2 flex items-center justify-center text-primary z-10 cursor-pointer ;
 }
 
 .button-prev {
-	@apply left-10 lg:left-14;
+	@apply left-5 lg:left-14;
 }
 
 .button-next {
-	@apply right-10 lg:right-14;
+	@apply right-5 lg:right-14;
 }

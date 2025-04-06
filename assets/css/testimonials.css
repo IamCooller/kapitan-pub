@@ -31,7 +31,7 @@
 }
 
 .testimonials-image-wrapper {
-	@apply relative h-fit pr-[58px];
+	@apply relative h-fit max-sm:pb-4 sm:pr-[58px];
 }
 
 .testimonials-image {
@@ -39,7 +39,7 @@
 }
 
 .testimonials-image-caption {
-	@apply absolute bottom-0 right-0 font-island text-5xl -rotate-4;
+	@apply absolute bottom-0 right-0 font-island text-5xl -rotate-4 max-sm:hidden;
 }
 
 .testimonials-image-caption-text {

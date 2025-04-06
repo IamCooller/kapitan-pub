@@ -57,7 +57,7 @@
 /* Mobile Menu Classes */
 
 .mobile-menu {
-	@apply lg:hidden! fixed top-0 left-0 w-screen h-screen z-20 bg-primary backdrop-blur-xs  py-11;
+	@apply lg:hidden! fixed top-0 left-0 w-screen h-svh z-20 bg-primary backdrop-blur-xs  py-11;
 	@apply transform translate-x-full transition-all duration-300 ease-in-out;
 }
 .mobile-menu .container {
