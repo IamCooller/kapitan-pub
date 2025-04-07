@@ -315,10 +315,7 @@ const initAnimations = () => {
 		const footerElement = document.querySelector( 'footer' );
 		if ( !footerElement ) return;
 
-		// Внутренние блоки футера для анимации
-		const footerTop = footerElement.querySelector( '.footer-top' );
-		const footerMiddle = footerElement.querySelector( '.footer-middle' );
-		const footerBottom = footerElement.querySelector( '.footer-bottom' );
+	
 		const infoBlocks = footerElement.querySelectorAll( '.footer-info-block, .footer-parking-block, .footer-hours-block' );
 		const qrSection = footerElement.querySelector( '.footer-qr-section' );
 		const brand = footerElement.querySelector( '.footer-brand' );
@@ -332,7 +329,7 @@ const initAnimations = () => {
 				trigger: footerElement,
 				start: 'top 90%', // Начать чуть раньше
 				once: true,
-				toggleActions: 'play reverse play reverse', // Проигрывать при входе/выходе
+			
 				// markers: true, // Раскомментируйте для отладки
 			},
 			defaults: {
