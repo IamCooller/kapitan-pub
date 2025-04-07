@@ -167,3 +167,11 @@ add_filter('wp_check_filetype_and_ext', function ($data, $file, $filename, $mime
 
     return $data;
 }, 10, 4);
+
+$polyLangDetectedLanguage = $GLOBALS['polylang']->nav_menu->curlang;
+
+add_filter('pll_check_canonical_url', function () use ($polyLangDetectedLanguage) {
+    $GLOBALS['polylang']->nav_menu->curlang = $polyLangDetectedLanguage;
+
+    return false;
+}, 99, 2);
