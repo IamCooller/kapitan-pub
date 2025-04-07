@@ -21,9 +21,6 @@ add_action('after_setup_theme', function () {
             }
         }
     }
-    add_filter('pll_check_canonical_url', function () {
-        return false;
-    }, 99, 2);
 
     // Заголовок страницы
     add_theme_support('title-tag');
@@ -167,11 +164,3 @@ add_filter('wp_check_filetype_and_ext', function ($data, $file, $filename, $mime
 
     return $data;
 }, 10, 4);
-
-$polyLangDetectedLanguage = $GLOBALS['polylang']->nav_menu->curlang;
-
-add_filter('pll_check_canonical_url', function () use ($polyLangDetectedLanguage) {
-    $GLOBALS['polylang']->nav_menu->curlang = $polyLangDetectedLanguage;
-
-    return false;
-}, 99, 2);
