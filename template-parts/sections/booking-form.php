@@ -1,29 +1,28 @@
 <?php
 
-/**
- * Booking Form section
- *
- * @package KAPITAN_PUB
- */
+    /**
+     * Booking Form section
+     *
+     * @package KAPITAN_PUB
+     */
 
-
-// Fallback values
-$image = !empty(get_sub_field('image')) ? get_sub_field('image') : '';
-$left_text = !empty(get_sub_field('left_text')) ? get_sub_field('left_text') : '';
-$right_text = !empty(get_sub_field('right_text')) ? get_sub_field('right_text') : '';
-$title = !empty(get_sub_field('title')) ? get_sub_field('title') : '';
-$subtitle = !empty(get_sub_field('subtitle')) ? get_sub_field('subtitle') : '';
+    // Fallback values
+    $image      = ! empty(get_sub_field('image')) ? get_sub_field('image') : '';
+    $left_text  = ! empty(get_sub_field('left_text')) ? get_sub_field('left_text') : '';
+    $right_text = ! empty(get_sub_field('right_text')) ? get_sub_field('right_text') : '';
+    $title      = ! empty(get_sub_field('title')) ? get_sub_field('title') : '';
+    $subtitle   = ! empty(get_sub_field('subtitle')) ? get_sub_field('subtitle') : '';
 ?>
 <section class="booking-section" id="booking-form">
     <div class="booking-container">
         <div class="booking-content">
-            <?php if (!empty($title)) : ?>
+            <?php if (! empty($title)): ?>
                 <h2 class="h2 md:mb-8">
                     <?php echo esc_html($title); ?>
                 </h2>
             <?php endif; ?>
             <div class="booking-content-inner">
-                <?php if (!empty($subtitle)) : ?>
+                <?php if (! empty($subtitle)): ?>
                     <h3 class="booking-subtitle">
                         <?php echo esc_html($subtitle); ?>
                     </h3>
@@ -89,21 +88,22 @@ $subtitle = !empty(get_sub_field('subtitle')) ? get_sub_field('subtitle') : '';
                     <input type="hidden" name="action" value="process_booking">
                     <input type="hidden" name="lang" value="<?php echo function_exists('pll_current_language') ? pll_current_language() : 'en'; ?>">
 
-                    <button type="submit" class="button submit">
+                    <button type="submit" class="button submit max-w-none w-auto px-4
+">
                         <?php echo function_exists('pll__') ? pll__('BOOK NOW') : 'BOOK NOW'; ?>
                     </button>
                 </form>
             </div>
         </div>
-        <?php if (!empty($image)) : ?>
+        <?php if (! empty($image)): ?>
             <div class="booking-image-wrapper">
                 <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>" />
                 <div class="booking-caption">
-                    <?php if (!empty($left_text)) : ?>
-                        <?php echo esc_html($left_text); ?>
+                    <?php if (! empty($left_text)): ?>
+<?php echo esc_html($left_text); ?>
                         <br />
                     <?php endif; ?>
-                    <?php if (!empty($right_text)) : ?>
+<?php if (! empty($right_text)): ?>
                         <span class="booking-caption-right">
                             <?php echo esc_html($right_text); ?>
                         </span>

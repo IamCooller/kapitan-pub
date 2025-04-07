@@ -23,4 +23,7 @@
 		@apply font-jost max-lg:text-sm text-base text-white bg-[#092350];
 	}
 
+	html {
+		@apply scroll-smooth;
+	}
 }

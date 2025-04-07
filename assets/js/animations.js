@@ -250,7 +250,7 @@ const initAnimations = () => {
 			}
 
 			// Staggered content animation
-			if (title) tl.to(title, { opacity: 1, y: 0, duration: 0.5 }, "-=0.4");
+			if (title) tl.to(title, { opacity: 0.3, y: 0, duration: 0.5 }, "-=0.4");
 			if (subtitle) tl.to(subtitle, { opacity: 1, y: 0, duration: 0.5 }, "-=0.4");
 			if (text) tl.to(text, { opacity: 1, y: 0, duration: 0.5 }, "-=0.4");
 			if (button) tl.to(button, { opacity: 1, y: 0, duration: 0.5 }, "-=0.4");
