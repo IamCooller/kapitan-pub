@@ -6,8 +6,6 @@
 
 add_action('after_setup_theme', function () {
 
-
-
     // Регистрация строк для перевода
     if (function_exists('pll_register_string')) {
         pll_register_string('book_table', 'BOOK A TABLE', 'kapitan-pub');
@@ -16,13 +14,16 @@ add_action('after_setup_theme', function () {
         // Проверяем настройки Polylang
         if (function_exists('pll_current_language')) {
             $current_lang = pll_current_language();
-            $languages = pll_the_languages(['hide_if_empty' => 0, 'raw' => 1]);
+            $languages    = pll_the_languages(['hide_if_empty' => 0, 'raw' => 1]);
 
             if (empty($languages)) {
                 error_log('Polylang: No languages configured. Please add languages in Polylang settings.');
             }
         }
     }
+    add_filter('pll_check_canonical_url', function () {
+        return false;
+    }, 99, 2);
 
     // Заголовок страницы
     add_theme_support('title-tag');
@@ -81,7 +82,7 @@ add_action('after_setup_theme', function () {
             ];
 
             $attach_id = wp_insert_attachment($attachment, $file);
-            require_once(ABSPATH . 'wp-admin/includes/image.php');
+            require_once (ABSPATH . 'wp-admin/includes/image.php');
 
             $attach_data = wp_generate_attachment_metadata($attach_id, $file);
             wp_update_attachment_metadata($attach_id, $attach_data);
@@ -120,9 +121,6 @@ add_action('after_setup_theme', function () {
         }
     }
 });
-
-
-
 
 class Custom_Walker_Nav_Menu extends Walker_Nav_Menu
 {
@@ -163,7 +161,7 @@ add_filter('wp_check_filetype_and_ext', function ($data, $file, $filename, $mime
     $filetype = wp_check_filetype($filename, $mimes);
 
     if ('svg' === $filetype['ext']) {
-        $data['ext'] = 'svg';
+        $data['ext']  = 'svg';
         $data['type'] = 'image/svg+xml';
     }
 
