@@ -290,16 +290,16 @@
                                     $user_info = $user_data ? esc_html($user_data->display_name) . ' (ID: ' . $click['user_id'] . ')' : __('Unknown User', 'kapitan-pub') . ' (ID: ' . $click['user_id'] . ')';
                                 }
                             ?>
-																                        <tr>
-																                            <td><?php echo esc_html(ucfirst($click['link_type'])); ?></td>
-																                            <td><a href="<?php echo esc_url($click['target_url']); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html($click['target_url']); ?></a></td>
-																                            <td><?php echo esc_html($click['click_time']); ?></td>
-																                            <td><?php echo $user_info; // Already escaped
-                                                                                                        ?></td>
-																                            <td><?php echo esc_html($click['ip_address']); ?></td>
-																                            <td><?php echo esc_html($click['user_agent']); ?></td>
-																                        </tr>
-																                    <?php endforeach; ?>
+																		                        <tr>
+																		                            <td><?php echo esc_html(ucfirst($click['link_type'])); ?></td>
+																		                            <td><a href="<?php echo esc_url($click['target_url']); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html($click['target_url']); ?></a></td>
+																		                            <td><?php echo esc_html($click['click_time']); ?></td>
+																		                            <td><?php echo $user_info; // Already escaped
+                                                                                                                ?></td>
+																		                            <td><?php echo esc_html($click['ip_address']); ?></td>
+																		                            <td><?php echo esc_html($click['user_agent']); ?></td>
+																		                        </tr>
+																		                    <?php endforeach; ?>
                 </tbody>
             </table>
         <?php else: ?>
@@ -385,10 +385,35 @@
     }
     add_action('template_redirect', 'kapitanpub_track_social_pages');
 
-    $polyLangDetectedLanguage = $GLOBALS['polylang']->nav_menu->curlang;
+    /**
+     * Fix Polylang language switching issues with plain URLs like /menu
+     * This prevents Polylang from redirecting to default language when accessing URLs without language code
+     */
+    function kapitanpub_fix_polylang_redirects()
+    {
+        // Only run if Polylang is active
+        if (! function_exists('pll_current_language') || ! isset($GLOBALS['polylang'])) {
+            return;
+        }
 
-    add_filter('pll_check_canonical_url', function () use ($polyLangDetectedLanguage) {
-        $GLOBALS['polylang']->nav_menu->curlang = $polyLangDetectedLanguage;
+        // Store current language detection
+        global $polylang;
 
-        return false;
-}, 99, 2);
+        // Disable canonical URL check in Polylang (prevents redirects to default language)
+        add_filter('pll_check_canonical_url', '__return_false', 99);
+
+        // Keep the detected language when switching pages
+        add_action('wp', function () use ($polylang) {
+            // If no language is set in the URL, use the current/detected language
+            if (isset($polylang->curlang) && ! isset($_GET['lang'])) {
+                // Force Polylang to use the current language for all links and redirects
+                $GLOBALS['polylang']->curlang = $polylang->curlang;
+
+                // Also prevent language-based redirects
+                add_filter('pll_preferred_language', function ($lang) use ($polylang) {
+                    return isset($polylang->curlang) ? $polylang->curlang->slug : $lang;
+                });
+            }
+        });
+    }
+add_action('init', 'kapitanpub_fix_polylang_redirects', 5);
