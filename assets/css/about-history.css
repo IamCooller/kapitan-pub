@@ -13,11 +13,11 @@
 }
 
 .about-history-main-image-wrapper {
-	@apply max-lg:aspect-square lg:h-full w-full;
+	@apply  lg:h-full w-full max-lg:max-h-[500px];
 }
 
 .about-history-main-image {
-	@apply w-full h-full object-contain;
+	@apply w-full h-full max-sm:object-fill object-contain;
 }
 
 .about-history-content {

@@ -23,7 +23,13 @@
 .giveaway-button {
 	@apply mt-6 max-w-[206px];
 }
+.giveaway-button span{
+	@apply relative z-[1];
+}
+.giveaway-button::before{
 
+@apply z-[0];
+}
 .giveaway-image-wrapper {
 	@apply relative h-fit pr-[58px];
 }
