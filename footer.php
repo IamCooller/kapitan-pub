@@ -111,11 +111,11 @@
 
                             if (! empty($qr_image) && ! empty($qr_title)):
                         ?>
-														<div>
-															<div class="footer-qr-title"><?php echo esc_html($qr_title); ?></div>
-															<?php if (is_array($qr_image) && ! empty($qr_image['url'])): ?>
-																<img src="<?php echo esc_url($qr_image['url']); ?>" alt="<?php echo esc_attr($qr_title); ?>" class="footer-qr-image" />
-															<?php else: ?>
+															<div>
+																<div class="footer-qr-title"><?php echo esc_html($qr_title); ?></div>
+																<?php if (is_array($qr_image) && ! empty($qr_image['url'])): ?>
+																	<img src="<?php echo esc_url($qr_image['url']); ?>" alt="<?php echo esc_attr($qr_title); ?>" class="footer-qr-image" />
+																<?php else: ?>
 									<img src="<?php echo esc_url($qr_image); ?>" alt="<?php echo esc_attr($qr_title); ?>" class="footer-qr-image" />
 								<?php endif; ?>
 							</div>
@@ -222,10 +222,10 @@
                             $icon_class = 'footer-social-icon-youtube';
                         }
                     ?>
-													<a href="<?php echo $link_href; ?>" target="_blank" rel="noopener noreferrer">
-														<?php if (is_array($social_icon) && ! empty($social_icon['url'])): ?>
-															<img src="<?php echo esc_url($social_icon['url']); ?>" alt="<?php echo esc_attr($social_name); ?>" class="<?php echo esc_attr($icon_class); ?>" />
-														<?php else: ?>
+														<a href="<?php echo $link_href; ?>" target="_blank" rel="noopener noreferrer">
+															<?php if (is_array($social_icon) && ! empty($social_icon['url'])): ?>
+																<img src="<?php echo esc_url($social_icon['url']); ?>" alt="<?php echo esc_attr($social_name); ?>" class="<?php echo esc_attr($icon_class); ?>" />
+															<?php else: ?>
 								<img src="<?php echo esc_url($social_icon); ?>" alt="<?php echo esc_attr($social_name); ?>" class="<?php echo esc_attr($icon_class); ?>" />
 							<?php endif; ?>
 						</a>
@@ -238,6 +238,82 @@
 	</div>
 </footer>
 
+<!-- Скрипт для автоматического исправления ссылок без языковых кодов -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Получаем текущий язык из URL
+    function getCurrentLanguage() {
+        var urlPath = window.location.pathname;
+        var pathParts = urlPath.split('/').filter(Boolean);
+
+        // Если первый сегмент - двухбуквенный код языка
+        if (pathParts.length > 0 && pathParts[0].length === 2) {
+            return pathParts[0];
+        }
+
+        // Если в URL нет языкового кода, пробуем получить его из html lang атрибута
+        var htmlLang = document.documentElement.lang;
+        if (htmlLang && htmlLang.length >= 2) {
+            return htmlLang.substring(0, 2); // Берем первые два символа (ru-RU -> ru)
+        }
+
+        // Если и это не помогло, возвращаем пустую строку
+        return '';
+    }
+
+    // Получаем текущий язык
+    var currentLanguage = getCurrentLanguage();
+    if (!currentLanguage) {
+        return; // Если язык не определен, выходим
+    }
+
+    // Ищем все ссылки на странице
+    var allLinks = document.querySelectorAll('a[href^="/"]');
+
+    allLinks.forEach(function(link) {
+        var href = link.getAttribute('href');
+
+        // Проверяем, что ссылка начинается с / но не содержит языкового кода
+        if (href === '/') {
+            return; // Пропускаем главную страницу
+        }
+
+        // Проверяем, что ссылка не начинается с языкового кода
+        if (!href.startsWith('/' + currentLanguage + '/')) {
+            // Исключаем ссылки, которые уже содержат другой языковой код
+            var firstSegment = href.split('/')[1];
+            if (firstSegment && firstSegment.length === 2) {
+                // Если первый сегмент - двухбуквенный код, проверяем что это не наш текущий язык
+                if (firstSegment !== currentLanguage) {
+                    return; // Пропускаем ссылки с другими языковыми кодами
+                }
+            }
+
+            // Добавляем языковой код к ссылке
+            link.setAttribute('href', '/' + currentLanguage + href);
+
+            // Для отладки, добавим класс к исправленным ссылкам
+            link.classList.add('lang-fixed-link');
+        }
+    });
+
+    // Еще раз проверим все остальные ссылки без / в начале
+    var relativeLinks = document.querySelectorAll('a[href]:not([href^="/"]):not([href^="http"]):not([href^="#"]):not([href^="mailto"]):not([href^="tel"])');
+
+    relativeLinks.forEach(function(link) {
+        var href = link.getAttribute('href');
+
+        // Если это относительная ссылка без языкового кода
+        if (href && !href.startsWith(currentLanguage + '/')) {
+            // Добавляем языковой код
+            link.setAttribute('href', '/' + currentLanguage + '/' + href);
+            link.classList.add('lang-fixed-link');
+        }
+    });
+
+    console.log('Polylang link fixer: Исправлено ссылок - ' + document.querySelectorAll('.lang-fixed-link').length);
+});
+</script>
 
 <?php wp_footer(); ?>
 
