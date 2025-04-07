@@ -290,16 +290,16 @@
                                     $user_info = $user_data ? esc_html($user_data->display_name) . ' (ID: ' . $click['user_id'] . ')' : __('Unknown User', 'kapitan-pub') . ' (ID: ' . $click['user_id'] . ')';
                                 }
                             ?>
-													                        <tr>
-													                            <td><?php echo esc_html(ucfirst($click['link_type'])); ?></td>
-													                            <td><a href="<?php echo esc_url($click['target_url']); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html($click['target_url']); ?></a></td>
-													                            <td><?php echo esc_html($click['click_time']); ?></td>
-													                            <td><?php echo $user_info; // Already escaped
-                                                                                            ?></td>
-													                            <td><?php echo esc_html($click['ip_address']); ?></td>
-													                            <td><?php echo esc_html($click['user_agent']); ?></td>
-													                        </tr>
-													                    <?php endforeach; ?>
+															                        <tr>
+															                            <td><?php echo esc_html(ucfirst($click['link_type'])); ?></td>
+															                            <td><a href="<?php echo esc_url($click['target_url']); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html($click['target_url']); ?></a></td>
+															                            <td><?php echo esc_html($click['click_time']); ?></td>
+															                            <td><?php echo $user_info; // Already escaped
+                                                                                                    ?></td>
+															                            <td><?php echo esc_html($click['ip_address']); ?></td>
+															                            <td><?php echo esc_html($click['user_agent']); ?></td>
+															                        </tr>
+															                    <?php endforeach; ?>
                 </tbody>
             </table>
         <?php else: ?>
@@ -308,4 +308,79 @@
 
     </div>
 <?php
-}
+    }
+
+    /**
+     * Track and redirect social tracking pages (/instagram, /facebook, etc.)
+     * This is much faster than client-side tracking via JavaScript.
+     */
+    function kapitanpub_track_social_pages()
+    {
+        // Only run on frontend pages, not in admin
+        if (is_admin()) {
+            return;
+        }
+
+        global $wp;
+        $current_url  = home_url($wp->request);
+        $current_path = trim(parse_url($current_url, PHP_URL_PATH), '/');
+
+        // Check if current path is a trackable page
+        $trackable_paths = [
+            'instagram' => 'instagram',
+            'facebook'  => 'facebook',
+        ];
+
+        // Get the last segment of the URL path (to handle language prefixes like /sk/instagram)
+        $path_segments = explode('/', $current_path);
+        $last_segment  = end($path_segments);
+
+        // Check if last segment matches a trackable path
+        if (array_key_exists($last_segment, $trackable_paths)) {
+            global $wpdb;
+            $table_name = KAPITANPUB_TRACKING_TABLE;
+            $link_type  = $trackable_paths[$last_segment];
+
+                                                 // Get user data
+            $user_id    = get_current_user_id(); // Returns 0 if user is not logged in
+            $ip_address = isset($_SERVER['REMOTE_ADDR']) ? sanitize_text_field($_SERVER['REMOTE_ADDR']) : 'Unknown';
+            $user_agent = isset($_SERVER['HTTP_USER_AGENT']) ? sanitize_text_field(substr($_SERVER['HTTP_USER_AGENT'], 0, 255)) : 'Unknown';
+
+            // Insert data into the database
+            $wpdb->insert(
+                $table_name,
+                [
+                    'click_time' => current_time('mysql'),
+                    'link_type'  => $link_type,
+                    'target_url' => $current_url,
+                    'user_id'    => $user_id,
+                    'ip_address' => $ip_address,
+                    'user_agent' => $user_agent,
+                ],
+                [
+                    '%s', // click_time
+                    '%s', // link_type
+                    '%s', // target_url
+                    '%d', // user_id
+                    '%s', // ip_address
+                    '%s', // user_agent
+                ]
+            );
+
+            // Determine the redirect URL (preserving language)
+            if (function_exists('pll_home_url')) {
+                // Use Polylang's function to get home URL for current language
+                $redirect_url = pll_home_url();
+            } else {
+                // Manually preserve language code in URL if it exists
+                $home_url      = home_url('/');
+                $language_code = (count($path_segments) > 1 && strlen($path_segments[0]) === 2) ? $path_segments[0] : '';
+                $redirect_url  = $language_code ? $home_url . $language_code . '/' : $home_url;
+            }
+
+            // Perform redirect
+            wp_redirect($redirect_url);
+            exit;
+        }
+    }
+add_action('template_redirect', 'kapitanpub_track_social_pages');
