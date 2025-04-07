@@ -1,6 +1,6 @@
 /* Header Desktop Classes */
 .header{
-@apply max-lg:bg-[#14397E] fixed top-0 lg:top-8 left-0 right-0 w-full z-10;
+@apply max-lg:bg-black/40 max-lg:backdrop-blur-xs fixed top-0 lg:top-8 left-0 right-0 w-full z-10;
 }
 .header-desktop {
 	@apply  flex items-center justify-center max-lg:hidden container;
