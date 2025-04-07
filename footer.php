@@ -111,11 +111,11 @@
 
                             if (! empty($qr_image) && ! empty($qr_title)):
                         ?>
-										<div>
-											<div class="footer-qr-title"><?php echo esc_html($qr_title); ?></div>
-											<?php if (is_array($qr_image) && ! empty($qr_image['url'])): ?>
-												<img src="<?php echo esc_url($qr_image['url']); ?>" alt="<?php echo esc_attr($qr_title); ?>" class="footer-qr-image" />
-											<?php else: ?>
+												<div>
+													<div class="footer-qr-title"><?php echo esc_html($qr_title); ?></div>
+													<?php if (is_array($qr_image) && ! empty($qr_image['url'])): ?>
+														<img src="<?php echo esc_url($qr_image['url']); ?>" alt="<?php echo esc_attr($qr_title); ?>" class="footer-qr-image" />
+													<?php else: ?>
 									<img src="<?php echo esc_url($qr_image); ?>" alt="<?php echo esc_attr($qr_title); ?>" class="footer-qr-image" />
 								<?php endif; ?>
 							</div>
@@ -222,10 +222,10 @@
                             $icon_class = 'footer-social-icon-youtube';
                         }
                     ?>
-									<a href="<?php echo $link_href; ?>" target="_blank" rel="noopener noreferrer">
-										<?php if (is_array($social_icon) && ! empty($social_icon['url'])): ?>
-											<img src="<?php echo esc_url($social_icon['url']); ?>" alt="<?php echo esc_attr($social_name); ?>" class="<?php echo esc_attr($icon_class); ?>" />
-										<?php else: ?>
+											<a href="<?php echo $link_href; ?>" target="_blank" rel="noopener noreferrer">
+												<?php if (is_array($social_icon) && ! empty($social_icon['url'])): ?>
+													<img src="<?php echo esc_url($social_icon['url']); ?>" alt="<?php echo esc_attr($social_name); ?>" class="<?php echo esc_attr($icon_class); ?>" />
+												<?php else: ?>
 								<img src="<?php echo esc_url($social_icon); ?>" alt="<?php echo esc_attr($social_name); ?>" class="<?php echo esc_attr($icon_class); ?>" />
 							<?php endif; ?>
 						</a>
@@ -250,15 +250,22 @@
 
 		// Create an array of trackable paths and their corresponding types
 		const trackablePaths = [
-			{ path: '/instagram', type: 'instagram' },
-			{ path: '/facebook', type: 'facebook' }
+			{ path: 'instagram', type: 'instagram' },
+			{ path: 'facebook', type: 'facebook' }
 		];
 
-		// Find if current path matches any trackable path
-		const matchedPath = trackablePaths.find(item =>
-			currentPath.toLowerCase() === item.path ||
-			currentPath.toLowerCase() === item.path + '/'
-		);
+		// Check current path, considering language prefixes (like /sk/, /en/, etc.)
+		const isTrackablePath = () => {
+			// Get the last part of the path
+			const pathSegments = currentPath.split('/').filter(segment => segment !== '');
+			const lastSegment = pathSegments[pathSegments.length - 1];
+
+			// Find if the last segment matches any trackable path
+			return trackablePaths.find(item => lastSegment === item.path);
+		};
+
+		// Get matching path
+		const matchedPath = isTrackablePath();
 
 		// If we're on a trackable path, track the visit and redirect to homepage
 		if (matchedPath) {
@@ -283,13 +290,28 @@
 			.then(response => response.json())
 			.then(result => {
 				console.log('Tracking data sent:', result);
-				// Redirect to homepage after tracking
-				window.location.href = '<?php echo esc_url(home_url('/')); ?>';
+				// Redirect to homepage in the same language
+				<?php if (function_exists('pll_home_url')): ?>
+				// Use Polylang's function to get the home URL for current language
+				window.location.href = '<?php echo esc_url(function_exists("pll_home_url") ? pll_home_url() : home_url("/")); ?>';
+				<?php else: ?>
+				// Fallback for when Polylang functions aren't available
+				const homeUrl = '<?php echo esc_url(home_url("/")); ?>';
+				// Preserve language code in URL if it exists (e.g. /sk/, /en/)
+				const languageCode = pathSegments.length > 1 && pathSegments[0].length === 2 ? pathSegments[0] : '';
+				window.location.href = languageCode ? `${homeUrl}${languageCode}/` : homeUrl;
+				<?php endif; ?>
 			})
 			.catch(error => {
 				console.error('Error tracking visit:', error);
 				// Fallback: Still redirect even if tracking fails
-				window.location.href = '<?php echo esc_url(home_url('/')); ?>';
+				<?php if (function_exists('pll_home_url')): ?>
+				window.location.href = '<?php echo esc_url(function_exists("pll_home_url") ? pll_home_url() : home_url("/")); ?>';
+				<?php else: ?>
+				const homeUrl = '<?php echo esc_url(home_url("/")); ?>';
+				const languageCode = pathSegments.length > 1 && pathSegments[0].length === 2 ? pathSegments[0] : '';
+				window.location.href = languageCode ? `${homeUrl}${languageCode}/` : homeUrl;
+				<?php endif; ?>
 			});
 		}
 	});
