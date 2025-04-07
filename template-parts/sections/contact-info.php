@@ -1,15 +1,15 @@
 <?php
 
-/**
- * Contact Info section
- *
- * @package KAPITAN_PUB
- */
+    /**
+     * Contact Info section
+     *
+     * @package KAPITAN_PUB
+     */
 
-// Fallback values
-$title = !empty(get_sub_field('title')) ? get_sub_field('title') : 'WRITE TO US';
-$contact_intro = !empty(get_sub_field('contact_intro')) ? get_sub_field('contact_intro') : '';
-$info_blocks = !empty(get_sub_field('info_blocks')) ? get_sub_field('info_blocks') : [];
+    // Fallback values
+    $title         = ! empty(get_sub_field('title')) ? get_sub_field('title') : 'WRITE TO US';
+    $contact_intro = ! empty(get_sub_field('contact_intro')) ? get_sub_field('contact_intro') : '';
+    $info_blocks   = ! empty(get_sub_field('info_blocks')) ? get_sub_field('info_blocks') : [];
 ?>
 <section class="contact-info-section relative" id="contact-info">
     <div class="lines"></div>
@@ -58,12 +58,12 @@ $info_blocks = !empty(get_sub_field('info_blocks')) ? get_sub_field('info_blocks
             </div>
 
             <div class="contact-info-details-col">
-                <?php if (!empty($info_blocks)) : ?>
-                    <?php foreach ($info_blocks as $block) : ?>
+                <?php if (! empty($info_blocks)): ?>
+<?php foreach ($info_blocks as $block): ?>
                         <div class="contact-info-block">
                             <div class="contact-info-block-title"><?php echo esc_html($block['title']); ?></div>
                             <div class="contact-info-block-content">
-                                <?php if (!empty($block['has_icon']) && $block['has_icon']) : ?>
+                                <?php if (! empty($block['has_icon']) && $block['has_icon']): ?>
                                     <span class="contact-info-block-icon"></span>
                                 <?php endif; ?>
                                 <div class="contact-info-block-text">
@@ -95,10 +95,10 @@ $info_blocks = !empty(get_sub_field('info_blocks')) ? get_sub_field('info_blocks
         // Validation messages based on language
         const translations = window.contactFormTranslations || {};
         const messages = {
-            required: translations.required || "This field is required",
-            email: translations.email || "Please enter a valid email address",
-            server_error: translations.server_error || "Server error. Please try again later.",
-            success: translations.success || "Thank you! Your message has been sent successfully. We will contact you shortly."
+            required:                      <?php echo function_exists('pll__') ? 'pll__("This field is required")' : '"This field is required"' ?>,
+            email:                   <?php echo function_exists('pll__') ? 'pll__("Please enter a valid email address")' : '"Please enter a valid email address"' ?>,
+            server_error:                          <?php echo function_exists('pll__') ? 'pll__("Server error. Please try again later.")' : '"Server error. Please try again later."' ?>,
+            success:                     <?php echo function_exists('pll__') ? 'pll__("Thank you! Your message has been sent successfully. We will contact you shortly.")' : '"Thank you! Your message has been sent successfully. We will contact you shortly."' ?>
         };
 
         // Form Validation

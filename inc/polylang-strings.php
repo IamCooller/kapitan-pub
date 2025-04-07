@@ -96,5 +96,19 @@ add_action('init', function () {
         pll_register_string('header_toggle_menu', 'Toggle menu', 'Header');
         pll_register_string('header_close_menu', 'Close menu', 'Header');
         pll_register_string('header_mobile_menu', 'Mobile menu', 'Header');
+
+        // Сообщения форм - валидация и ошибки
+        pll_register_string('form_validation_required', 'This field is required', 'Form Messages');
+        pll_register_string('form_validation_email', 'Please enter a valid email address', 'Form Messages');
+        pll_register_string('form_validation_phone', 'Please enter a valid phone number', 'Form Messages');
+        pll_register_string('form_validation_date', 'Please enter a valid date', 'Form Messages');
+        pll_register_string('form_validation_past_date', 'Please select a future date', 'Form Messages');
+        pll_register_string('form_validation_time', 'Please select a valid time within our opening hours', 'Form Messages');
+        pll_register_string('form_server_error', 'Server error. Please try again later.', 'Form Messages');
+
+        // Сообщения успеха для разных форм
+        pll_register_string('form_success_contact', 'Thank you! Your message has been sent successfully. We will contact you shortly.', 'Form Messages');
+        pll_register_string('form_success_booking', 'Thank you! Your booking request has been sent successfully. We will contact you shortly.', 'Form Messages');
+        pll_register_string('form_success_newsletter', 'Thank you! You have successfully subscribed to our newsletter.', 'Form Messages');
     }
 }, 20); // Приоритет 20, чтобы гарантировать, что Polylang полностью загружен
