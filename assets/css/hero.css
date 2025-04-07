@@ -1,5 +1,5 @@
 .hero {
-	@apply relative h-screen w-full flex items-center justify-center text-center px-14 bg-no-repeat overflow-hidden;
+	@apply relative h-screen w-full min-h-[620px] flex items-center justify-center text-center px-14 bg-no-repeat overflow-hidden;
 	min-height: 560px;
 }
 
