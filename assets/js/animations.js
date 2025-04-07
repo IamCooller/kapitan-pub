@@ -15,6 +15,7 @@ const initAnimations = () => {
 		const headerButtons = document.querySelector(".header-desktop__buttons");
 		const headerHome = document.querySelector(".header-home");
 		const headerLogoHome = document.querySelector(".header-home .header-desktop__logo");
+		const heroMain = document.getElementById("hero-main");
 		// Создаем таймлайн для анимации шапки
 		const headerTimeline = gsap.timeline({
 			defaults: {
@@ -40,7 +41,7 @@ const initAnimations = () => {
 
 			// Создаем ScrollTrigger для появления headerHome при скролле только на мобильных устройствах
 			ScrollTrigger.create({
-				start: "top+=350 top", // Начинаем анимацию, когда страница прокручена на 100px вниз
+				start: `${heroMain.offsetHeight}px top`, // Начинаем анимацию, когда страница прокручена на 100px вниз
 				onEnter: () => {
 					// Создаем отдельный timeline для последовательной анимации
 					const mobileHeaderTimeline = gsap.timeline({

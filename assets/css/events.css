@@ -74,7 +74,7 @@
 
 .button-prev,
 .button-next {
-	@apply absolute  top-1/2 -translate-y-1/2 sm:scale-150 bg-white rounded-full p-2 flex items-center justify-center text-primary z-10 cursor-pointer ;
+	@apply absolute  top-1/2 -translate-y-1/2 sm:scale-150 bg-white rounded-full p-2 flex items-center justify-center text-primary z-[9] cursor-pointer ;
 }
 
 .button-prev {
