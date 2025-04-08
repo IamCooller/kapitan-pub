@@ -38,7 +38,9 @@
                 <input type="hidden" name="lang" value="<?php echo function_exists('pll_current_language') ? pll_current_language() : 'en'; ?>">
 
                 <button type="submit" class="newsletter-submit" title="Subscribe">
-                    <span class="newsletter-submit-text">SIGN UP</span>
+                    <span class="newsletter-submit-text">
+                        <?php echo function_exists('pll__') ? pll__('form_button_subscribe') : 'SUBSCRIBE'; ?>
+                    </span>
                     <div class="newsletter-loader"
                         style="display: none;">
                         <svg class="animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -91,10 +93,10 @@
         // Validation messages based on language
         const translations = window.newsletterFormTranslations || {};
         const messages = {
-            required:                      <?php echo function_exists('pll__') ? '"' . pll__("This field is required") . '"' : '"This field is required"' ?>,
-            email:                   <?php echo function_exists('pll__') ? '"' . pll__("Please enter a valid email address") . '"' : '"Please enter a valid email address"' ?>,
-            server_error:                          <?php echo function_exists('pll__') ? '"' . pll__("Server error. Please try again later.") . '"' : '"Server error. Please try again later."' ?>,
-            success:                     <?php echo function_exists('pll__') ? '"' . pll__("Thank you! You have successfully subscribed to our newsletter.") . '"' : '"Thank you! You have successfully subscribed to our newsletter."' ?>
+            required:                                                                <?php echo function_exists('pll__') ? '"' . pll__("This field is required") . '"' : '"This field is required"' ?>,
+            email:                                                       <?php echo function_exists('pll__') ? '"' . pll__("Please enter a valid email address") . '"' : '"Please enter a valid email address"' ?>,
+            server_error:                                                                            <?php echo function_exists('pll__') ? '"' . pll__("Server error. Please try again later.") . '"' : '"Server error. Please try again later."' ?>,
+            success:                                                             <?php echo function_exists('pll__') ? '"' . pll__("Thank you! You have successfully subscribed to our newsletter.") . '"' : '"Thank you! You have successfully subscribed to our newsletter."' ?>
         };
 
         // Form Validation

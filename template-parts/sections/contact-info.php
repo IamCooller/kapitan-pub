@@ -25,25 +25,25 @@
                     <div id="response" class="response hidden"></div>
                     <div class="form-group">
                         <label for="name" class="sr-only">
-                            <?php echo function_exists('pll__') ? pll__('Name') : 'Name'; ?>
+                            <?php echo function_exists('pll__') ? pll__('form_field_name') : 'Name'; ?>
                         </label>
-                        <input type="text" id="name" name="name" class="form-input" placeholder="<?php echo function_exists('pll__') ? pll__('Name') : 'Name'; ?>" required />
+                        <input type="text" id="name" name="name" class="form-input" placeholder="<?php echo function_exists('pll__') ? pll__('form_field_name') : 'Name'; ?>" required />
                         <div class="form-error"></div>
                     </div>
 
                     <div class="form-group">
                         <label for="email" class="sr-only">
-                            <?php echo function_exists('pll__') ? pll__('Email') : 'Email'; ?>
+                            <?php echo function_exists('pll__') ? pll__('form_field_email') : 'Email'; ?>
                         </label>
-                        <input type="email" id="email" name="email" class="form-input" placeholder="<?php echo function_exists('pll__') ? pll__('Email') : 'Email'; ?>" required />
+                        <input type="email" id="email" name="email" class="form-input" placeholder="<?php echo function_exists('pll__') ? pll__('form_field_email') : 'Email'; ?>" required />
                         <div class="form-error"></div>
                     </div>
 
                     <div class="form-group">
                         <label for="message" class="sr-only">
-                            <?php echo function_exists('pll__') ? pll__('Message') : 'Message'; ?>
+                            <?php echo function_exists('pll__') ? pll__('form_field_message') : 'Message'; ?>
                         </label>
-                        <textarea id="message" name="message" class="form-textarea" placeholder="<?php echo function_exists('pll__') ? pll__('Message') : 'Message'; ?>" required></textarea>
+                        <textarea id="message" name="message" class="form-textarea" placeholder="<?php echo function_exists('pll__') ? pll__('form_field_message') : 'Message'; ?>" required></textarea>
                         <div class="form-error"></div>
                     </div>
 
@@ -52,7 +52,7 @@
                     <input type="hidden" name="lang" value="<?php echo function_exists('pll_current_language') ? pll_current_language() : 'en'; ?>">
 
                     <button type="submit" class="button submit">
-                        <?php echo function_exists('pll__') ? pll__('SUBMIT') : 'SUBMIT'; ?>
+                        <?php echo function_exists('pll__') ? pll__('form_button_submit') : 'SUBMIT'; ?>
                     </button>
                 </form>
             </div>
@@ -95,10 +95,10 @@
         // Validation messages based on language
         const translations = window.contactFormTranslations || {};
         const messages = {
-            required:                                           <?php echo function_exists('pll__') ? '"' . pll__("This field is required") . '"' : '"This field is required"' ?>,
-            email:                                     <?php echo function_exists('pll__') ? '"' . pll__("Please enter a valid email address") . '"' : '"Please enter a valid email address"' ?>,
-            server_error:                                                   <?php echo function_exists('pll__') ? '"' . pll__("Server error. Please try again later.") . '"' : '"Server error. Please try again later."' ?>,
-            success:                                         <?php echo function_exists('pll__') ? '"' . pll__("Thank you! Your message has been sent successfully. We will contact you shortly.") . '"' : '"Thank you! Your message has been sent successfully. We will contact you shortly."' ?>
+            required:                                                                                                          <?php echo function_exists('pll__') ? '"' . pll__("This field is required") . '"' : '"This field is required"' ?>,
+            email:                                                                                           <?php echo function_exists('pll__') ? '"' . pll__("Please enter a valid email address") . '"' : '"Please enter a valid email address"' ?>,
+            server_error:                                                                                                                              <?php echo function_exists('pll__') ? '"' . pll__("Server error. Please try again later.") . '"' : '"Server error. Please try again later."' ?>,
+            success:                                                                                                     <?php echo function_exists('pll__') ? '"' . pll__("Thank you! Your message has been sent successfully. We will contact you shortly.") . '"' : '"Thank you! Your message has been sent successfully. We will contact you shortly."' ?>
         };
 
         // Form Validation

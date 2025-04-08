@@ -106,9 +106,28 @@ add_action('init', function () {
         pll_register_string('form_validation_time', 'Please select a valid time within our opening hours', 'Form Messages');
         pll_register_string('form_server_error', 'Server error. Please try again later.', 'Form Messages');
 
+        // Поля форм
+        pll_register_string('form_field_name', 'Name', 'Form Fields');
+        pll_register_string('form_field_email', 'Email', 'Form Fields');
+        pll_register_string('form_field_message', 'Message', 'Form Fields');
+        pll_register_string('form_field_phone', 'Phone', 'Form Fields');
+        pll_register_string('form_field_phone_number', 'Phone Number', 'Form Fields');
+        pll_register_string('form_field_date', 'Date', 'Form Fields');
+        pll_register_string('form_field_time', 'Time', 'Form Fields');
+        pll_register_string('form_field_persons', 'Persons', 'Form Fields');
+        pll_register_string('form_field_guests', 'Number of guests', 'Form Fields');
+        pll_register_string('form_field_comment', 'Your comment', 'Form Fields');
+
         // Сообщения успеха для разных форм
         pll_register_string('form_success_contact', 'Thank you! Your message has been sent successfully. We will contact you shortly.', 'Form Messages');
         pll_register_string('form_success_booking', 'Thank you! Your booking request has been sent successfully. We will contact you shortly.', 'Form Messages');
         pll_register_string('form_success_newsletter', 'Thank you! You have successfully subscribed to our newsletter.', 'Form Messages');
+        pll_register_string('form_success_feedback', 'Thank you! Your feedback has been sent successfully.', 'Form Messages');
+
+        // Form Buttons
+        pll_register_string('form_button_submit', 'SUBMIT', 'Form Buttons');
+        pll_register_string('form_button_send', 'SEND', 'Form Buttons');
+        pll_register_string('form_button_book', 'BOOK A TABLE', 'Form Buttons');
+        pll_register_string('form_button_subscribe', 'SUBSCRIBE', 'Form Buttons');
     }
 }, 20); // Приоритет 20, чтобы гарантировать, что Polylang полностью загружен
