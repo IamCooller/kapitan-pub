@@ -7,7 +7,7 @@
     <div class="container">
         <div class=" h3 mb-8 sm:mb-16 uppercase text-center"><?php echo $title; ?></div>
 
-        <form id="booking-form" class="form" method="post">
+        <form id="booking-form-second" class="form" method="post">
             <div id="response" class="response hidden"></div>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div class="form-group">
@@ -83,11 +83,11 @@
      * Handles validation and AJAX submission of the booking form
      */
     document.addEventListener("DOMContentLoaded", function() {
-        const form = document.getElementById("booking-form");
+        const form = document.getElementById("booking-form-second");
         if (!form) return;
 
-        const responseContainer = form.querySelector("#booking-form #response");
-        const submitButton = form.querySelector("#booking-form .submit");
+        const responseContainer = form.querySelector("#booking-form-second #response");
+        const submitButton = form.querySelector("#booking-form-second .submit");
         const dateInput = form.querySelector("#date");
         const timeInput = form.querySelector("#time");
 
@@ -137,14 +137,14 @@
         // Validation messages based on language
         const translations = window.bookingFormSecondTranslations || {};
         const messages = {
-            required:                                                                                                                               <?php echo function_exists('pll__') ? '"' . pll__("This field is required") . '"' : '"This field is required"' ?>,
-            email:                                                                                                             <?php echo function_exists('pll__') ? '"' . pll__("Please enter a valid email address") . '"' : '"Please enter a valid email address"' ?>,
-            phone:                                                                                                             <?php echo function_exists('pll__') ? '"' . pll__("Please enter a valid phone number") . '"' : '"Please enter a valid phone number"' ?>,
-            date:                                                                                                       <?php echo function_exists('pll__') ? '"' . pll__("Please enter a valid date") . '"' : '"Please enter a valid date"' ?>,
-            pastDate:                                                                                                                               <?php echo function_exists('pll__') ? '"' . pll__("Please select a future date") . '"' : '"Please select a future date"' ?>,
-            time:                                                                                                       <?php echo function_exists('pll__') ? '"' . pll__("Please select a valid time within our opening hours") . '"' : '"Please select a valid time within our opening hours"' ?>,
-            server_error:                                                                                                                                                       <?php echo function_exists('pll__') ? '"' . pll__("Server error. Please try again later.") . '"' : '"Server error. Please try again later."' ?>,
-            success:                                                                                                                         <?php echo function_exists('pll__') ? '"' . pll__("Thank you! Your booking request has been sent successfully. We will contact you shortly.") . '"' : '"Thank you! Your booking request has been sent successfully. We will contact you shortly."' ?>
+            required:                                                                                                                                                                         <?php echo function_exists('pll__') ? '"' . pll__("This field is required") . '"' : '"This field is required"' ?>,
+            email:                                                                                                                                                 <?php echo function_exists('pll__') ? '"' . pll__("Please enter a valid email address") . '"' : '"Please enter a valid email address"' ?>,
+            phone:                                                                                                                                                 <?php echo function_exists('pll__') ? '"' . pll__("Please enter a valid phone number") . '"' : '"Please enter a valid phone number"' ?>,
+            date:                                                                                                                                         <?php echo function_exists('pll__') ? '"' . pll__("Please enter a valid date") . '"' : '"Please enter a valid date"' ?>,
+            pastDate:                                                                                                                                                                         <?php echo function_exists('pll__') ? '"' . pll__("Please select a future date") . '"' : '"Please select a future date"' ?>,
+            time:                                                                                                                                         <?php echo function_exists('pll__') ? '"' . pll__("Please select a valid time within our opening hours") . '"' : '"Please select a valid time within our opening hours"' ?>,
+            server_error:                                                                                                                                                                                                         <?php echo function_exists('pll__') ? '"' . pll__("Server error. Please try again later.") . '"' : '"Server error. Please try again later."' ?>,
+            success:                                                                                                                                                                 <?php echo function_exists('pll__') ? '"' . pll__("Thank you! Your booking request has been sent successfully. We will contact you shortly.") . '"' : '"Thank you! Your booking request has been sent successfully. We will contact you shortly."' ?>
         };
 
         // Form Validation
