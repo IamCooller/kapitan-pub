@@ -94,32 +94,32 @@
         // Define restaurant opening hours
         const openingHours = {
             0: {
-                open: "11:00",
-                close: "21:00"
+                open: "08:00",
+                close: "16:00"
             }, // Sunday
             1: {
-                open: "11:00",
-                close: "21:00"
+                open: "08:00",
+                close: "16:00"
             }, // Monday
             2: {
-                open: "11:00",
-                close: "22:00"
+                open: "08:00",
+                close: "16:00"
             }, // Tuesday
             3: {
-                open: "11:00",
-                close: "22:00"
+                open: "08:00",
+                close: "16:00"
             }, // Wednesday
             4: {
-                open: "11:00",
-                close: "22:00"
+                open: "08:00",
+                close: "16:00"
             }, // Thursday
             5: {
-                open: "11:00",
-                close: "23:00"
+                open: "08:00",
+                close: "16:00"
             }, // Friday
             6: {
-                open: "11:00",
-                close: "23:00"
+                open: "08:00",
+                close: "16:00"
             }, // Saturday
         };
 
@@ -232,13 +232,7 @@
 
         // Helper function to check if time is within range
         function isTimeWithinRange(time, openTime, closeTime) {
-            // Convert the time strings to Date objects for comparison
-            const timeDate = new Date(`1970-01-01T${time}:00`);
-            const openDate = new Date(`1970-01-01T${openTime}:00`);
-            const closeDate = new Date(`1970-01-01T${closeTime}:00`);
-
-            // Adjust for 12-hour format input if needed
-            // For AM times that might be incorrectly parsed (like 12:30 AM showing as 00:30)
+            // Check if time is in 12-hour format with AM/PM
             if (time.includes("AM") || time.includes("PM")) {
                 // Parse the time manually for 12-hour format
                 const [timePart, ampm] = time.split(" ");
@@ -253,19 +247,21 @@
                 }
 
                 const formattedTime = `${String(hours).padStart(2, "0")}:${minutes}`;
-                return isTimeWithinRange(formattedTime, openTime, closeTime);
+                // Use the converted time for comparison
+                time = formattedTime;
             }
+
+            // Convert the time strings to Date objects for comparison
+            const timeDate = new Date(`1970-01-01T${time}:00`);
+            const openDate = new Date(`1970-01-01T${openTime}:00`);
+            const closeDate = new Date(`1970-01-01T${closeTime}:00`);
 
             return timeDate >= openDate && timeDate <= closeDate;
         }
 
-        // Format time for display (convert 24h to 12h format)
+        // Format time for display (in 24h format)
         function formatTimeDisplay(time24h) {
-            const [hours, minutes] = time24h.split(":");
-            const hour = parseInt(hours, 10);
-            const period = hour >= 12 ? "PM" : "AM";
-            const hour12 = hour % 12 || 12;
-            return `${hour12}:${minutes} ${period}`;
+            return time24h;
         }
 
         // Clear all errors

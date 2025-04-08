@@ -67,13 +67,13 @@ function kapitan_pub_handle_booking_form()
 
     // Define restaurant opening hours
     $opening_hours = [
-        0 => ['open' => '11:00', 'close' => '21:00'], // Sunday
-        1 => ['open' => '11:00', 'close' => '21:00'], // Monday
-        2 => ['open' => '11:00', 'close' => '22:00'], // Tuesday
-        3 => ['open' => '11:00', 'close' => '22:00'], // Wednesday
-        4 => ['open' => '11:00', 'close' => '22:00'], // Thursday
-        5 => ['open' => '11:00', 'close' => '23:00'], // Friday
-        6 => ['open' => '11:00', 'close' => '23:00'], // Saturday
+        0 => ['open' => '08:00', 'close' => '16:00'], // Sunday
+        1 => ['open' => '08:00', 'close' => '16:00'], // Monday
+        2 => ['open' => '08:00', 'close' => '16:00'], // Tuesday
+        3 => ['open' => '08:00', 'close' => '16:00'], // Wednesday
+        4 => ['open' => '08:00', 'close' => '16:00'], // Thursday
+        5 => ['open' => '08:00', 'close' => '16:00'], // Friday
+        6 => ['open' => '08:00', 'close' => '16:00'], // Saturday
     ];
 
     // Validate time (must be within opening hours)
@@ -182,6 +182,7 @@ function kapitan_pub_register_booking_form_translations()
         pll_register_string('booking_name', 'Name', 'kapitan-pub');
         pll_register_string('booking_email', 'Email', 'kapitan-pub');
         pll_register_string('booking_phone', 'Phone', 'kapitan-pub');
+        pll_register_string('booking_phone_number', 'Phone Number', 'kapitan-pub');
         pll_register_string('booking_persons', 'Persons', 'kapitan-pub');
         pll_register_string('booking_date', 'Date', 'kapitan-pub');
         pll_register_string('booking_time', 'Time', 'kapitan-pub');

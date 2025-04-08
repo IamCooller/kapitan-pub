@@ -123,40 +123,40 @@
         const form = document.getElementById("booking-form");
         if (!form) return;
 
-        const responseContainer = form.querySelector("#booking-form #response");
-        const submitButton = form.querySelector("#booking-form .submit");
+        const responseContainer = document.getElementById("response");
+        const submitButton = form.querySelector(".submit");
         const dateInput = form.querySelector("#date");
         const timeInput = form.querySelector("#time");
 
         // Define restaurant opening hours
         const openingHours = {
             0: {
-                open: "11:00",
-                close: "21:00"
+                open: "08:00",
+                close: "16:00"
             }, // Sunday
             1: {
-                open: "11:00",
-                close: "21:00"
+                open: "08:00",
+                close: "16:00"
             }, // Monday
             2: {
-                open: "11:00",
-                close: "22:00"
+                open: "08:00",
+                close: "16:00"
             }, // Tuesday
             3: {
-                open: "11:00",
-                close: "22:00"
+                open: "08:00",
+                close: "16:00"
             }, // Wednesday
             4: {
-                open: "11:00",
-                close: "22:00"
+                open: "08:00",
+                close: "16:00"
             }, // Thursday
             5: {
-                open: "11:00",
-                close: "23:00"
+                open: "08:00",
+                close: "16:00"
             }, // Friday
             6: {
-                open: "11:00",
-                close: "23:00"
+                open: "08:00",
+                close: "16:00"
             }, // Saturday
         };
 
@@ -171,17 +171,17 @@
         // Initialize time options
         updateTimeOptions();
 
-        // Validation messages based on language
-        const translations = window.bookingFormTranslations || {};
-        const messages = {
-            required:                                                                                                          <?php echo function_exists('pll__') ? '"' . pll__("This field is required") . '"' : '"This field is required"' ?>,
-            email:                                                                                           <?php echo function_exists('pll__') ? '"' . pll__("Please enter a valid email address") . '"' : '"Please enter a valid email address"' ?>,
-            phone:                                                                                           <?php echo function_exists('pll__') ? '"' . pll__("Please enter a valid phone number") . '"' : '"Please enter a valid phone number"' ?>,
-            date:                                                                                      <?php echo function_exists('pll__') ? '"' . pll__("Please enter a valid date") . '"' : '"Please enter a valid date"' ?>,
-            pastDate:                                                                                                          <?php echo function_exists('pll__') ? '"' . pll__("Please select a future date") . '"' : '"Please select a future date"' ?>,
-            time:                                                                                      <?php echo function_exists('pll__') ? '"' . pll__("Please select a valid time within our opening hours") . '"' : '"Please select a valid time within our opening hours"' ?>,
-            server_error:                                                                                                                              <?php echo function_exists('pll__') ? '"' . pll__("Server error. Please try again later.") . '"' : '"Server error. Please try again later."' ?>,
-            success:                                                                                                     <?php echo function_exists('pll__') ? '"' . pll__("Thank you! Your booking request has been sent successfully. We will contact you shortly.") . '"' : '"Thank you! Your booking request has been sent successfully. We will contact you shortly."' ?>
+        // Get translations from localized script
+        const translations = window.bookingFormTranslations || {
+            required: "This field is required",
+            email: "Please enter a valid email address",
+            phone: "Please enter a valid phone number",
+            date: "Please enter a valid date",
+            pastDate: "Please select a future date",
+            time: "Please select a valid time within our opening hours",
+            server_error: "Server error. Please try again later.",
+            success: "Thank you! Your booking request has been sent successfully. We will contact you shortly.",
+            available_hours: "Available hours:"
         };
 
         // Form Validation
@@ -265,7 +265,8 @@
             // Create helper text to display available hours
             const hourRangeElement = document.createElement("span");
             hourRangeElement.classList.add("time-range-helper");
-            hourRangeElement.textContent = `Available hours: ${formatTimeDisplay(hours.open)} – ${formatTimeDisplay(hours.close)}`;
+            const availableHoursText = translations.available_hours || "Available hours:";
+            hourRangeElement.textContent = `${availableHoursText} ${formatTimeDisplay(hours.open)} – ${formatTimeDisplay(hours.close)}`;
 
             // Check if helper text already exists and replace it
             const existingHelper = timeInput.parentNode.querySelector(".time-range-helper");
@@ -276,13 +277,9 @@
             }
         }
 
-        // Format time for display (convert 24h to 12h format)
+        // Format time for display (in 24h format)
         function formatTimeDisplay(time24h) {
-            const [hours, minutes] = time24h.split(":");
-            const hour = parseInt(hours, 10);
-            const period = hour >= 12 ? "PM" : "AM";
-            const hour12 = hour % 12 || 12;
-            return `${hour12}:${minutes} ${period}`;
+            return time24h;
         }
 
         // Clear all errors
@@ -334,26 +331,26 @@
             form.querySelectorAll("[required]").forEach((field) => {
                 // Required check
                 if (!field.value.trim()) {
-                    setFieldError(field, messages.required);
+                    setFieldError(field, translations.required);
                     isValid = false;
                     return;
                 }
 
                 // Type-specific validations
                 if (field.type === "email" && !validators.email(field.value)) {
-                    setFieldError(field, messages.email);
+                    setFieldError(field, translations.email);
                     isValid = false;
                 } else if (field.name === "phone" && !validators.phone(field.value)) {
-                    setFieldError(field, messages.phone);
+                    setFieldError(field, translations.phone);
                     isValid = false;
                 } else if (field.type === "date") {
                     if (!validators.date(field.value)) {
-                        setFieldError(field, messages.pastDate);
+                        setFieldError(field, translations.pastDate);
                         isValid = false;
                     }
                 } else if (field.type === "time") {
                     if (!validators.time(field.value, dateInput.value)) {
-                        setFieldError(field, messages.time);
+                        setFieldError(field, translations.time);
                         isValid = false;
                     }
                 }
@@ -382,7 +379,7 @@
                 })
                 .then((response) => {
                     if (!response.ok) {
-                        throw new Error(messages.server_error);
+                        throw new Error(translations.server_error);
                     }
                     return response.json();
                 })
@@ -390,14 +387,14 @@
                     submitButton.classList.remove("loading");
 
                     if (data.success) {
-                        showResponse(data.data || messages.success, true);
+                        showResponse(data.data || translations.success, true);
                     } else {
-                        showResponse(data.data || messages.server_error, false);
+                        showResponse(data.data || translations.server_error, false);
                     }
                 })
                 .catch((error) => {
                     submitButton.classList.remove("loading");
-                    showResponse(error.message || messages.server_error, false);
+                    showResponse(error.message || translations.server_error, false);
                     console.error("Booking form error:", error);
                 });
         });
