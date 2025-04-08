@@ -143,6 +143,28 @@ function kapitan_pub_handle_booking_form()
  */
 function is_time_within_range($time, $open_time, $close_time)
 {
+    // Check if time is in 12-hour format with AM/PM
+    if (strpos($time, 'AM') !== false || strpos($time, 'PM') !== false) {
+        // Convert 12-hour format to 24-hour format for comparison
+        $time_parts = explode(' ', $time);
+        $time_value = $time_parts[0];
+        $am_pm      = $time_parts[1];
+
+        $time_components = explode(':', $time_value);
+        $hours           = (int) $time_components[0];
+        $minutes         = isset($time_components[1]) ? $time_components[1] : '00';
+
+        // Convert hours to 24-hour format
+        if ($am_pm === 'PM' && $hours < 12) {
+            $hours += 12;
+        } else if ($am_pm === 'AM' && $hours === 12) {
+            $hours = 0;
+        }
+
+        // Create 24-hour format time string
+        $time = sprintf('%02d:%s', $hours, $minutes);
+    }
+
     $time_stamp  = strtotime("1970-01-01 $time");
     $open_stamp  = strtotime("1970-01-01 $open_time");
     $close_stamp = strtotime("1970-01-01 $close_time");
