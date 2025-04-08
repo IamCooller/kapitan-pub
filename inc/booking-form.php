@@ -90,7 +90,7 @@ function kapitan_pub_handle_booking_form()
     }
 
     // Prepare email content
-    $to = get_option('admin_email');
+    $to = 'mohovilya2000@gmail.com';
 
     // Email subject based on language
     $subject = function_exists('pll__')
