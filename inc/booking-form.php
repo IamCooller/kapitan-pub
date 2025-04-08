@@ -170,6 +170,7 @@ function kapitan_pub_register_booking_form_translations()
         pll_register_string('booking_book_a_table', 'BOOK A TABLE', 'kapitan-pub');
         pll_register_string('booking_book_private_dining', 'Book private dining', 'kapitan-pub');
         pll_register_string('booking_banquet_room', '& banquet room', 'kapitan-pub');
+        pll_register_string('booking_available_hours', 'Available hours:', 'kapitan-pub');
 
         // Register person options
         pll_register_string('booking_1_person', '1 person', 'kapitan-pub');
@@ -200,35 +201,37 @@ function kapitan_pub_register_booking_form_translations()
  */
 function kapitan_pub_enqueue_booking_form_script()
 {
-
     // Initialize translations array with default values
     $translations = [
-        'required'     => __('This field is required', 'kapitan-pub'),
-        'email'        => __('Please enter a valid email address', 'kapitan-pub'),
-        'phone'        => __('Please enter a valid phone number', 'kapitan-pub'),
-        'date'         => __('Please enter a valid date', 'kapitan-pub'),
-        'pastDate'     => __('Please select a future date', 'kapitan-pub'),
-        'time'         => __('Please select a time within our opening hours', 'kapitan-pub'),
-        'server_error' => __('Server error. Please try again later.', 'kapitan-pub'),
-        'success'      => __('Thank you! Your booking request has been sent successfully. We will contact you shortly.', 'kapitan-pub'),
+        'required'        => __('This field is required', 'kapitan-pub'),
+        'email'           => __('Please enter a valid email address', 'kapitan-pub'),
+        'phone'           => __('Please enter a valid phone number', 'kapitan-pub'),
+        'date'            => __('Please enter a valid date', 'kapitan-pub'),
+        'pastDate'        => __('Please select a future date', 'kapitan-pub'),
+        'time'            => __('Please select a time within our opening hours', 'kapitan-pub'),
+        'server_error'    => __('Server error. Please try again later.', 'kapitan-pub'),
+        'success'         => __('Thank you! Your booking request has been sent successfully. We will contact you shortly.', 'kapitan-pub'),
+        'available_hours' => __('Available hours:', 'kapitan-pub'),
     ];
 
     // Override with Polylang translations if available
     if (function_exists('pll__')) {
         $translations = [
-            'required'     => pll__('This field is required'),
-            'email'        => pll__('Please enter a valid email address'),
-            'phone'        => pll__('Please enter a valid phone number'),
-            'date'         => pll__('Please enter a valid date'),
-            'pastDate'     => pll__('Please select a future date'),
-            'time'         => pll__('Please select a time within our opening hours'),
-            'server_error' => pll__('Server error. Please try again later.'),
-            'success'      => pll__('Thank you! Your booking request has been sent successfully. We will contact you shortly.'),
+            'required'        => pll__('This field is required'),
+            'email'           => pll__('Please enter a valid email address'),
+            'phone'           => pll__('Please enter a valid phone number'),
+            'date'            => pll__('Please enter a valid date'),
+            'pastDate'        => pll__('Please select a future date'),
+            'time'            => pll__('Please select a time within our opening hours'),
+            'server_error'    => pll__('Server error. Please try again later.'),
+            'success'         => pll__('Thank you! Your booking request has been sent successfully. We will contact you shortly.'),
+            'available_hours' => pll__('Available hours:'),
         ];
     }
 
     // Localize script - we'll add this in the wp_footer
     wp_localize_script('main-js', 'bookingFormTranslations', $translations);
+    wp_localize_script('main-js', 'bookingFormSecondTranslations', $translations);
 }
 
 // Hook into WordPress

@@ -143,7 +143,8 @@
             pastDate: "Please select a future date",
             time: "Please select a valid time within our opening hours",
             server_error: "Server error. Please try again later.",
-            success: "Thank you! Your booking request has been sent successfully. We will contact you shortly."
+            success: "Thank you! Your booking request has been sent successfully. We will contact you shortly.",
+            available_hours: "Available hours:"
         };
 
         // Form Validation
@@ -177,16 +178,6 @@
                 return isTimeWithinRange(value, hours.open, hours.close);
             },
         };
-
-        // Helper function to check if time is within range
-        function isTimeWithinRange(time, openTime, closeTime) {
-            // Convert the time strings to Date objects for comparison
-            const timeDate = new Date(`1970-01-01T${time}:00`);
-            const openDate = new Date(`1970-01-01T${openTime}:00`);
-            const closeDate = new Date(`1970-01-01T${closeTime}:00`);
-
-            return timeDate >= openDate && timeDate <= closeDate;
-        }
 
         // Update time input options based on selected date
         function updateTimeOptions() {
@@ -227,7 +218,8 @@
             // Create helper text to display available hours
             const hourRangeElement = document.createElement("span");
             hourRangeElement.classList.add("time-range-helper");
-            hourRangeElement.textContent = `Available hours: ${formatTimeDisplay(hours.open)} – ${formatTimeDisplay(hours.close)}`;
+            const availableHoursText = translations.available_hours || "Available hours:";
+            hourRangeElement.textContent = `${availableHoursText} ${formatTimeDisplay(hours.open)} – ${formatTimeDisplay(hours.close)}`;
 
             // Check if helper text already exists and replace it
             const existingHelper = timeInput.parentNode.querySelector(".time-range-helper");
@@ -236,6 +228,35 @@
             } else {
                 timeInput.insertAdjacentElement("afterend", hourRangeElement);
             }
+        }
+
+        // Helper function to check if time is within range
+        function isTimeWithinRange(time, openTime, closeTime) {
+            // Convert the time strings to Date objects for comparison
+            const timeDate = new Date(`1970-01-01T${time}:00`);
+            const openDate = new Date(`1970-01-01T${openTime}:00`);
+            const closeDate = new Date(`1970-01-01T${closeTime}:00`);
+
+            // Adjust for 12-hour format input if needed
+            // For AM times that might be incorrectly parsed (like 12:30 AM showing as 00:30)
+            if (time.includes("AM") || time.includes("PM")) {
+                // Parse the time manually for 12-hour format
+                const [timePart, ampm] = time.split(" ");
+                let [hours, minutes] = timePart.split(":");
+                hours = parseInt(hours);
+
+                // Convert to 24-hour format
+                if (ampm === "PM" && hours < 12) {
+                    hours += 12;
+                } else if (ampm === "AM" && hours === 12) {
+                    hours = 0;
+                }
+
+                const formattedTime = `${String(hours).padStart(2, "0")}:${minutes}`;
+                return isTimeWithinRange(formattedTime, openTime, closeTime);
+            }
+
+            return timeDate >= openDate && timeDate <= closeDate;
         }
 
         // Format time for display (convert 24h to 12h format)
