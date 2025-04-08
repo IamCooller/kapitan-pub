@@ -2,7 +2,7 @@
     $title = get_sub_field('title');
 
 ?>
-<section class="py-[50px] lg:py-[100px] relative" id="booking-form">
+<section class="py-[50px] lg:py-[100px] relative" id="booking-form-block">
     <div class="lines"></div>
     <div class="container">
         <div class=" h3 mb-8 sm:mb-16 uppercase text-center"><?php echo $title; ?></div>
@@ -135,16 +135,15 @@
         updateTimeOptions();
 
         // Validation messages based on language
-        const translations = window.bookingFormSecondTranslations || {};
-        const messages = {
-            required:                                                                                                                                                                         <?php echo function_exists('pll__') ? '"' . pll__("This field is required") . '"' : '"This field is required"' ?>,
-            email:                                                                                                                                                 <?php echo function_exists('pll__') ? '"' . pll__("Please enter a valid email address") . '"' : '"Please enter a valid email address"' ?>,
-            phone:                                                                                                                                                 <?php echo function_exists('pll__') ? '"' . pll__("Please enter a valid phone number") . '"' : '"Please enter a valid phone number"' ?>,
-            date:                                                                                                                                         <?php echo function_exists('pll__') ? '"' . pll__("Please enter a valid date") . '"' : '"Please enter a valid date"' ?>,
-            pastDate:                                                                                                                                                                         <?php echo function_exists('pll__') ? '"' . pll__("Please select a future date") . '"' : '"Please select a future date"' ?>,
-            time:                                                                                                                                         <?php echo function_exists('pll__') ? '"' . pll__("Please select a valid time within our opening hours") . '"' : '"Please select a valid time within our opening hours"' ?>,
-            server_error:                                                                                                                                                                                                         <?php echo function_exists('pll__') ? '"' . pll__("Server error. Please try again later.") . '"' : '"Server error. Please try again later."' ?>,
-            success:                                                                                                                                                                 <?php echo function_exists('pll__') ? '"' . pll__("Thank you! Your booking request has been sent successfully. We will contact you shortly.") . '"' : '"Thank you! Your booking request has been sent successfully. We will contact you shortly."' ?>
+        const translations = window.bookingFormSecondTranslations || {
+            required: "This field is required",
+            email: "Please enter a valid email address",
+            phone: "Please enter a valid phone number",
+            date: "Please enter a valid date",
+            pastDate: "Please select a future date",
+            time: "Please select a valid time within our opening hours",
+            server_error: "Server error. Please try again later.",
+            success: "Thank you! Your booking request has been sent successfully. We will contact you shortly."
         };
 
         // Form Validation
@@ -297,26 +296,26 @@
             form.querySelectorAll("[required]").forEach((field) => {
                 // Required check
                 if (!field.value.trim()) {
-                    setFieldError(field, messages.required);
+                    setFieldError(field, translations.required);
                     isValid = false;
                     return;
                 }
 
                 // Type-specific validations
                 if (field.type === "email" && !validators.email(field.value)) {
-                    setFieldError(field, messages.email);
+                    setFieldError(field, translations.email);
                     isValid = false;
                 } else if (field.name === "phone" && !validators.phone(field.value)) {
-                    setFieldError(field, messages.phone);
+                    setFieldError(field, translations.phone);
                     isValid = false;
                 } else if (field.type === "date") {
                     if (!validators.date(field.value)) {
-                        setFieldError(field, messages.pastDate);
+                        setFieldError(field, translations.pastDate);
                         isValid = false;
                     }
                 } else if (field.type === "time") {
                     if (!validators.time(field.value, dateInput.value)) {
-                        setFieldError(field, messages.time);
+                        setFieldError(field, translations.time);
                         isValid = false;
                     }
                 }
@@ -345,7 +344,7 @@
                 })
                 .then((response) => {
                     if (!response.ok) {
-                        throw new Error(messages.server_error);
+                        throw new Error(translations.server_error);
                     }
                     return response.json();
                 })
@@ -353,14 +352,14 @@
                     submitButton.classList.remove("loading");
 
                     if (data.success) {
-                        showResponse(data.data || messages.success, true);
+                        showResponse(data.data || translations.success, true);
                     } else {
-                        showResponse(data.data || messages.server_error, false);
+                        showResponse(data.data || translations.server_error, false);
                     }
                 })
                 .catch((error) => {
                     submitButton.classList.remove("loading");
-                    showResponse(error.message || messages.server_error, false);
+                    showResponse(error.message || translations.server_error, false);
                     console.error("Booking form error:", error);
                 });
         });

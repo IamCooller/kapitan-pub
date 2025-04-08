@@ -16,75 +16,75 @@ if (! defined('ABSPATH')) {
 function kapitan_pub_handle_booking_form()
 {
     // Check nonce for security
-    if (!isset($_POST['booking_nonce_field']) || !wp_verify_nonce($_POST['booking_nonce_field'], 'booking_nonce')) {
+    if (! isset($_POST['booking_nonce_field']) || ! wp_verify_nonce($_POST['booking_nonce_field'], 'booking_nonce')) {
         wp_send_json_error(__('Security check failed.', 'kapitan-pub'));
         exit;
     }
 
     // Collect form data
-    $name = sanitize_text_field($_POST['name'] ?? '');
-    $email = sanitize_email($_POST['email'] ?? '');
-    $phone = sanitize_text_field($_POST['phone'] ?? '');
+    $name    = sanitize_text_field($_POST['name'] ?? '');
+    $email   = sanitize_email($_POST['email'] ?? '');
+    $phone   = sanitize_text_field($_POST['phone'] ?? '');
     $persons = sanitize_text_field($_POST['persons'] ?? '');
-    $date = sanitize_text_field($_POST['date'] ?? '');
-    $time = sanitize_text_field($_POST['time'] ?? '');
+    $date    = sanitize_text_field($_POST['date'] ?? '');
+    $time    = sanitize_text_field($_POST['time'] ?? '');
     $message = sanitize_textarea_field($_POST['message'] ?? '');
-    $lang = sanitize_text_field($_POST['lang'] ?? 'en');
+    $lang    = sanitize_text_field($_POST['lang'] ?? 'en');
 
     // Validate required fields
     if (empty($name) || empty($email) || empty($phone) || empty($persons) || empty($date) || empty($time)) {
         wp_send_json_error(
             function_exists('pll__')
-                ? pll__('Please fill in all required fields.')
-                : __('Please fill in all required fields.', 'kapitan-pub')
+            ? pll__('Please fill in all required fields.')
+            : __('Please fill in all required fields.', 'kapitan-pub')
         );
         exit;
     }
 
     // Validate email
-    if (!is_email($email)) {
+    if (! is_email($email)) {
         wp_send_json_error(
             function_exists('pll__')
-                ? pll__('Please enter a valid email address.')
-                : __('Please enter a valid email address.', 'kapitan-pub')
+            ? pll__('Please enter a valid email address.')
+            : __('Please enter a valid email address.', 'kapitan-pub')
         );
         exit;
     }
 
     // Validate date (must be current or future date)
     $selected_date = new DateTime($date);
-    $today = new DateTime();
+    $today         = new DateTime();
     $today->setTime(0, 0, 0); // Reset time part for comparison
 
     if ($selected_date < $today) {
         wp_send_json_error(
             function_exists('pll__')
-                ? pll__('Please select a future date.')
-                : __('Please select a future date.', 'kapitan-pub')
+            ? pll__('Please select a future date.')
+            : __('Please select a future date.', 'kapitan-pub')
         );
         exit;
     }
 
     // Define restaurant opening hours
-    $opening_hours = array(
-        0 => array('open' => '11:00', 'close' => '21:00'), // Sunday
-        1 => array('open' => '11:00', 'close' => '21:00'), // Monday
-        2 => array('open' => '11:00', 'close' => '22:00'), // Tuesday
-        3 => array('open' => '11:00', 'close' => '22:00'), // Wednesday
-        4 => array('open' => '11:00', 'close' => '22:00'), // Thursday
-        5 => array('open' => '11:00', 'close' => '23:00'), // Friday
-        6 => array('open' => '11:00', 'close' => '23:00')  // Saturday
-    );
+    $opening_hours = [
+        0 => ['open' => '11:00', 'close' => '21:00'], // Sunday
+        1 => ['open' => '11:00', 'close' => '21:00'], // Monday
+        2 => ['open' => '11:00', 'close' => '22:00'], // Tuesday
+        3 => ['open' => '11:00', 'close' => '22:00'], // Wednesday
+        4 => ['open' => '11:00', 'close' => '22:00'], // Thursday
+        5 => ['open' => '11:00', 'close' => '23:00'], // Friday
+        6 => ['open' => '11:00', 'close' => '23:00'], // Saturday
+    ];
 
     // Validate time (must be within opening hours)
-    $day_of_week = (int)$selected_date->format('w');
-    $hours = $opening_hours[$day_of_week];
+    $day_of_week = (int) $selected_date->format('w');
+    $hours       = $opening_hours[$day_of_week];
 
-    if (!is_time_within_range($time, $hours['open'], $hours['close'])) {
+    if (! is_time_within_range($time, $hours['open'], $hours['close'])) {
         wp_send_json_error(
             function_exists('pll__')
-                ? pll__('Please select a time within our opening hours.')
-                : __('Please select a time within our opening hours.', 'kapitan-pub')
+            ? pll__('Please select a time within our opening hours.')
+            : __('Please select a time within our opening hours.', 'kapitan-pub')
         );
         exit;
     }
@@ -94,8 +94,8 @@ function kapitan_pub_handle_booking_form()
 
     // Email subject based on language
     $subject = function_exists('pll__')
-        ? sprintf(pll__('New Booking Request from %s'), $name)
-        : sprintf(__('New Booking Request from %s', 'kapitan-pub'), $name);
+    ? sprintf(pll__('New Booking Request from %s'), $name)
+    : sprintf(__('New Booking Request from %s', 'kapitan-pub'), $name);
 
     // Email content
     $body = '<h2>' . $subject . '</h2>';
@@ -106,7 +106,7 @@ function kapitan_pub_handle_booking_form()
     $body .= '<p><strong>' . __('Date', 'kapitan-pub') . ':</strong> ' . $date . '</p>';
     $body .= '<p><strong>' . __('Time', 'kapitan-pub') . ':</strong> ' . $time . '</p>';
 
-    if (!empty($message)) {
+    if (! empty($message)) {
         $body .= '<p><strong>' . __('Special Requests', 'kapitan-pub') . ':</strong> ' . $message . '</p>';
     }
 
@@ -114,7 +114,7 @@ function kapitan_pub_handle_booking_form()
     $body .= '<p><em>' . __('This message was sent from the booking form on your website.', 'kapitan-pub') . '</em></p>';
 
     // Email headers
-    $headers = array('Content-Type: text/html; charset=UTF-8');
+    $headers   = ['Content-Type: text/html; charset=UTF-8'];
     $headers[] = 'From: ' . get_bloginfo('name') . ' <' . $to . '>';
     $headers[] = 'Reply-To: ' . $name . ' <' . $email . '>';
 
@@ -124,14 +124,14 @@ function kapitan_pub_handle_booking_form()
     if ($mail_sent) {
         wp_send_json_success(
             function_exists('pll__')
-                ? pll__('Thank you! Your booking request has been sent successfully. We will contact you shortly.')
-                : __('Thank you! Your booking request has been sent successfully. We will contact you shortly.', 'kapitan-pub')
+            ? pll__('Thank you! Your booking request has been sent successfully. We will contact you shortly.')
+            : __('Thank you! Your booking request has been sent successfully. We will contact you shortly.', 'kapitan-pub')
         );
     } else {
         wp_send_json_error(
             function_exists('pll__')
-                ? pll__('Failed to send your booking request. Please try again or contact us directly.')
-                : __('Failed to send your booking request. Please try again or contact us directly.', 'kapitan-pub')
+            ? pll__('Failed to send your booking request. Please try again or contact us directly.')
+            : __('Failed to send your booking request. Please try again or contact us directly.', 'kapitan-pub')
         );
     }
 
@@ -143,8 +143,8 @@ function kapitan_pub_handle_booking_form()
  */
 function is_time_within_range($time, $open_time, $close_time)
 {
-    $time_stamp = strtotime("1970-01-01 $time");
-    $open_stamp = strtotime("1970-01-01 $open_time");
+    $time_stamp  = strtotime("1970-01-01 $time");
+    $open_stamp  = strtotime("1970-01-01 $open_time");
     $close_stamp = strtotime("1970-01-01 $close_time");
 
     return ($time_stamp >= $open_stamp && $time_stamp <= $close_stamp);
@@ -184,6 +184,7 @@ function kapitan_pub_register_booking_form_translations()
         pll_register_string('booking_invalid_phone', 'Please enter a valid phone number', 'kapitan-pub');
         pll_register_string('booking_invalid_date', 'Please enter a valid date', 'kapitan-pub');
         pll_register_string('booking_past_date', 'Please select a future date', 'kapitan-pub');
+        pll_register_string('booking_future_date', 'Please select a future date.', 'kapitan-pub');
         pll_register_string('booking_time_range', 'Please select a time within our opening hours', 'kapitan-pub');
         pll_register_string('booking_server_error', 'Server error. Please try again later.', 'kapitan-pub');
 
@@ -200,32 +201,30 @@ function kapitan_pub_register_booking_form_translations()
 function kapitan_pub_enqueue_booking_form_script()
 {
 
-
-
     // Initialize translations array with default values
-    $translations = array(
-        'required' => __('This field is required', 'kapitan-pub'),
-        'email' => __('Please enter a valid email address', 'kapitan-pub'),
-        'phone' => __('Please enter a valid phone number', 'kapitan-pub'),
-        'date' => __('Please enter a valid date', 'kapitan-pub'),
-        'pastDate' => __('Please select a future date', 'kapitan-pub'),
-        'time' => __('Please select a time within our opening hours', 'kapitan-pub'),
+    $translations = [
+        'required'     => __('This field is required', 'kapitan-pub'),
+        'email'        => __('Please enter a valid email address', 'kapitan-pub'),
+        'phone'        => __('Please enter a valid phone number', 'kapitan-pub'),
+        'date'         => __('Please enter a valid date', 'kapitan-pub'),
+        'pastDate'     => __('Please select a future date', 'kapitan-pub'),
+        'time'         => __('Please select a time within our opening hours', 'kapitan-pub'),
         'server_error' => __('Server error. Please try again later.', 'kapitan-pub'),
-        'success' => __('Thank you! Your booking request has been sent successfully. We will contact you shortly.', 'kapitan-pub'),
-    );
+        'success'      => __('Thank you! Your booking request has been sent successfully. We will contact you shortly.', 'kapitan-pub'),
+    ];
 
     // Override with Polylang translations if available
     if (function_exists('pll__')) {
-        $translations = array(
-            'required' => pll__('This field is required'),
-            'email' => pll__('Please enter a valid email address'),
-            'phone' => pll__('Please enter a valid phone number'),
-            'date' => pll__('Please enter a valid date'),
-            'pastDate' => pll__('Please select a future date'),
-            'time' => pll__('Please select a time within our opening hours'),
+        $translations = [
+            'required'     => pll__('This field is required'),
+            'email'        => pll__('Please enter a valid email address'),
+            'phone'        => pll__('Please enter a valid phone number'),
+            'date'         => pll__('Please enter a valid date'),
+            'pastDate'     => pll__('Please select a future date'),
+            'time'         => pll__('Please select a time within our opening hours'),
             'server_error' => pll__('Server error. Please try again later.'),
-            'success' => pll__('Thank you! Your booking request has been sent successfully. We will contact you shortly.'),
-        );
+            'success'      => pll__('Thank you! Your booking request has been sent successfully. We will contact you shortly.'),
+        ];
     }
 
     // Localize script - we'll add this in the wp_footer
