@@ -91,10 +91,10 @@
         // Validation messages based on language
         const translations = window.newsletterFormTranslations || {};
         const messages = {
-            required:                      <?php echo function_exists('pll__') ? 'pll__("This field is required")' : '"This field is required"' ?>,
-            email:                   <?php echo function_exists('pll__') ? 'pll__("Please enter a valid email address")' : '"Please enter a valid email address"' ?>,
-            server_error:                          <?php echo function_exists('pll__') ? 'pll__("Server error. Please try again later.")' : '"Server error. Please try again later."' ?>,
-            success:                     <?php echo function_exists('pll__') ? 'pll__("Thank you! You have successfully subscribed to our newsletter.")' : '"Thank you! You have successfully subscribed to our newsletter."' ?>
+            required:                      <?php echo function_exists('pll__') ? '"' . pll__("This field is required") . '"' : '"This field is required"' ?>,
+            email:                   <?php echo function_exists('pll__') ? '"' . pll__("Please enter a valid email address") . '"' : '"Please enter a valid email address"' ?>,
+            server_error:                          <?php echo function_exists('pll__') ? '"' . pll__("Server error. Please try again later.") . '"' : '"Server error. Please try again later."' ?>,
+            success:                     <?php echo function_exists('pll__') ? '"' . pll__("Thank you! You have successfully subscribed to our newsletter.") . '"' : '"Thank you! You have successfully subscribed to our newsletter."' ?>
         };
 
         // Form Validation
