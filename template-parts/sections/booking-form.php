@@ -369,8 +369,8 @@
 
             if (!validateForm()) return;
 
-            // Prepare form data
-            const formData = new FormData(this);
+            // Prepare form data (важно: this должен быть формой)
+            const formData = new FormData(form);
 
             // Show loading state
             submitButton.classList.add("loading");
