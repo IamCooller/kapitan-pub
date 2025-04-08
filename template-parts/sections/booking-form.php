@@ -123,7 +123,7 @@
         const form = document.getElementById("booking-form");
         if (!form) return;
 
-        const responseContainer = document.getElementById("response");
+        const responseContainer = form.querySelector("#response");
         const submitButton = form.querySelector(".submit");
         const dateInput = form.querySelector("#date");
         const timeInput = form.querySelector("#time");

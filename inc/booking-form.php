@@ -257,8 +257,8 @@ function kapitan_pub_enqueue_booking_form_script()
     error_log('Booking form translations: ' . print_r($translations, true));
 
     // Localize script - we'll add this in the wp_footer
-    wp_localize_script('main', 'bookingFormTranslations', $translations);
-    wp_localize_script('main', 'bookingFormSecondTranslations', $translations);
+    wp_localize_script('vite-main', 'bookingFormTranslations', $translations);
+    wp_localize_script('vite-main', 'bookingFormSecondTranslations', $translations);
 }
 
 // Hook into WordPress

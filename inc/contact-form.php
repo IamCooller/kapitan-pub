@@ -7,42 +7,42 @@
 function kapitan_pub_handle_contact_form()
 {
     // Check nonce for security
-    if (!isset($_POST['contact_nonce_field']) || !wp_verify_nonce($_POST['contact_nonce_field'], 'contact_nonce')) {
+    if (! isset($_POST['contact_nonce_field']) || ! wp_verify_nonce($_POST['contact_nonce_field'], 'contact_nonce')) {
         wp_send_json_error(__('Security check failed.', 'kapitan-pub'));
         exit;
     }
 
     // Collect form data
-    $name = sanitize_text_field($_POST['name'] ?? '');
-    $email = sanitize_email($_POST['email'] ?? '');
+    $name    = sanitize_text_field($_POST['name'] ?? '');
+    $email   = sanitize_email($_POST['email'] ?? '');
     $message = sanitize_textarea_field($_POST['message'] ?? '');
-    $lang = sanitize_text_field($_POST['lang'] ?? 'en');
+    $lang    = sanitize_text_field($_POST['lang'] ?? 'en');
 
     // Validate required fields
     if (empty($name) || empty($email) || empty($message)) {
         wp_send_json_error(
             function_exists('pll__')
-                ? pll__('Please fill in all required fields.')
-                : __('Please fill in all required fields.', 'kapitan-pub')
+            ? pll__('Please fill in all required fields.')
+            : __('Please fill in all required fields.', 'kapitan-pub')
         );
         exit;
     }
 
     // Validate email
-    if (!is_email($email)) {
+    if (! is_email($email)) {
         wp_send_json_error(
             function_exists('pll__')
-                ? pll__('Please enter a valid email address.')
-                : __('Please enter a valid email address.', 'kapitan-pub')
+            ? pll__('Please enter a valid email address.')
+            : __('Please enter a valid email address.', 'kapitan-pub')
         );
         exit;
     }
 
     // Prepare email to admin
-    $to = get_option('admin_email');
+    $to      = get_option('admin_email');
     $subject = function_exists('pll__')
-        ? sprintf(pll__('New Contact Form Message from %s'), get_bloginfo('name'))
-        : sprintf(__('New Contact Form Message from %s', 'kapitan-pub'), get_bloginfo('name'));
+    ? sprintf(pll__('New Contact Form Message from %s'), get_bloginfo('name'))
+    : sprintf(__('New Contact Form Message from %s', 'kapitan-pub'), get_bloginfo('name'));
 
     // Email content
     $body = '<h2>' . $subject . '</h2>';
@@ -53,7 +53,7 @@ function kapitan_pub_handle_contact_form()
     $body .= '<p><em>' . __('This message was sent from the contact form on your website.', 'kapitan-pub') . '</em></p>';
 
     // Email headers
-    $headers = array('Content-Type: text/html; charset=UTF-8');
+    $headers   = ['Content-Type: text/html; charset=UTF-8'];
     $headers[] = 'From: ' . get_bloginfo('name') . ' <' . $to . '>';
     $headers[] = 'Reply-To: ' . $name . ' <' . $email . '>';
 
@@ -63,14 +63,14 @@ function kapitan_pub_handle_contact_form()
     if ($mail_sent) {
         wp_send_json_success(
             function_exists('pll__')
-                ? pll__('Thank you! Your message has been sent successfully. We will contact you shortly.')
-                : __('Thank you! Your message has been sent successfully. We will contact you shortly.', 'kapitan-pub')
+            ? pll__('Thank you! Your message has been sent successfully. We will contact you shortly.')
+            : __('Thank you! Your message has been sent successfully. We will contact you shortly.', 'kapitan-pub')
         );
     } else {
         wp_send_json_error(
             function_exists('pll__')
-                ? pll__('Failed to send your message. Please try again or contact us directly.')
-                : __('Failed to send your message. Please try again or contact us directly.', 'kapitan-pub')
+            ? pll__('Failed to send your message. Please try again or contact us directly.')
+            : __('Failed to send your message. Please try again or contact us directly.', 'kapitan-pub')
         );
     }
 
@@ -83,25 +83,25 @@ function kapitan_pub_handle_contact_form()
 function kapitan_pub_register_contact_form_scripts()
 {
     // Initialize translations array with default values
-    $translations = array(
-        'required' => __('This field is required', 'kapitan-pub'),
-        'email' => __('Please enter a valid email address', 'kapitan-pub'),
+    $translations = [
+        'required'     => __('This field is required', 'kapitan-pub'),
+        'email'        => __('Please enter a valid email address', 'kapitan-pub'),
         'server_error' => __('Server error. Please try again later.', 'kapitan-pub'),
-        'success' => __('Thank you! Your message has been sent successfully. We will contact you shortly.', 'kapitan-pub'),
-    );
+        'success'      => __('Thank you! Your message has been sent successfully. We will contact you shortly.', 'kapitan-pub'),
+    ];
 
     // Override with Polylang translations if available
     if (function_exists('pll__')) {
-        $translations = array(
-            'required' => pll__('This field is required'),
-            'email' => pll__('Please enter a valid email address'),
+        $translations = [
+            'required'     => pll__('This field is required'),
+            'email'        => pll__('Please enter a valid email address'),
             'server_error' => pll__('Server error. Please try again later.'),
-            'success' => pll__('Thank you! Your message has been sent successfully. We will contact you shortly.'),
-        );
+            'success'      => pll__('Thank you! Your message has been sent successfully. We will contact you shortly.'),
+        ];
     }
 
     // Localize script - we'll add this in the wp_footer
-    wp_localize_script('main-js', 'contactFormTranslations', $translations);
+    wp_localize_script('vite-main', 'contactFormTranslations', $translations);
 }
 
 // Hook contact form functions into WordPress
