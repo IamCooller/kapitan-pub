@@ -90,7 +90,18 @@ function kapitan_pub_handle_booking_form()
     }
 
     // Prepare email content
-    $to = 'mohovilya2000@gmail.com';
+    $to = get_option('admin_email');
+
+    // Логирование данных формы
+    error_log('--------- НАЧАЛО ОТПРАВКИ ФОРМЫ БРОНИРОВАНИЯ ---------');
+    error_log('Данные формы бронирования:');
+    error_log('Имя: ' . $name);
+    error_log('Email: ' . $email);
+    error_log('Телефон: ' . $phone);
+    error_log('Гости: ' . $persons);
+    error_log('Дата: ' . $date);
+    error_log('Время: ' . $time);
+    error_log('Получатель: ' . $to);
 
     // Email subject based on language
     $subject = function_exists('pll__')
@@ -115,11 +126,54 @@ function kapitan_pub_handle_booking_form()
 
     // Email headers
     $headers   = ['Content-Type: text/html; charset=UTF-8'];
-    $headers[] = 'From: ' . get_bloginfo('name') . ' <' . $to . '>';
     $headers[] = 'Reply-To: ' . $name . ' <' . $email . '>';
+
+    error_log('Заголовки письма:');
+    error_log(print_r($headers, true));
+    error_log('Тема письма: ' . $subject);
+    error_log('Попытка отправки письма на адрес: ' . $to);
+
+    // Проверяем, есть ли функция wp_mail
+    if (! function_exists('wp_mail')) {
+        error_log('ОШИБКА: Функция wp_mail не существует!');
+    } else {
+        error_log('Функция wp_mail существует');
+    }
+
+    // Проверяем, установлен ли плагин WP Mail SMTP
+    if (class_exists('WPMailSMTP\WP')) {
+        error_log('WP Mail SMTP активен, будет использоваться для отправки');
+    }
 
     // Send email
     $mail_sent = wp_mail($to, $subject, $body, $headers);
+
+    // Если отправка через wp_mail не удалась, попробуем стандартную функцию PHP mail
+    if (! $mail_sent) {
+        error_log('Пробуем отправить через стандартную функцию PHP mail()');
+
+        // Формируем заголовки для mail()
+        $php_headers = 'MIME-Version: 1.0' . "\r\n";
+        $php_headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
+        $php_headers .= 'From: ' . get_bloginfo('name') . ' <' . $to . '>' . "\r\n";
+        $php_headers .= 'Reply-To: ' . $name . ' <' . $email . '>' . "\r\n";
+
+        // Пытаемся отправить через mail()
+        $direct_mail_sent = @mail($to, $subject, $body, $php_headers);
+        error_log('Результат отправки через PHP mail(): ' . ($direct_mail_sent ? 'УСПЕШНО' : 'ОШИБКА'));
+    }
+
+    error_log('Результат отправки: ' . ($mail_sent ? 'УСПЕШНО' : 'ОШИБКА'));
+    if (! $mail_sent) {
+        // Проверяем глобальные ошибки WordPress
+        global $phpmailer;
+        if (isset($phpmailer) && is_object($phpmailer) && is_wp_error($phpmailer->ErrorInfo)) {
+            error_log('PHPMailer ошибка: ' . $phpmailer->ErrorInfo);
+        } else {
+            error_log('Неизвестная ошибка отправки письма');
+        }
+    }
+    error_log('--------- КОНЕЦ ОТПРАВКИ ФОРМЫ БРОНИРОВАНИЯ ---------');
 
     if ($mail_sent) {
         wp_send_json_success(

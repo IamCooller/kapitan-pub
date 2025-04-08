@@ -44,9 +44,13 @@ function kapitan_pub_handle_newsletter_form()
         );
         exit;
     }
+    $to = get_option('admin_email');
 
-    // Prepare email to admin
-    $to      = get_option('admin_email');
+    // Логирование данных формы подписки
+    error_log('--------- НАЧАЛО ОТПРАВКИ ФОРМЫ ПОДПИСКИ ---------');
+    error_log('Email подписчика: ' . $email);
+    error_log('Получатель уведомления: ' . $to);
+
     $subject = function_exists('pll__')
     ? sprintf(pll__('New Newsletter Subscription from %s'), get_bloginfo('name'))
     : sprintf(__('New Newsletter Subscription from %s', 'kapitan-pub'), get_bloginfo('name'));
@@ -58,12 +62,30 @@ function kapitan_pub_handle_newsletter_form()
     $body .= '<p><em>' . __('This subscription was made from the newsletter form on your website.', 'kapitan-pub') . '</em></p>';
 
     // Email headers
-    $headers   = ['Content-Type: text/html; charset=UTF-8'];
-    $headers[] = 'From: ' . get_bloginfo('name') . ' <' . $to . '>';
-    $headers[] = 'Reply-To: ' . $email;
+    $headers = ['Content-Type: text/html; charset=UTF-8'];
+    // Удалить From заголовок, т.к. WP Mail SMTP сам его установит
+    $headers[] = 'Reply-To: ' . $email . ' <' . $email . '>';
+
+    error_log('Заголовки письма формы подписки:');
+    error_log(print_r($headers, true));
+    error_log('Тема письма: ' . $subject);
+
+    // Проверяем, активен ли WP Mail SMTP
+    if (class_exists('WPMailSMTP\WP')) {
+        error_log('WP Mail SMTP активен для формы подписки');
+    }
 
     // Send email
     $mail_sent = wp_mail($to, $subject, $body, $headers);
+
+    error_log('Результат отправки формы подписки: ' . ($mail_sent ? 'УСПЕШНО' : 'ОШИБКА'));
+    if (! $mail_sent) {
+        global $phpmailer;
+        if (isset($phpmailer) && is_object($phpmailer) && is_wp_error($phpmailer->ErrorInfo)) {
+            error_log('PHPMailer ошибка (форма подписки): ' . $phpmailer->ErrorInfo);
+        }
+    }
+    error_log('--------- КОНЕЦ ОТПРАВКИ ФОРМЫ ПОДПИСКИ ---------');
 
     if ($mail_sent) {
         wp_send_json_success(

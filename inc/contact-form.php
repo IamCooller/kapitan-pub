@@ -38,8 +38,16 @@ function kapitan_pub_handle_contact_form()
         exit;
     }
 
-    // Prepare email to admin
-    $to      = get_option('admin_email');
+    $to = get_option('admin_email');
+
+    // Логирование данных контактной формы
+    error_log('--------- НАЧАЛО ОТПРАВКИ КОНТАКТНОЙ ФОРМЫ ---------');
+    error_log('Данные контактной формы:');
+    error_log('Имя: ' . $name);
+    error_log('Email: ' . $email);
+    error_log('Сообщение: ' . substr($message, 0, 100) . (strlen($message) > 100 ? '...' : ''));
+    error_log('Получатель: ' . $to);
+
     $subject = function_exists('pll__')
     ? sprintf(pll__('New Contact Form Message from %s'), get_bloginfo('name'))
     : sprintf(__('New Contact Form Message from %s', 'kapitan-pub'), get_bloginfo('name'));
@@ -54,11 +62,32 @@ function kapitan_pub_handle_contact_form()
 
     // Email headers
     $headers   = ['Content-Type: text/html; charset=UTF-8'];
-    $headers[] = 'From: ' . get_bloginfo('name') . ' <' . $to . '>';
     $headers[] = 'Reply-To: ' . $name . ' <' . $email . '>';
+
+    error_log('Заголовки письма контактной формы:');
+    error_log(print_r($headers, true));
+    error_log('Тема письма: ' . $subject);
+    error_log('Попытка отправки письма на адрес: ' . $to);
+
+    // Проверяем, активен ли WP Mail SMTP
+    if (class_exists('WPMailSMTP\WP')) {
+        error_log('WP Mail SMTP активен для контактной формы');
+    }
 
     // Send email
     $mail_sent = wp_mail($to, $subject, $body, $headers);
+
+    error_log('Результат отправки контактной формы: ' . ($mail_sent ? 'УСПЕШНО' : 'ОШИБКА'));
+    if (! $mail_sent) {
+        // Проверяем глобальные ошибки WordPress
+        global $phpmailer;
+        if (isset($phpmailer) && is_object($phpmailer) && is_wp_error($phpmailer->ErrorInfo)) {
+            error_log('PHPMailer ошибка (контактная форма): ' . $phpmailer->ErrorInfo);
+        } else {
+            error_log('Неизвестная ошибка отправки письма (контактная форма)');
+        }
+    }
+    error_log('--------- КОНЕЦ ОТПРАВКИ КОНТАКТНОЙ ФОРМЫ ---------');
 
     if ($mail_sent) {
         wp_send_json_success(
