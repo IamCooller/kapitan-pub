@@ -86,8 +86,8 @@
         const form = document.getElementById("booking-form-second");
         if (!form) return;
 
-        const responseContainer = form.querySelector("#booking-form-second #response");
-        const submitButton = form.querySelector("#booking-form-second .submit");
+        const responseContainer = form.querySelector("#response");
+        const submitButton = form.querySelector(".submit");
         const dateInput = form.querySelector("#date");
         const timeInput = form.querySelector("#time");
 
@@ -146,6 +146,9 @@
             success: "Thank you! Your booking request has been sent successfully. We will contact you shortly.",
             available_hours: "Available hours:"
         };
+
+        // Log translations for debugging
+        console.log("BookingFormSecond translations:", translations);
 
         // Form Validation
         const validators = {
@@ -218,6 +221,7 @@
             // Create helper text to display available hours
             const hourRangeElement = document.createElement("span");
             hourRangeElement.classList.add("time-range-helper");
+
             const availableHoursText = translations.available_hours || "Available hours:";
             hourRangeElement.textContent = `${availableHoursText} ${formatTimeDisplay(hours.open)} – ${formatTimeDisplay(hours.close)}`;
 
@@ -232,25 +236,6 @@
 
         // Helper function to check if time is within range
         function isTimeWithinRange(time, openTime, closeTime) {
-            // Check if time is in 12-hour format with AM/PM
-            if (time.includes("AM") || time.includes("PM")) {
-                // Parse the time manually for 12-hour format
-                const [timePart, ampm] = time.split(" ");
-                let [hours, minutes] = timePart.split(":");
-                hours = parseInt(hours);
-
-                // Convert to 24-hour format
-                if (ampm === "PM" && hours < 12) {
-                    hours += 12;
-                } else if (ampm === "AM" && hours === 12) {
-                    hours = 0;
-                }
-
-                const formattedTime = `${String(hours).padStart(2, "0")}:${minutes}`;
-                // Use the converted time for comparison
-                time = formattedTime;
-            }
-
             // Convert the time strings to Date objects for comparison
             const timeDate = new Date(`1970-01-01T${time}:00`);
             const openDate = new Date(`1970-01-01T${openTime}:00`);
@@ -348,13 +333,13 @@
             if (!validateForm()) return;
 
             // Prepare form data
-            const formData = new FormData(form);
+            const formData = new FormData(this);
 
             // Show loading state
             submitButton.classList.add("loading");
 
             // Send AJAX request
-            fetch((window.bookingFormData && window.bookingFormData.ajaxurl) || "/wp-admin/admin-ajax.php", {
+            fetch("/wp-admin/admin-ajax.php", {
                     method: "POST",
                     body: formData,
                     credentials: "same-origin",

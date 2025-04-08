@@ -184,6 +184,9 @@
             available_hours: "Available hours:"
         };
 
+        // Log translations for debugging
+        console.log("BookingForm translations:", translations);
+
         // Form Validation
         const validators = {
             email: (value) => {
@@ -265,6 +268,7 @@
             // Create helper text to display available hours
             const hourRangeElement = document.createElement("span");
             hourRangeElement.classList.add("time-range-helper");
+
             const availableHoursText = translations.available_hours || "Available hours:";
             hourRangeElement.textContent = `${availableHoursText} ${formatTimeDisplay(hours.open)} – ${formatTimeDisplay(hours.close)}`;
 
@@ -366,13 +370,13 @@
             if (!validateForm()) return;
 
             // Prepare form data
-            const formData = new FormData(form);
+            const formData = new FormData(this);
 
             // Show loading state
             submitButton.classList.add("loading");
 
             // Send AJAX request
-            fetch((window.bookingFormData && window.bookingFormData.ajaxurl) || "/wp-admin/admin-ajax.php", {
+            fetch("/wp-admin/admin-ajax.php", {
                     method: "POST",
                     body: formData,
                     credentials: "same-origin",

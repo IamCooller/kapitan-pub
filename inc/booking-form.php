@@ -211,6 +211,7 @@ function kapitan_pub_register_booking_form_translations()
         pll_register_string('booking_future_date', 'Please select a future date.', 'kapitan-pub');
         pll_register_string('booking_time_range', 'Please select a time within our opening hours', 'kapitan-pub');
         pll_register_string('booking_server_error', 'Server error. Please try again later.', 'kapitan-pub');
+        pll_register_string('booking_available_hours', 'Available hours:', 'kapitan-pub');
 
         // Register success/error messages
         pll_register_string('booking_success', 'Thank you! Your booking request has been sent successfully. We will contact you shortly.', 'kapitan-pub');
@@ -252,9 +253,12 @@ function kapitan_pub_enqueue_booking_form_script()
         ];
     }
 
+    // Debugging information
+    error_log('Booking form translations: ' . print_r($translations, true));
+
     // Localize script - we'll add this in the wp_footer
-    wp_localize_script('main-js', 'bookingFormTranslations', $translations);
-    wp_localize_script('main-js', 'bookingFormSecondTranslations', $translations);
+    wp_localize_script('main', 'bookingFormTranslations', $translations);
+    wp_localize_script('main', 'bookingFormSecondTranslations', $translations);
 }
 
 // Hook into WordPress
