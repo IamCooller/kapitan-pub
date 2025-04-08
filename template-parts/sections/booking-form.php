@@ -13,7 +13,7 @@
     $title      = ! empty(get_sub_field('title')) ? get_sub_field('title') : '';
     $subtitle   = ! empty(get_sub_field('subtitle')) ? get_sub_field('subtitle') : '';
 ?>
-<section class="booking-section" id="booking-form">
+<section class="booking-section" id="booking">
     <div class="booking-container">
         <div class="booking-content">
             <?php if (! empty($title)): ?>
