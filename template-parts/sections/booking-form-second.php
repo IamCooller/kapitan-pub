@@ -134,6 +134,49 @@
         // Initialize time options
         updateTimeOptions();
 
+        // Установить текущую дату и время по умолчанию
+        function setDefaultDateAndTime() {
+            const now = new Date();
+
+            // Форматируем дату в формате YYYY-MM-DD для поля date
+            const today = now.toISOString().split('T')[0];
+            dateInput.value = today;
+
+            // Определяем ближайшее доступное время (округляем до следующего часа)
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+
+            // Если текущее время близко к концу часа, переходим к следующему
+            if (minutes >= 30) {
+                hours++;
+            }
+
+            // Если время за пределами рабочего дня, используем время открытия
+            const dayOfWeek = now.getDay();
+            const openingHour = parseInt(openingHours[dayOfWeek].open.split(':')[0]);
+            const closingHour = parseInt(openingHours[dayOfWeek].close.split(':')[0]);
+
+            if (hours < openingHour) {
+                hours = openingHour;
+            } else if (hours >= closingHour) {
+                // Если уже закрыто, устанавливаем на завтра время открытия
+                const tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                dateInput.value = tomorrow.toISOString().split('T')[0];
+                hours = openingHour;
+            }
+
+            // Форматируем время в формате HH:00 для поля time
+            const formattedTime = `${String(hours).padStart(2, '0')}:00`;
+            timeInput.value = formattedTime;
+
+            // Обновить опции времени после установки даты
+            updateTimeOptions();
+        }
+
+        // Вызываем функцию установки значений по умолчанию
+        setDefaultDateAndTime();
+
         // Validation messages based on language
         const translations = window.bookingFormSecondTranslations || {
             required: "This field is required",
