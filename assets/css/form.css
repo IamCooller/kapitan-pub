@@ -69,18 +69,18 @@
 .form .form-textarea::placeholder {
 	color: white;
 }
+@supports (-webkit-touch-callout: none) {
 
 .form .form-input[type="date"],
 .form .form-input[type="time"] {
-	color-scheme: dark;
-	-webkit-appearance: none;
-	appearance: none;
+	display: inline-block;
+    appearance: none;
 	position: relative;
 	background-color: transparent;
 }
 
 /* Add specific styling for iOS Safari */
-@supports (-webkit-touch-callout: none) {
+
 	
 	.form .form-input[type="time"] {
 		/* Ensure the input is visible on iOS */
@@ -97,8 +97,8 @@
 	background-position: right 0 center;
 	padding-right: 25px;
 }
-}
 
+}
 .form .error-message {
 	display: none;
 	color: #ff6b6b;

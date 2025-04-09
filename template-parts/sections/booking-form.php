@@ -194,8 +194,9 @@
                 return regex.test(value);
             },
             phone: (value) => {
-                // Basic phone validation, can be adjusted for specific format
-                const regex = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/;
+                // Более гибкая валидация телефона, принимающая разные форматы,
+                // включая международные номера со скобками, пробелами и дефисами
+                const regex = /^[+]?[0-9\s()-]{10,20}$/;
                 return regex.test(value);
             },
             date: (value) => {

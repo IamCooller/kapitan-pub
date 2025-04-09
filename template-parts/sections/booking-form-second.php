@@ -158,7 +158,7 @@
             },
             phone: (value) => {
                 // Basic phone validation, can be adjusted for specific format
-                const regex = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/;
+                const regex = /^[+]?[0-9\s()-]{10,20}$/;
                 return regex.test(value);
             },
             date: (value) => {
