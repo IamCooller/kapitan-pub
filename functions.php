@@ -13,7 +13,7 @@
         define('_S_VERSION', '1.0.0');
     }
 
-    define('IS_VITE_DEVELOPMENT', true);
+    define('IS_VITE_DEVELOPMENT', false);
 
                                                                // Подключаем функции
     require get_template_directory() . '/inc/acf-blocks.php';  // ACF Gutenberg Blocks (создай файл позже)
