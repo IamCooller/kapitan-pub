@@ -71,13 +71,13 @@
 }
 @supports (-webkit-touch-callout: none) {
 
-.form .form-input[type="date"],
+/* .form .form-input[type="date"],
 .form .form-input[type="time"] {
 	display: inline-block;
     appearance: none;
 	position: relative;
 	background-color: transparent;
-}
+} */
 
 /* Add specific styling for iOS Safari */
 
