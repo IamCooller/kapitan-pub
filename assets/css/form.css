@@ -76,7 +76,7 @@
     color-scheme: dark;
     color: #fff !important; /* Принудительно устанавливаем белый цвет текста */
     opacity: 1 !important; /* Обеспечиваем видимость */
-    padding-right: 30px; /* Дополнительный отступ справа для иконки */
+   
 }
 
 /* iOS specific styles */
